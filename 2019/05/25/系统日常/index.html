@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Prisrak Smalin">
+  <meta name="keywords" content="">
+  <title>系统日常 - Smalin Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/monokai-sublime.min.css" />
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_fmb4a04yx8h.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">
+              <i class="iconfont icon-home-fill"></i>
+              首页</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">
+              <i class="iconfont icon-archive-fill"></i>
+              归档</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">
+              <i class="iconfont icon-tags-fill"></i>
+              标签</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">
+              <i class="iconfont icon-user-fill"></i>
+              关于</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+                <div class="mt-3 post-meta">
+                  <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+                  <time datetime="2019-05-25 09:10">
+                    2019年5月25日 上午
+                  </time>
+                </div>
+              
+
+              <div class="mt-1">
+                
+                  
+                  <span class="post-meta mr-2">
+                    <i class="iconfont icon-chart"></i>
+                    610 字
+                  </span>
+                
+
+                
+                  
+                  <span class="post-meta mr-2">
+                      <i class="iconfont icon-clock-fill"></i>
+                    
+                    
+                    6
+                     分钟
+                  </span>
+                
+
+                
+              </div>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <h1 id="系统日常工具"><a href="#系统日常工具" class="headerlink" title="系统日常工具"></a>系统日常工具</h1><h2 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h2><p>有时候会发现Linux下面的软链接和硬链接还是十分有用的，于是想Windows下面是不是也有这个东西，居然甚至有。</p>
+<h3 id="软链接（符号链接）"><a href="#软链接（符号链接）" class="headerlink" title="软链接（符号链接）"></a>软链接（符号链接）</h3><p>NTFS只支持对目录的软链接，微软把它称作 junction。但是对于文件的软链接，微软也有提供解决方案，那就是快捷方式(Shortcut，.lnk 文件)。不过软链接和快捷方式不是一个层次上的东西，前者是底层文件系统的功能，后者是应用层的功能。Windows 下目录的快捷方式用 dir 看起来是个文件。</p>
+<p>junction 的命令语是：</p>
+<div class="hljs"><pre><code class="hljs powershell">junction  LinkDirectory ExistingDirectory</code></pre></div>
+
+<p><a href="https://docs.microsoft.com/zh-cn/sysinternals/downloads/junction" target="_blank" rel="noopener">下载地址</a></p>
+<p>例如<code>junction d:\link c:\winnt</code>将为<code>c:\winnt</code>建立一个链接目录 <code>d:\link</code>，C和D分区都要是 NTFS 格式，在资源管理器和 <code>dir</code> 列示中 <code>d:\link</code> 都以目录的面目存在的。<code>d:\link</code> 就像是 <code>c:\winnt</code>的一个引用一般，删除 <code>d:\link</code> 目录中的内容也就是删除了 <code>c:\winnt</code> 中的内容，但删除 <code>d:\link</code> 本身是不会影响到 <code>c:\winnt</code> 的。</p>
+<p>相应的，在程序中也有一个 API 函数 <code>CreateSymbolicLink</code>支持创建软链接，不过来得太晚了，要 Windows VISTA 和 Windows Server 2008 那样的版本才支持，先还是别想了，API 原型是：</p>
+<div class="hljs"><pre><code class="hljs cpp"><span class="hljs-function">BOOL WINAPI <span class="hljs-title">CreateSymbolicLink</span><span class="hljs-params">(</span></span>
+<span class="hljs-function"><span class="hljs-params">  __in  LPCWSTR lpSymlinkFileName,</span></span>
+<span class="hljs-function"><span class="hljs-params">  __in  LPCWSTR lpTargetFileName,</span></span>
+<span class="hljs-function"><span class="hljs-params">  __in  DWORD dwFlags</span></span>
+<span class="hljs-function"><span class="hljs-params">)</span></span>;
+<span class="hljs-comment">/*</span>
+<span class="hljs-comment">参数：</span>
+<span class="hljs-comment">lpSymlinkFileName 要创建的符号链接名称.</span>
+<span class="hljs-comment">lpTargetFileName 符号链接所对应目标的名称.</span>
+<span class="hljs-comment">dwFlags 标识目标是文件还是目录. 取值0x0 代表是文件，SYMBOLIC_LINK_FLAG_DIRECTORY或0x1 代表是目录</span>
+<span class="hljs-comment">*/</span></code></pre></div>
+
+<h3 id="硬链接"><a href="#硬链接" class="headerlink" title="硬链接"></a>硬链接</h3><p>语法</p>
+<div class="hljs"><pre><code class="hljs powershell">fsutil hardlink create NewFileName ExistingFileName</code></pre></div>
+
+<p>参数</p>
+<div class="hljs"><pre><code class="hljs plain">create 建立现有文件和新文件之间的 NTFS 硬链接。NTFS 硬链接与 POSIX 硬链接相似。NewFileName 指定要将创建硬链接的文件。ExistingFileName 指定要从中创建硬链接的文件。</code></pre></div>
+
+<p>这个东西要求在一个分区里面，如果不是很清楚为什么，自己百度</p>
+<p>当然，如果你想在自己的程序里创建硬链接，那也是很容易的，只需要一个很简单的 API 函数:</p>
+<div class="hljs"><pre><code class="hljs cpp"><span class="hljs-function">BOOL <span class="hljs-title">CreateHardLink</span><span class="hljs-params">(</span></span>
+<span class="hljs-function"><span class="hljs-params">    LPCTSTR lpFileName,</span></span>
+<span class="hljs-function"><span class="hljs-params">    LPCTSTR lpExistingFileName,</span></span>
+<span class="hljs-function"><span class="hljs-params">    LPSECURITY_ATTRIBUTES lpSecurityAttributes</span></span>
+<span class="hljs-function"><span class="hljs-params">)</span></span>;</code></pre></div>
+
+<p>适用于 Win2000 及以上版本的系统，最后一个参数的用途保留，必须为 NULL。</p>
+<p>正常使用软连接比较方便。</p>
+<h2 id="剪切板"><a href="#剪切板" class="headerlink" title="剪切板"></a>剪切板</h2><p>进入设置搜索clipboard，然后打开剪切板记录，最后<code>Win+V</code>会出现奇迹</p>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/2019/08/18/2019-nian-8-yue-cai-keng-ji-lu/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">2019年8月踩坑记录</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/2019/05/18/%E5%91%A8%E8%AE%B02019-05-18/">
+                        <span class="hidden-mobile">周记2019-05-18</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/main.js" ></script>
+
+
+  <script  src="/js/lazyload.js" ></script>
+
+
+
+  
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+<!-- Plugins -->
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "系统日常&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 80,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

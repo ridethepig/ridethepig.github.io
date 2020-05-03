@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Prisrak Smalin">
+  <meta name="keywords" content="">
+  <title>NOIP退役整理 3 数据结构 - Smalin Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/monokai-sublime.min.css" />
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_fmb4a04yx8h.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">
+              <i class="iconfont icon-home-fill"></i>
+              首页</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">
+              <i class="iconfont icon-archive-fill"></i>
+              归档</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">
+              <i class="iconfont icon-tags-fill"></i>
+              标签</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">
+              <i class="iconfont icon-user-fill"></i>
+              关于</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+                <div class="mt-3 post-meta">
+                  <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+                  <time datetime="2018-11-08 22:27">
+                    2018年11月8日 晚上
+                  </time>
+                </div>
+              
+
+              <div class="mt-1">
+                
+                  
+                  <span class="post-meta mr-2">
+                    <i class="iconfont icon-chart"></i>
+                    1.1k 字
+                  </span>
+                
+
+                
+                  
+                  <span class="post-meta mr-2">
+                      <i class="iconfont icon-clock-fill"></i>
+                    
+                    
+                    18
+                     分钟
+                  </span>
+                
+
+                
+              </div>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <h1 id="NOIP退役整理-3-数据结构"><a href="#NOIP退役整理-3-数据结构" class="headerlink" title="NOIP退役整理 3 数据结构"></a>NOIP退役整理 3 数据结构</h1><blockquote>
+<p>看完保证你, 退役!</p>
+<p>感觉NOIP的数据结构并不是很多的说…233</p>
+</blockquote>
+<h2 id="0-并查集"><a href="#0-并查集" class="headerlink" title="0. 并查集"></a>0. 并查集</h2><h2 id="1-树状数组"><a href="#1-树状数组" class="headerlink" title="1. 树状数组"></a>1. 树状数组</h2><p>随便贴一个区间加的</p>
+<div class="hljs"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;cstdio&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;cstring&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;algorithm&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> re register int</span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> lowbit(x) (x &amp; -x)</span>
+<span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> maxn = <span class="hljs-number">5e5</span> + <span class="hljs-number">10</span>;
+<span class="hljs-keyword">typedef</span> <span class="hljs-keyword">long</span> <span class="hljs-keyword">long</span> lld;
+<span class="hljs-function"><span class="hljs-keyword">inline</span> lld <span class="hljs-title">read</span><span class="hljs-params">()</span> </span>&#123;
+    lld x = <span class="hljs-number">0</span>, f = <span class="hljs-number">1</span>; <span class="hljs-keyword">char</span> c; <span class="hljs-keyword">while</span> ((c = getchar()) &gt; <span class="hljs-string">'9'</span> || c &lt; <span class="hljs-string">'0'</span>) <span class="hljs-keyword">if</span> (c == <span class="hljs-string">'-'</span>) f = <span class="hljs-number">0</span>; x = c - <span class="hljs-number">48</span>;
+    <span class="hljs-keyword">while</span> ((c = getchar()) &gt;= <span class="hljs-string">'0'</span> &amp;&amp; c &lt;= <span class="hljs-string">'9'</span>) x = (x &lt;&lt; <span class="hljs-number">1</span>) + (x &lt;&lt; <span class="hljs-number">3</span>) + c - <span class="hljs-number">48</span>; <span class="hljs-keyword">return</span> f ? x : ~x + <span class="hljs-number">1</span>;
+&#125;
+
+lld a[maxn], n, m;
+
+<span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Add</span><span class="hljs-params">(lld x, lld k)</span> </span>&#123;
+    <span class="hljs-keyword">for</span> (; x &lt;= n; x += lowbit(x)) a[x] += k;
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">inline</span> lld <span class="hljs-title">get</span><span class="hljs-params">(lld x)</span> </span>&#123;
+    lld r = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">for</span> (; x; x -= lowbit(x)) r += a[x];
+    <span class="hljs-keyword">return</span> r;
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;
+    n = read(); m = read();
+    lld now, last = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">for</span> (re i = <span class="hljs-number">1</span>; i &lt;= n; ++ i) &#123;
+        now = read(); Add(i, now - last);
+        last = now;
+    &#125;
+    <span class="hljs-keyword">for</span> (re i = <span class="hljs-number">1</span>; i &lt;= m; ++ i) &#123;
+        lld op = read(), x = read();
+        <span class="hljs-keyword">if</span> (op == <span class="hljs-number">1</span>) &#123;
+            lld y = read(), k = read();
+            Add(x, k); Add(y + <span class="hljs-number">1</span>, -k);			
+        &#125;
+        <span class="hljs-keyword">else</span> &#123;
+            <span class="hljs-built_in">printf</span>(<span class="hljs-string">"%lld\n"</span>, get(x));
+        &#125;		
+    &#125;
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;	
+&#125;</code></pre></div>
+
+
+
+<h2 id="2-线段树"><a href="#2-线段树" class="headerlink" title="2. 线段树"></a>2. 线段树</h2><p>随便写写就好</p>
+<h2 id="3-ST表"><a href="#3-ST表" class="headerlink" title="3.ST表"></a>3.ST表</h2><p>主要用来解决RMQ(区间最值问题)的一种算法, 主要思想竟然是<strong>动态规划</strong>(区间动规)和倍增.支持<code>O(nlog(n))</code>预处理, <code>O(1)</code>查询, 而且常数非常小, <del>跑得跟记者一样快</del>但是不支持修改,极大地限制了它的运用范围.</p>
+<p>方程:<br>$$<br>f[i,j] = max(f[i,j-1], f[i + 2^{j-1}, j-1]) \<br>其中f[i,j]表示a[i]到a[2^j-1]区间内的最大值<br>$$<br>求解的时候<br>$$<br>k = log_2(r - l + 1)\<br>ans = max(f[l, k], f[r - 2^k + 1, k])<br>$$<br>板子</p>
+<div class="hljs"><pre><code class="hljs cpp"><span class="hljs-comment">// 初始化部分</span>
+<span class="hljs-keyword">for</span> (<span class="hljs-built_in">log</span>[<span class="hljs-number">0</span>] = <span class="hljs-number">-1</span>, <span class="hljs-keyword">register</span> <span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; ++ i) <span class="hljs-built_in">log</span>[i] = <span class="hljs-built_in">log</span>[i &gt;&gt; <span class="hljs-number">1</span>] + <span class="hljs-number">1</span>; <span class="hljs-comment">//递推log,在询问较多时可以卡卡常</span>
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">register</span> <span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; ++ i) st[i][<span class="hljs-number">0</span>] = dat[i]; <span class="hljs-comment">//dp初始化</span>
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">register</span> <span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt;= <span class="hljs-number">22</span>; ++ j) &#123;
+	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">register</span> <span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i + (<span class="hljs-number">1</span> &lt;&lt; j) - <span class="hljs-number">1</span> &lt;= n; ++ i) &#123;
+		st[i][j] = <span class="hljs-built_in">std</span>::max(st[i][j<span class="hljs-number">-1</span>], st[i+(<span class="hljs-number">1</span>&lt;&lt;j<span class="hljs-number">-1</span>)][j<span class="hljs-number">-1</span>]);
+	&#125;
+&#125;
+<span class="hljs-comment">//查询</span>
+<span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">int</span> <span class="hljs-title">query_max</span><span class="hljs-params">(<span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> &amp; l, <span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> &amp; r)</span> </span>&#123;
+	<span class="hljs-keyword">int</span> k = <span class="hljs-built_in">log</span>[r - l + <span class="hljs-number">1</span>];
+	<span class="hljs-keyword">return</span> <span class="hljs-built_in">std</span>::max(st[i][k], st[r - (<span class="hljs-number">1</span> &lt;&lt; k) + <span class="hljs-number">1</span>][k]);
+&#125;</code></pre></div>
+
+
+
+<h2 id="4-平衡树大法"><a href="#4-平衡树大法" class="headerlink" title="4. 平衡树大法!!!"></a>4. 平衡树大法!!!</h2><p>这个不会用到的. 只是个人兴趣而已</p>
+<h2 id="5-Trie"><a href="#5-Trie" class="headerlink" title="5. Trie"></a>5. Trie</h2><h2 id="6-平板电视-ext-pb-ds-hpp"><a href="#6-平板电视-ext-pb-ds-hpp" class="headerlink" title="6. 平板电视(ext/pb_ds/*.hpp)"></a>6. 平板电视(ext/pb_ds/*.hpp)</h2><h2 id="7-差分-前缀和"><a href="#7-差分-前缀和" class="headerlink" title="7. 差分 前缀和"></a>7. 差分 前缀和</h2><p><a href="https://blog.csdn.net/Taunt_/article/details/78478526" target="_blank" rel="noopener">这个玩意儿写得不错, 抄下来了.</a></p>
+<h3 id="前缀和"><a href="#前缀和" class="headerlink" title="前缀和"></a>前缀和</h3><h4 id="1-一维前缀和"><a href="#1-一维前缀和" class="headerlink" title="1.一维前缀和"></a>1.一维前缀和</h4><p>对于数组A[], 前缀和SUM[i]表示的就是A[1]+A[2]+…+A[i].</p>
+<div class="hljs"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">init</span><span class="hljs-params">()</span> </span>&#123;
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i++) sum[i] = sum[i<span class="hljs-number">-1</span>] + a[i];
+&#125;
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">get</span><span class="hljs-params">(<span class="hljs-keyword">int</span> l, <span class="hljs-keyword">int</span> r)</span> </span>&#123;
+    <span class="hljs-keyword">return</span> sum[r] - sum[l<span class="hljs-number">-1</span>];
+&#125;</code></pre></div>
+
+
+
+<h4 id="2-二维前缀和"><a href="#2-二维前缀和" class="headerlink" title="2.二维前缀和"></a>2.二维前缀和</h4><p>对于二维数组, 前缀和SUM[i][k]表示的是所有A[i’][k’](1&lt; = i’&lt;=i,i &lt;= k’&lt;=k)的和.</p>
+<div class="hljs"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">init</span><span class="hljs-params">()</span> </span>&#123;
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i++) &#123;
+        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt;= m; j++) &#123;
+            sum[i][j] = sum[i][j<span class="hljs-number">-1</span>] + sum[i<span class="hljs-number">-1</span>][j] - sum[i<span class="hljs-number">-1</span>][j<span class="hljs-number">-1</span>] + a[i][j];
+        &#125;
+    &#125;
+&#125;
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">get</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x1, <span class="hljs-keyword">int</span> y1, <span class="hljs-keyword">int</span> x2, <span class="hljs-keyword">int</span> y2)</span> </span>&#123;
+    <span class="hljs-keyword">return</span> sum[x1][y1] - sum[x1][y2 - <span class="hljs-number">1</span>] - sum[x2 - <span class="hljs-number">1</span>][y1] + sum[x2 - <span class="hljs-number">1</span>][y2 - <span class="hljs-number">1</span>];
+&#125;</code></pre></div>
+
+<h4 id="3-k时的优化"><a href="#3-k时的优化" class="headerlink" title="3.%k时的优化"></a>3.%k时的优化</h4><p>（p - q）% k= 0 ==&gt; p % k = q % k<br>统计q % k 和 p % k 相等的数<br>详细见T1</p>
+<h3 id="差分"><a href="#差分" class="headerlink" title="差分"></a>差分</h3><h4 id="1-一维差分"><a href="#1-一维差分" class="headerlink" title="1.一维差分"></a>1.一维差分</h4><p>我们对[L,R]区间进行加num操作，在C[L]处加上num，在C[R+1]处减去num </p>
+<div class="hljs"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">init</span><span class="hljs-params">(<span class="hljs-keyword">int</span> l,<span class="hljs-keyword">int</span> r,<span class="hljs-keyword">int</span> num)</span> </span>&#123;
+    dis[l] += num, dis[r + <span class="hljs-number">1</span>] -= num;
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">get</span><span class="hljs-params">()</span> </span>&#123;
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i++) &#123;
+        val[i] = val[i<span class="hljs-number">-1</span>] + dis[i];
+    &#125;
+&#125;</code></pre></div>
+
+
+<h4 id="2-二维差分"><a href="#2-二维差分" class="headerlink" title="2.二维差分"></a>2.二维差分</h4><p>其实也挺简单，和二维前缀和一样</p>
+<div class="hljs"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">init</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x1, <span class="hljs-keyword">int</span> y1, <span class="hljs-keyword">int</span> x2, <span class="hljs-keyword">int</span> y2, <span class="hljs-keyword">int</span> num)</span> </span>&#123;
+    sumx1 += num;
+    sumx1 -= num;
+    sumx2 + <span class="hljs-number">1</span> -= num;
+    sumx2 + <span class="hljs-number">1</span> += num;
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">get</span><span class="hljs-params">()</span> </span>&#123;
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i++) &#123;
+        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt;= n; j++) &#123;
+            sumi += sumi + sumi<span class="hljs-number">-1</span> - sumi<span class="hljs-number">-1</span>;
+        &#125;
+    &#125;
+&#125;</code></pre></div>
+
+<h4 id="3-树上差分"><a href="#3-树上差分" class="headerlink" title="3.树上差分"></a>3.树上差分</h4><h5 id="1-点差分"><a href="#1-点差分" class="headerlink" title="(1)点差分"></a>(1)点差分</h5><p>对 u 到 v 的路径上的点 +num<br>用来求 - 已知路径求树上所有节点被路径覆盖次数</p>
+<div class="hljs"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">init</span><span class="hljs-params">(<span class="hljs-keyword">int</span> u, <span class="hljs-keyword">int</span> v, <span class="hljs-keyword">int</span> num)</span> </span>&#123;
+    dis[u] += num;
+    dis[v] += num;
+    dis[lca(u,v)] -= num;
+    dis[f[lca(u,v)]] -= num;
+&#125;</code></pre></div>
+
+<h5 id="2-边差分"><a href="#2-边差分" class="headerlink" title="(2)边差分"></a>(2)边差分</h5><p>对 u 到 v 的路径上的边 +num<br>用来求 - 已知路径求被所有路径覆盖的边<br>dis[i] 表示以i节点为儿子的边</p>
+<div class="hljs"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">init</span><span class="hljs-params">(<span class="hljs-keyword">int</span> u, <span class="hljs-keyword">int</span> v, <span class="hljs-keyword">int</span> num)</span> </span>&#123;
+    dis[u] += num;
+    dis[v] += num;
+    dis[lca(u,v)] -= <span class="hljs-number">2</span> *num;
+&#125;</code></pre></div>
+
+
+
+<p>最后dfs遍历一遍</p>
+<div class="hljs"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">dfs</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x)</span> </span>&#123;
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = head[u]; i; i = e[i].next) &#123;
+        <span class="hljs-keyword">int</span> v = e[i].v;
+        <span class="hljs-keyword">if</span>(v != fx) &#123;    <span class="hljs-comment">//fx 为倍增数组 </span>
+            dfs(v);
+            dis[x] += dis[v];
+        &#125;
+    &#125;
+&#125;</code></pre></div>
+
+
+
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/NOIP/">NOIP</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/2018/11/10/NOIP-%E8%80%83%E8%AF%95%E8%AE%B0/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">NOIP 考试记</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/2018/11/08/NOIP%E9%80%80%E5%BD%B9%E6%95%B4%E7%90%86-2-%E5%9B%BE%E8%AE%BA/">
+                        <span class="hidden-mobile">NOIP退役整理 2 图论</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/main.js" ></script>
+
+
+  <script  src="/js/lazyload.js" ></script>
+
+
+
+  
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+<!-- Plugins -->
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "NOIP退役整理 3 数据结构&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 80,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
