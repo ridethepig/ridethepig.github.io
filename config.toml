@@ -4,4 +4,4 @@ DefaultContentLanguage = 'zh-cn'
 title = 'Catfood Dev Blog'
 theme = 'hugo-theme-stack'
 hasCJKLanguage = true
-summaryLength = 50
+summaryLength = 70

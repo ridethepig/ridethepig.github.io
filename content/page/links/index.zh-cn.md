@@ -1,5 +1,5 @@
 ---
-title: Links
+title: 链接
 links:
   - title: GitHub
     description: GitHub is the world's largest software development platform.
@@ -14,4 +14,4 @@ menu:
 comments: false
 ---
 
-**Friend invitaions are always welcome.**
+**长期接收友链\~** 
