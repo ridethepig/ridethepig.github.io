@@ -1,0 +1,700 @@
+<!doctype html><html lang=zh-cn dir=ltr><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="NOIP退役整理 2 图论 看完保证你, 退役! 继续没有任何证明的笔记 [TOC] 0. 基础的算法 -1. 链式前向星 最最最最重要"><title>NOIP退役整理 2 图论</title><link rel=canonical href=https://ridethepig.github.io/blog/noip%E9%80%80%E5%BD%B9%E6%95%B4%E7%90%86-2-%E5%9B%BE%E8%AE%BA/><link rel=stylesheet href=/scss/style.min.8191399262444ab68b72a18c97392f5349be20a1615d77445be51e974c144cff.css><meta property="og:title" content="NOIP退役整理 2 图论"><meta property="og:description" content="NOIP退役整理 2 图论 看完保证你, 退役! 继续没有任何证明的笔记 [TOC] 0. 基础的算法 -1. 链式前向星 最最最最重要"><meta property="og:url" content="https://ridethepig.github.io/blog/noip%E9%80%80%E5%BD%B9%E6%95%B4%E7%90%86-2-%E5%9B%BE%E8%AE%BA/"><meta property="og:site_name" content="Catfood Dev Blog"><meta property="og:type" content="article"><meta property="article:section" content="Blog"><meta property="article:tag" content="NOIP"><meta property="article:published_time" content="2018-11-08T00:00:00+00:00"><meta property="article:modified_time" content="2018-11-08T00:00:00+00:00"><meta name=twitter:title content="NOIP退役整理 2 图论"><meta name=twitter:description content="NOIP退役整理 2 图论 看完保证你, 退役! 继续没有任何证明的笔记 [TOC] 0. 基础的算法 -1. 链式前向星 最最最最重要"><link rel="shortcut icon" href=/favicon.jpg></head><body class=article-page><script>(function(){const e="StackColorScheme";localStorage.getItem(e)||localStorage.setItem(e,"auto")})()</script><script>(function(){const t="StackColorScheme",e=localStorage.getItem(t),n=window.matchMedia("(prefers-color-scheme: dark)").matches===!0;e=="dark"||e==="auto"&&n?document.documentElement.dataset.scheme="dark":document.documentElement.dataset.scheme="light"})()</script><div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label=切换菜单>
+<span class=hamburger-box><span class=hamburger-inner></span></span></button><header><figure class=site-avatar><a href=/><img src=/img/avatar_hu8d350d85a62d055b05230a63583f7d47_54079_300x0_resize_q75_box.jpg width=300 height=300 class=site-logo loading=lazy alt=Avatar></a></figure><div class=site-meta><h1 class=site-name><a href=/>Catfood Dev Blog</a></h1><h2 class=site-description>摸摸！</h2></div></header><ol class=menu id=main-menu><li><a href=/page/about/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="7" r="4"/><path d="M6 21v-2a4 4 0 014-4h4a4 4 0 014 4v2"/></svg><span>关于</span></a></li><li><a href=/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg><span>Home</span></a></li><li><a href=/page/archives/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg><span>Archives</span></a></li><li><a href=/page/search/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg><span>Search</span></a></li><li><a href=/page/links/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M10 14a3.5 3.5.0 005 0l4-4a3.5 3.5.0 00-5-5l-.5.5"/><path d="M14 10a3.5 3.5.0 00-5 0l-4 4a3.5 3.5.0 005 5l.5-.5"/></svg><span>Links</span></a></li><div class=menu-bottom-section><li id=dark-mode-toggle><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg><span>暗色模式</span></li></div></ol></aside><aside class="sidebar right-sidebar sticky"><section class="widget archives"><div class=widget-icon><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg></div><h2 class="widget-title section-title">目录</h2><div class=widget--toc><nav id=TableOfContents><ul><li><a href=#0-基础的算法>0. 基础的算法</a><ul><li><a href=#-1-链式前向星>-1. 链式前向星</a></li><li><a href=#0-百分数bfs和电风扇dfs>0. 百分数(BFS)和电风扇(DFS)</a></li><li><a href=#1拓扑排序>1.拓扑排序</a></li></ul></li><li><a href=#1最短路>1.最短路</a><ul><li><a href=#1-dijkstra>1. Dijkstra</a></li><li><a href=#2-spfa>2. SPFA</a></li><li><a href=#3-floyd>3. Floyd</a></li><li><a href=#4-相关题目>4. 相关题目</a></li><li><a href=#5-我是不是应该皮一把k短路>5. 我是不是应该皮一把k短路</a></li></ul></li><li><a href=#2生成树>2.生成树</a><ul><li><a href=#1-kruskal>1. Kruskal</a></li><li><a href=#2-prim-不讲>2. Prim 不讲</a></li><li><a href=#3-变种生成树>3. 变种生成树</a></li></ul></li><li><a href=#3tarjan>3.Tarjan</a><ul><li><a href=#1-强连通分量>1. 强连通分量</a></li><li><a href=#2-割点和桥>2. 割点和桥</a></li><li><a href=#3-双联通分量>3. 双联通分量</a></li></ul></li><li><a href=#4-lca>4. LCA</a><ul><li><a href=#1-暴力>1. 暴力</a></li><li><a href=#2-st表rmq>2. ST表/RMQ</a></li><li><a href=#3-倍增>3. 倍增</a></li><li><a href=#4-树链剖分>4. 树链剖分</a></li><li><a href=#5-离线tarjan>5. 离线Tarjan</a></li><li><a href=#6-笛卡尔树>6. 笛卡尔树</a></li></ul></li><li><a href=#5-二分图>5. 二分图</a><ul><li><a href=#1-二分染色>1. 二分染色</a></li><li><a href=#2-二分图匹配>2. 二分图匹配</a></li></ul></li><li><a href=#6-各种奇怪算法>6. 各种奇怪算法</a><ul><li><a href=#1-差分约束>1. 差分约束</a></li><li><a href=#2-负环>2. 负环</a></li><li><a href=#3--最小环>3. 最小环</a></li><li><a href=#4-反图>4. 反图</a></li><li><a href=#5-欧拉路>5. 欧拉路</a></li><li><a href=#6-哈密顿路>6. 哈密顿路</a></li><li><a href=#7-倍增>7. 倍增</a></li></ul></li><li><a href=#7一些奇特的东西>7.一些奇特的东西</a><ul><li><a href=#1dfs序和dfs树>1.DFS序和DFS树</a></li></ul></li><li><a href=#8-一些奇葩题>8. 一些奇葩题</a></li></ul></nav></div></section></aside><main class="main full-width"><article class=main-article><header class=article-header><div class=article-details><header class=article-category><a href=/categories/%E7%AC%94%E8%AE%B0/>笔记</a></header><div class=article-title-wrapper><h2 class=article-title><a href=/blog/noip%E9%80%80%E5%BD%B9%E6%95%B4%E7%90%86-2-%E5%9B%BE%E8%AE%BA/>NOIP退役整理 2 图论</a></h2></div><footer class=article-time><div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg><time class=article-time--published>Nov 08, 2018</time></div><div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg><time class=article-time--reading>阅读时长: 14 分钟</time></div></footer></div></header><section class=article-content><h1 id=noip退役整理-2-图论>NOIP退役整理 2 图论</h1><blockquote><p>看完保证你, 退役!</p><p>继续没有任何证明的笔记</p></blockquote><p>[TOC]</p><h2 id=0-基础的算法>0. 基础的算法</h2><h3 id=-1-链式前向星>-1. 链式前向星</h3><p>最最最最重要的存图方法.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=display:flex><span><span style=color:#66d9ef>int</span> head[maxn], cnt <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>struct</span> <span style=color:#a6e22e>Edge</span> { <span style=color:#66d9ef>int</span> next, to, w; } edge[maxn <span style=color:#f92672>&lt;&lt;</span> <span style=color:#ae81ff>1</span>];
+</span></span><span style=display:flex><span><span style=color:#66d9ef>inline</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>add_edge</span>(<span style=color:#66d9ef>int</span> u, <span style=color:#66d9ef>int</span> v, <span style=color:#66d9ef>int</span> w) {
+</span></span><span style=display:flex><span>    edge[cnt].next <span style=color:#f92672>=</span> head[u]; edge[cnt].to <span style=color:#f92672>=</span> v; edge[cnt].w <span style=color:#f92672>=</span> w; head[u] <span style=color:#f92672>=</span> cnt <span style=color:#f92672>++</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> head[u]; i; i <span style=color:#f92672>=</span> edge[i].next) {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>int</span> v <span style=color:#f92672>=</span> edge[cnt].to;
+</span></span><span style=display:flex><span>    <span style=color:#75715e>//...
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>}
+</span></span></code></pre></div><h3 id=0-百分数bfs和电风扇dfs>0. 百分数(BFS)和电风扇(DFS)</h3><p>这个我不想说什么. 不过什么DFS的手工栈估计也是不会考,我虽然会写但是只用过一次还炸了</p><h3 id=1拓扑排序>1.拓扑排序</h3><p>拓扑序是一个比较重要的顺序,可以用来做各种事情,比如在图上递推, 或者直接解题什么的.</p><p>主要就是在DAG上分析依赖关系. 还可以判环.主要思想就是:每次找入度为0的节点,找到后删除该节点和该节点的出度边.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=display:flex><span><span style=color:#75715e>// deg[]是入度. vis[]呵呵. 以下默认使用链星. (生成树除外)
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>void</span> <span style=color:#a6e22e>Topo</span>(<span style=color:#66d9ef>int</span> u) {
+</span></span><span style=display:flex><span>    vis[u] <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>register</span> <span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> head[u]; i; i <span style=color:#f92672>=</span> edge[i].next) {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>int</span> v <span style=color:#f92672>=</span> edge[i].to;
+</span></span><span style=display:flex><span>        deg[v] <span style=color:#f92672>--</span>;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> (<span style=color:#f92672>!</span>deg[v]) Topo(v);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>//main
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>register</span> <span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>; i <span style=color:#f92672>&lt;=</span> n; <span style=color:#f92672>++</span> i) {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> (<span style=color:#f92672>!</span>vis[i] <span style=color:#f92672>&amp;&amp;</span> <span style=color:#f92672>!</span>deg[i]) Topo(i);
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>可以在这个主要模板上做各种操作. 判环的话, 记一个color标记(比如:记正在访问为-1, 已经访问为1, 没有访问为0), 如果祖先节点没有返回但是子孙节点又访问到了它, 于是就有环了.</p><p>其实还有BFS的写法.估计不考, 就不管了.<a class=link href=https://blog.csdn.net/baodream/article/details/80368764 target=_blank rel=noopener>随便找了一个板子</a></p><h2 id=1最短路>1.最短路</h2><h3 id=1-dijkstra>1. Dijkstra</h3><p>先膜一波: %%%Dijkstra%%%</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=display:flex><span><span style=color:#75715e>#include</span><span style=color:#75715e>&lt;cstdio&gt;</span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e>#include</span><span style=color:#75715e>&lt;algorithm&gt;</span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e>#include</span><span style=color:#75715e>&lt;cstring&gt;</span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e>#include</span><span style=color:#75715e>&lt;queue&gt;</span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>using</span> std<span style=color:#f92672>::</span>priority_queue;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#66d9ef>int</span> maxn <span style=color:#f92672>=</span> <span style=color:#ae81ff>1e5</span> <span style=color:#f92672>+</span> <span style=color:#ae81ff>10</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#66d9ef>int</span> inf <span style=color:#f92672>=</span> <span style=color:#ae81ff>0x7fffffff</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>inline</span> <span style=color:#66d9ef>int</span> <span style=color:#a6e22e>read</span>() {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>int</span> x <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>, f <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>; <span style=color:#66d9ef>char</span> c; <span style=color:#66d9ef>while</span>((c <span style=color:#f92672>=</span> getchar()) <span style=color:#f92672>&gt;</span> <span style=color:#e6db74>&#39;9&#39;</span> <span style=color:#f92672>||</span> c <span style=color:#f92672>&lt;</span> <span style=color:#e6db74>&#39;0&#39;</span>) <span style=color:#66d9ef>if</span> (c <span style=color:#f92672>==</span> <span style=color:#e6db74>&#39;-&#39;</span>) f <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>; x <span style=color:#f92672>=</span> c <span style=color:#f92672>-</span> <span style=color:#ae81ff>48</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>while</span>((c <span style=color:#f92672>=</span> getchar()) <span style=color:#f92672>&gt;=</span> <span style=color:#e6db74>&#39;0&#39;</span> <span style=color:#f92672>&amp;&amp;</span> c <span style=color:#f92672>&lt;=</span> <span style=color:#e6db74>&#39;9&#39;</span>) x <span style=color:#f92672>=</span> (x <span style=color:#f92672>&lt;&lt;</span> <span style=color:#ae81ff>1</span>) <span style=color:#f92672>+</span> (x <span style=color:#f92672>&lt;&lt;</span> <span style=color:#ae81ff>3</span>) <span style=color:#f92672>+</span> c <span style=color:#f92672>-</span> <span style=color:#ae81ff>48</span>; <span style=color:#66d9ef>return</span> f <span style=color:#f92672>?</span> x : <span style=color:#f92672>~</span>x <span style=color:#f92672>+</span> <span style=color:#ae81ff>1</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span> head[maxn], cnt <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>struct</span> <span style=color:#a6e22e>T_Edge</span>{ <span style=color:#66d9ef>int</span> to, next, w; } edge[maxn <span style=color:#f92672>&lt;&lt;</span> <span style=color:#ae81ff>1</span>];
+</span></span><span style=display:flex><span><span style=color:#66d9ef>inline</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>AddEdge</span>(<span style=color:#66d9ef>int</span> u, <span style=color:#66d9ef>int</span> v, <span style=color:#66d9ef>int</span> w) {
+</span></span><span style=display:flex><span>    edge[cnt].next <span style=color:#f92672>=</span> head[u]; edge[cnt].to <span style=color:#f92672>=</span> v; edge[cnt].w <span style=color:#f92672>=</span> w; head[u] <span style=color:#f92672>=</span> cnt <span style=color:#f92672>++</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span><span style=color:#66d9ef>struct</span> <span style=color:#a6e22e>T_Node</span> {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>int</span> i, d;
+</span></span><span style=display:flex><span>    T_Node(<span style=color:#66d9ef>int</span> a, <span style=color:#66d9ef>int</span> b)<span style=color:#f92672>:</span> i(a), d(b) { }
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>inline</span> <span style=color:#66d9ef>friend</span> <span style=color:#66d9ef>bool</span> <span style=color:#66d9ef>operator</span> <span style=color:#f92672>&lt;</span> (T_Node a, T_Node b) {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> a.d <span style=color:#f92672>&gt;</span> b.d;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>};
+</span></span><span style=display:flex><span>priority_queue<span style=color:#f92672>&lt;</span>T_Node<span style=color:#f92672>&gt;</span> pq;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span> n, m, s;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span> dis[maxn <span style=color:#f92672>+</span> <span style=color:#ae81ff>10</span>], vis[maxn <span style=color:#f92672>+</span> <span style=color:#ae81ff>10</span>];
+</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span> <span style=color:#a6e22e>main</span>() {
+</span></span><span style=display:flex><span>    n <span style=color:#f92672>=</span> read(); m <span style=color:#f92672>=</span> read(); s <span style=color:#f92672>=</span> read();
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>register</span> <span style=color:#66d9ef>int</span> ui, vi, wi;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>register</span> <span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>; i <span style=color:#f92672>&lt;=</span> m; <span style=color:#f92672>++</span> i){
+</span></span><span style=display:flex><span>        ui <span style=color:#f92672>=</span> read(); vi <span style=color:#f92672>=</span> read(); wi <span style=color:#f92672>=</span> read();
+</span></span><span style=display:flex><span>        AddEdge(ui, vi, wi);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>; i <span style=color:#f92672>&lt;=</span> n; <span style=color:#f92672>++</span> i) {
+</span></span><span style=display:flex><span>        dis[i] <span style=color:#f92672>=</span> inf;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    T_Node now(s, <span style=color:#ae81ff>0</span>);
+</span></span><span style=display:flex><span>    now.i <span style=color:#f92672>=</span> s; now.d <span style=color:#f92672>=</span> dis[s]  <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>    pq.push(now);
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>while</span> (<span style=color:#f92672>!</span>pq.empty()) {
+</span></span><span style=display:flex><span>        now <span style=color:#f92672>=</span> pq.top(); pq.pop();
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>int</span> u <span style=color:#f92672>=</span> now.i;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span>(vis[u]) <span style=color:#66d9ef>continue</span>;
+</span></span><span style=display:flex><span>        vis[u] <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>register</span> <span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> head[u]; i; i <span style=color:#f92672>=</span> edge[i].next) {
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>int</span> v <span style=color:#f92672>=</span> edge[i].to;
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>if</span> (<span style=color:#f92672>!</span>vis[v] <span style=color:#f92672>&amp;&amp;</span> dis[v] <span style=color:#f92672>&gt;</span> dis[u] <span style=color:#f92672>+</span> edge[i].w) {
+</span></span><span style=display:flex><span>                dis[v] <span style=color:#f92672>=</span> dis[u] <span style=color:#f92672>+</span> edge[i].w;
+</span></span><span style=display:flex><span>                pq.push(T_Node(v, dis[v]));
+</span></span><span style=display:flex><span>            }
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>register</span> <span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>; i <span style=color:#f92672>&lt;=</span> n; <span style=color:#f92672>++</span> i){
+</span></span><span style=display:flex><span>        printf(<span style=color:#e6db74>&#34;%d &#34;</span>, dis[i]);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>这个的复杂度是严格<code>O(nlog(n))</code>的.(其实跑n遍dj比一遍floyd要快(不考虑常数) // 笑)</p><h3 id=2-spfa>2. SPFA</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=display:flex><span><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;cstdio&gt;</span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;cstring&gt;</span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;algorithm&gt;</span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>inline</span> <span style=color:#66d9ef>int</span> <span style=color:#a6e22e>read</span>() { <span style=color:#75715e>/*...*/</span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span> head[maxn], cnt <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>struct</span> <span style=color:#a6e22e>Edge</span>{ <span style=color:#66d9ef>int</span> next, to, w; } edge[maxn];
+</span></span><span style=display:flex><span><span style=color:#66d9ef>inline</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>add_edge</span> (<span style=color:#66d9ef>int</span> u, <span style=color:#66d9ef>int</span> v, <span style=color:#66d9ef>int</span> w) {<span style=color:#75715e>/*...*/</span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span> vis[maxn], dis[maxn];
+</span></span><span style=display:flex><span><span style=color:#66d9ef>inline</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>spfa</span>(<span style=color:#66d9ef>int</span> s) {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>int</span> q[maxn]; 
+</span></span><span style=display:flex><span>    memset(q, <span style=color:#ae81ff>0</span>, <span style=color:#66d9ef>sizeof</span>(q));
+</span></span><span style=display:flex><span>    memset(dis, <span style=color:#ae81ff>0x3f</span>, <span style=color:#66d9ef>sizeof</span>(dis));
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>int</span> l <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>, r <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>;
+</span></span><span style=display:flex><span>    q[l] <span style=color:#f92672>=</span> s, dis[s] <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>while</span> (l <span style=color:#f92672>&lt;=</span> r) {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>int</span> u <span style=color:#f92672>=</span> q[l <span style=color:#f92672>++</span>];
+</span></span><span style=display:flex><span>        vis[u] <span style=color:#f92672>=</span> [<span style=color:#ae81ff>0</span>];
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>register</span> <span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> head[u]; i; i <span style=color:#f92672>=</span> edge[i].next) {
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>int</span> <span style=color:#f92672>&amp;</span>v <span style=color:#f92672>=</span> edge[i].to;
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>if</span> (dis[v] <span style=color:#f92672>&gt;</span> dis[u] <span style=color:#f92672>+</span> edge[i].w) {
+</span></span><span style=display:flex><span>                dis[v] <span style=color:#f92672>=</span> dis[u] <span style=color:#f92672>+</span> edge[i].w;
+</span></span><span style=display:flex><span>                <span style=color:#66d9ef>if</span> (<span style=color:#f92672>!</span>vis[v]) vis[v] <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>, q[<span style=color:#f92672>++</span>r] <span style=color:#f92672>=</span> v;                
+</span></span><span style=display:flex><span>            }
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span><span style=color:#75715e>//main
+</span></span></span></code></pre></div><p>这个写起来比较方便, 虽然有可能会被卡掉.</p><h3 id=3-floyd>3. Floyd</h3><p>这个的主要思想是DP. 所以也是可以在上面加个一位瞎搞的. 复杂度很高, <code>O(n^3)</code></p><p>状态转移方程
+$$
+D[k,i,j] 表示经过几个编号不超过k的节点,从i到j的最短路.我们把这个k作为一个中转点一样的东西 \\
+显然, D[k, i, j] = min(D[k-1, i, j], D[k-1, i, k] + D[k-1, k, j]) \\
+再显然,k这一维可以被推掉 \\
+就变成了: D[i, j] = min(D[i, j], D[i,k] + D[k,j])
+$$</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=display:flex><span><span style=color:#75715e>//init
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>memset(d, <span style=color:#ae81ff>0x3f</span>, <span style=color:#66d9ef>sizeof</span>(d));
+</span></span><span style=display:flex><span><span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>register</span> <span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>; i <span style=color:#f92672>&lt;=</span> n; <span style=color:#f92672>++</span> i) d[i][i] <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>; <span style=color:#75715e>//自己到自己
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// read in...
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>register</span> <span style=color:#66d9ef>int</span> k <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>; k <span style=color:#f92672>&lt;=</span> n; <span style=color:#f92672>++</span> k) {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>register</span> <span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>; i <span style=color:#f92672>&lt;=</span> n; <span style=color:#f92672>++</span> i) {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>register</span> <span style=color:#66d9ef>int</span> j <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>; j <span style=color:#f92672>&lt;=</span> n; <span style=color:#f92672>++</span> j) {
+</span></span><span style=display:flex><span>            d[i][j] <span style=color:#f92672>=</span> std<span style=color:#f92672>::</span>min(d[i][j], d[i][k] <span style=color:#f92672>+</span> d[k][j]);
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>这个玩意儿似乎可以用来求最小环, 最后再写吧</p><p>然而更加牛逼的是, 这个玩意儿的求解过程比较类似于矩阵乘法, 有些看似不可做的题目可以用类似于这样的矩阵快速幂跑.</p><h3 id=4-相关题目>4. 相关题目</h3><ol><li>Luogu P1144 最短路计数. 在跑Dj/ Spfa的时候随便统计一下</li><li>Luogu P2384 把加法换成了乘法, 保证你退役2333. 其实打个log就好了</li><li>Luogu P1613 在Floyd上加一维乱搞</li></ol><h3 id=5-我是不是应该皮一把k短路>5. 我是不是应该皮一把k短路</h3><p>A*可做. 复杂度上界<code>O(nklog(nk)</code></p><p>我不会写红红火火恍恍惚惚</p><h2 id=2生成树>2.生成树</h2><h3 id=1-kruskal>1. Kruskal</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=display:flex><span><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;cstdio&gt; </span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;cstring&gt;</span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;algorithm&gt;</span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>const</span> <span style=color:#66d9ef>int</span> maxn <span style=color:#f92672>=</span> <span style=color:#ae81ff>1e5</span> <span style=color:#f92672>+</span> <span style=color:#ae81ff>10</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>inline</span> <span style=color:#66d9ef>int</span> <span style=color:#a6e22e>read</span>() {
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>int</span> x <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>, f <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>; <span style=color:#66d9ef>char</span> c; <span style=color:#66d9ef>while</span> ((c <span style=color:#f92672>=</span> getchar()) <span style=color:#f92672>&gt;</span> <span style=color:#e6db74>&#39;9&#39;</span> <span style=color:#f92672>||</span> c <span style=color:#f92672>&lt;</span> <span style=color:#e6db74>&#39;0&#39;</span>) <span style=color:#66d9ef>if</span> (c <span style=color:#f92672>==</span> <span style=color:#e6db74>&#39;-&#39;</span>) f <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>; x <span style=color:#f92672>=</span> c <span style=color:#f92672>-</span> <span style=color:#ae81ff>48</span>;
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>while</span> ((c <span style=color:#f92672>=</span> getchar()) <span style=color:#f92672>&gt;=</span> <span style=color:#e6db74>&#39;0&#39;</span> <span style=color:#f92672>&amp;&amp;</span> c <span style=color:#f92672>&lt;=</span> <span style=color:#e6db74>&#39;9&#39;</span>) x <span style=color:#f92672>=</span> (x <span style=color:#f92672>&lt;&lt;</span> <span style=color:#ae81ff>1</span>) <span style=color:#f92672>+</span> (x <span style=color:#f92672>&lt;&lt;</span> <span style=color:#ae81ff>3</span>) <span style=color:#f92672>+</span> c <span style=color:#f92672>-</span> <span style=color:#ae81ff>48</span>; <span style=color:#66d9ef>return</span> f <span style=color:#f92672>?</span> x : <span style=color:#f92672>~</span>x <span style=color:#f92672>+</span> <span style=color:#ae81ff>1</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span> fa[maxn];
+</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span> <span style=color:#a6e22e>findfa</span>(<span style=color:#66d9ef>int</span> x) {
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>return</span> fa[x] <span style=color:#f92672>==</span> x <span style=color:#f92672>?</span> fa[x] <span style=color:#f92672>:</span> fa[x] <span style=color:#f92672>=</span> findfa(fa[x]);
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>struct</span> <span style=color:#a6e22e>Edge</span>{
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>int</span> from, to, w;
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>inline</span> <span style=color:#66d9ef>friend</span> <span style=color:#66d9ef>bool</span> <span style=color:#66d9ef>operator</span> <span style=color:#f92672>&lt;</span> (Edge a, Edge b) {
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>return</span> a.w <span style=color:#f92672>&lt;</span> b.w;
+</span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>} edge[maxn];
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span> <span style=color:#a6e22e>main</span>() {
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>int</span> n <span style=color:#f92672>=</span> read(); <span style=color:#66d9ef>int</span> m <span style=color:#f92672>=</span> read();
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>; i <span style=color:#f92672>&lt;=</span> m; <span style=color:#f92672>++</span> i) 
+</span></span><span style=display:flex><span>		edge[i].from <span style=color:#f92672>=</span> read(), edge[i].to <span style=color:#f92672>=</span> read(), edge[i].w <span style=color:#f92672>=</span> read();
+</span></span><span style=display:flex><span>	std<span style=color:#f92672>::</span>sort(edge <span style=color:#f92672>+</span> <span style=color:#ae81ff>1</span>, edge <span style=color:#f92672>+</span> m <span style=color:#f92672>+</span> <span style=color:#ae81ff>1</span>);
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>int</span> cnt <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>, ans <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>; i <span style=color:#f92672>&lt;=</span> n; <span style=color:#f92672>++</span> i) fa[i] <span style=color:#f92672>=</span> i;
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>; i <span style=color:#f92672>&lt;=</span> m; <span style=color:#f92672>++</span> i) {
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>int</span> fau;
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>if</span> ((fau <span style=color:#f92672>=</span> findfa(edge[i].from)) <span style=color:#f92672>!=</span> findfa(edge[i].to)){
+</span></span><span style=display:flex><span>			fa[edge[i].to] <span style=color:#f92672>=</span> fau;
+</span></span><span style=display:flex><span>			ans <span style=color:#f92672>+=</span> edge[i].w;
+</span></span><span style=display:flex><span>			cnt <span style=color:#f92672>++</span>;
+</span></span><span style=display:flex><span>		}
+</span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>if</span> (cnt <span style=color:#f92672>&lt;</span> n<span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>) printf(<span style=color:#e6db74>&#34;fuck&#34;</span>); <span style=color:#75715e>//如果边数不对就说明生成失败了
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>	<span style=color:#66d9ef>else</span> printf(<span style=color:#e6db74>&#34;%d&#34;</span>,ans);
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=2-prim-不讲>2. Prim 不讲</h3><p>这个基本用不到. 只有在稠密图上才会优于KS.</p><h3 id=3-变种生成树>3. 变种生成树</h3><ul><li><p>最大生成树就把排序的顺序改一下就好了.</p></li><li><p>次大/小生成树有点难写.</p><p>先求最小生成树T,枚举添加不在T中的边,则添加后一定会形成环,找到环上边值第二大的边,把它删掉,计算当前生成树的权值,取所有枚举修改的生成树的最小值,即为次小生成树.这种方法的实现更为简单,首先求最小生成树T,然后从每个结点u,遍历最小生成树T,用一个二维的数组max[u][v]记录结点u到结点v的路径上边的最大值,然后枚举不在T中的边(u,v),计算T-max[u][v]+w(u,v)的最小值,即为次小生成树的权值 ,这种方法的时间复杂度为<code>O(n^2+e)</code>.</p><p>因为没什么题,就不多说了.</p></li></ul><p>考生成树的时候,一般是Day2T1的难度.基本上不会有什么特别的地方,一旦看出来能敲对就可以了.题目都比较弱智,不贴了</p><h2 id=3tarjan>3.Tarjan</h2><p>先膜一波为敬: %%%Tarjan%%%</p><h3 id=1-强连通分量>1. 强连通分量</h3><p>概念就不说了. 主要用来缩点,缩完以后就把一个有环图变成DAG,就可以随便瞎搞了.</p><p>求这个玩意儿,其实有另外一个奇葩的跑两边的算法.(在接受FanDalao的指导之前,我一直写的是那个k打头的算法).</p><p>先上板子</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=display:flex><span><span style=color:#66d9ef>int</span> low[maxn], dfn[maxn], stk[maxn], instk[maxn], tim, top, scc[maxn], num;
+</span></span><span style=display:flex><span><span style=color:#75715e>// scc[u]代表u属于的强连通分量的编号
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// low[u]代表u能到达的最小的dfn,似乎也就是最老的祖先
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// dfn代表的似乎是dfs序列
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>void</span> <span style=color:#a6e22e>Tarjan</span>(<span style=color:#66d9ef>int</span> u) {
+</span></span><span style=display:flex><span>	dfn[u] <span style=color:#f92672>=</span> low[u] <span style=color:#f92672>=</span> <span style=color:#f92672>++</span>tim;
+</span></span><span style=display:flex><span>	instk[stk[<span style=color:#f92672>++</span>top] <span style=color:#f92672>=</span> u] <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>;
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>register</span> <span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> head[u]; i; i <span style=color:#f92672>=</span> edge[i].next) {
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>int</span> <span style=color:#f92672>&amp;</span>v <span style=color:#f92672>=</span> edge[i].to;
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>if</span> (<span style=color:#f92672>!</span>dfn[v]) {
+</span></span><span style=display:flex><span>			Tarjan(v);
+</span></span><span style=display:flex><span>			low[u] <span style=color:#f92672>=</span> std<span style=color:#f92672>::</span>min(low[u], low[v]);
+</span></span><span style=display:flex><span>		}
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>else</span> <span style=color:#66d9ef>if</span> (instk[v]) {
+</span></span><span style=display:flex><span>			low[u] <span style=color:#f92672>=</span> std<span style=color:#f92672>::</span>min(low[u], dfn[v]);
+</span></span><span style=display:flex><span>		}
+</span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>if</span> (low[u] <span style=color:#f92672>==</span> dfn[u]) { <span style=color:#75715e>//完了,又回到自己了
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>		num <span style=color:#f92672>++</span>;
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>while</span>(<span style=color:#ae81ff>1</span>) {
+</span></span><span style=display:flex><span>			<span style=color:#66d9ef>int</span> v <span style=color:#f92672>=</span> stk[top <span style=color:#f92672>--</span>]; 
+</span></span><span style=display:flex><span>			instk[v] <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>,
+</span></span><span style=display:flex><span>			scc[v] <span style=color:#f92672>=</span> num;
+</span></span><span style=display:flex><span>			<span style=color:#66d9ef>if</span> (v <span style=color:#f92672>==</span> u) <span style=color:#66d9ef>break</span>;
+</span></span><span style=display:flex><span>		}
+</span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>还是有一些有趣的题目的.不过感觉都比较趋同,缩点->搞一搞连通性,最短路,出度入度->没了</p><h3 id=2-割点和桥>2. 割点和桥</h3><p>概念不说.</p><p>割点</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=display:flex><span><span style=color:#66d9ef>inline</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>dfs</span>(<span style=color:#66d9ef>int</span> u,<span style=color:#66d9ef>int</span> root)
+</span></span><span style=display:flex><span>{
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>int</span> sz <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>    dfn[u] <span style=color:#f92672>=</span> low[u] <span style=color:#f92672>=</span> <span style=color:#f92672>++</span>cnt;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>register</span> <span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> head[u];i;i <span style=color:#f92672>=</span> edge[i].next)
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>int</span> v <span style=color:#f92672>=</span> edge[i].to;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> (dfn[v]) low[u] <span style=color:#f92672>=</span> min(low[u],dfn[v]);
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>else</span>
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>            sz <span style=color:#f92672>++</span>;
+</span></span><span style=display:flex><span>            dfs(v,root);
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>if</span> (low[v] <span style=color:#f92672>&gt;=</span> dfn[u]) iscut[u] <span style=color:#f92672>=</span> true;
+</span></span><span style=display:flex><span>            low[u] <span style=color:#f92672>=</span> min(low[u],low[v]);
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> (u <span style=color:#f92672>==</span> root <span style=color:#f92672>&amp;&amp;</span> sz <span style=color:#f92672>&lt;</span> <span style=color:#ae81ff>2</span>)
+</span></span><span style=display:flex><span>        iscut[u] <span style=color:#f92672>=</span> false;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span><span style=color:#75715e>// may be more beautiful
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>void</span> <span style=color:#a6e22e>point</span>(<span style=color:#66d9ef>int</span> u, <span style=color:#66d9ef>int</span> rt) {
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>int</span> sz <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>; dfn[u] <span style=color:#f92672>=</span> low[u] <span style=color:#f92672>=</span> <span style=color:#f92672>++</span>tim;
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>register</span> <span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> head[u]; i; i <span style=color:#f92672>=</span> edge[i].next ) {
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>int</span> <span style=color:#f92672>&amp;</span>v <span style=color:#f92672>=</span> edge[i].to;
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>if</span> (<span style=color:#f92672>!</span>dfn[v])  {
+</span></span><span style=display:flex><span>			sz <span style=color:#f92672>++</span>;
+</span></span><span style=display:flex><span>			point(v, rt);
+</span></span><span style=display:flex><span>			<span style=color:#66d9ef>if</span> (low[v] <span style=color:#f92672>&gt;=</span> dfn[u]) iscut[u] <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>;
+</span></span><span style=display:flex><span>			low[u] <span style=color:#f92672>=</span> std<span style=color:#f92672>::</span>min(low[u], low[v]);
+</span></span><span style=display:flex><span>		}
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>else</span> {
+</span></span><span style=display:flex><span>			low[u] <span style=color:#f92672>=</span> std<span style=color:#f92672>::</span>min(low[u], dfn[v]);
+</span></span><span style=display:flex><span>		}		
+</span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>if</span> (u <span style=color:#f92672>==</span> rt <span style=color:#f92672>&amp;&amp;</span> sz <span style=color:#f92672>&lt;</span> <span style=color:#ae81ff>2</span>) iscut[u] <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>桥 //正确性不明</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=display:flex><span><span style=color:#66d9ef>void</span> <span style=color:#a6e22e>bridge</span>(<span style=color:#66d9ef>int</span> u, <span style=color:#66d9ef>int</span> fa) {
+</span></span><span style=display:flex><span>	low[u] <span style=color:#f92672>=</span> dfn[u] <span style=color:#f92672>=</span> <span style=color:#f92672>++</span>tim;
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>register</span> <span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> head[u]; i; i <span style=color:#f92672>=</span> edge[i].next){
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>int</span> <span style=color:#f92672>&amp;</span>v <span style=color:#f92672>=</span> edge[i].to;
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>if</span> (<span style=color:#f92672>!</span>dfn[v]) {
+</span></span><span style=display:flex><span>			bridge(v, u);
+</span></span><span style=display:flex><span>			low[u] <span style=color:#f92672>=</span> std<span style=color:#f92672>::</span>min(low[u], low[v]) ;
+</span></span><span style=display:flex><span>			<span style=color:#66d9ef>if</span> (low[v] <span style=color:#f92672>&gt;</span> dfn[u]) { <span style=color:#75715e>// &#34;&gt;&#34;
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>				isbridge[u][v] <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>;
+</span></span><span style=display:flex><span>			}
+</span></span><span style=display:flex><span>		}
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>else</span> <span style=color:#66d9ef>if</span> (fa <span style=color:#f92672>!=</span> v) {
+</span></span><span style=display:flex><span>			low[u] <span style=color:#f92672>=</span> std<span style=color:#f92672>::</span>min(low[u], dfn[v]);
+</span></span><span style=display:flex><span>		}
+</span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>似乎没有什么题目。</p><h3 id=3-双联通分量>3. 双联通分量</h3><p>&ldquo;点双连通图的定义等价于任意两条边都同在一个简单环中,而边双连通图的定义等价于任意一条边至少在一个简单环中.&ldquo;这个是从网上抄的.&ldquo;不同双连通分量最多只有一个公共点,即某一个割顶,任意一个割顶都是至少两个点双连通的公共点.不同边双连通分量没有公共点,而桥不在任何一个边双连通分量中,点双连通分量一定是一个边双连通分量.&rdquo;</p><p>这个东西的求解跟上面的割点和桥差不多,虽然我没写过.(有一条HNOI2012)</p><p>过天把代码补上</p><h2 id=4-lca>4. LCA</h2><p>&ldquo;对呀对呀..求LCA有六种方法,你知道吗?&rdquo; &ndash;fan乙己 %%%%%%</p><h3 id=1-暴力>1. 暴力</h3><p>我表示不会写. 这个应该跟倍增差不多思想.就是对于两个点,轮流向上面跳,直到碰起来这个样子.</p><h3 id=2-st表rmq>2. ST表/RMQ</h3><p>这个跟tarjan一样不是很常用.就不打了,省的浪费时间和记忆力</p><h3 id=3-倍增>3. 倍增</h3><p>最最最常用而且很好写的lca.大家都在写它.(虽然很容易被卡掉,但是NOIP级别的还没有毒瘤到去卡这个)</p><p>主要思想就是先预处理出每个点的深度,然后对于两个点的深度差倍增的向上跳,因为是倍增所以比一般的跳快一点.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=display:flex><span><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;cstdio&gt;</span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;cstring&gt;</span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;algorithm&gt;</span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#66d9ef>int</span> maxn <span style=color:#f92672>=</span> <span style=color:#ae81ff>1e6</span> <span style=color:#f92672>+</span> <span style=color:#ae81ff>10</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>inline</span> <span style=color:#66d9ef>int</span> <span style=color:#a6e22e>read</span>() {
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>int</span> x <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>, f <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>; <span style=color:#66d9ef>char</span> c; <span style=color:#66d9ef>while</span> ((c <span style=color:#f92672>=</span> getchar()) <span style=color:#f92672>&gt;</span> <span style=color:#e6db74>&#39;9&#39;</span> <span style=color:#f92672>||</span> c <span style=color:#f92672>&lt;</span> <span style=color:#e6db74>&#39;0&#39;</span>) <span style=color:#66d9ef>if</span> (c <span style=color:#f92672>==</span> <span style=color:#e6db74>&#39;-&#39;</span>) f <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>; x <span style=color:#f92672>=</span> c <span style=color:#f92672>-</span> <span style=color:#ae81ff>48</span>;
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>while</span> ((c <span style=color:#f92672>=</span> getchar()) <span style=color:#f92672>&gt;=</span> <span style=color:#e6db74>&#39;0&#39;</span> <span style=color:#f92672>&amp;&amp;</span> c <span style=color:#f92672>&lt;=</span> <span style=color:#e6db74>&#39;9&#39;</span>) x <span style=color:#f92672>=</span> (x <span style=color:#f92672>&lt;&lt;</span> <span style=color:#ae81ff>1</span>) <span style=color:#f92672>+</span> (x <span style=color:#f92672>&lt;&lt;</span> <span style=color:#ae81ff>3</span>) <span style=color:#f92672>+</span> c <span style=color:#f92672>-</span> <span style=color:#ae81ff>48</span>; <span style=color:#66d9ef>return</span> f <span style=color:#f92672>?</span> x : <span style=color:#f92672>~</span>x <span style=color:#f92672>+</span> <span style=color:#ae81ff>1</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span> head[maxn], cnt <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>struct</span> <span style=color:#a6e22e>Edge</span> { <span style=color:#66d9ef>int</span> next, to; } edge[maxn<span style=color:#f92672>&lt;&lt;</span><span style=color:#ae81ff>1</span>];
+</span></span><span style=display:flex><span><span style=color:#66d9ef>inline</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>AddEdge</span>(<span style=color:#66d9ef>int</span> u, <span style=color:#66d9ef>int</span> v) { edge[cnt].next <span style=color:#f92672>=</span> head[u]; edge[cnt].to <span style=color:#f92672>=</span> v; head[u] <span style=color:#f92672>=</span> cnt<span style=color:#f92672>++</span>; }
+</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span> deep[maxn], l[maxn][<span style=color:#ae81ff>30</span>];
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>void</span> <span style=color:#a6e22e>dfs</span>(<span style=color:#66d9ef>int</span> u) { <span style=color:#75715e>//预处理
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>	<span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>register</span> <span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>; i <span style=color:#f92672>&lt;=</span> <span style=color:#ae81ff>20</span>; <span style=color:#f92672>++</span> i) {
+</span></span><span style=display:flex><span>		l[u][i] <span style=color:#f92672>=</span> l[l[u][i<span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>]][i<span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>];
+</span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>register</span> <span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> head[u]; i; i <span style=color:#f92672>=</span> edge[i].next) {
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>int</span> v <span style=color:#f92672>=</span> edge[i].to;
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>if</span> (v <span style=color:#f92672>==</span> l[u][<span style=color:#ae81ff>0</span>]) <span style=color:#66d9ef>continue</span>; <span style=color:#75715e>// 什么,儿子变成父亲了233
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>		l[v][<span style=color:#ae81ff>0</span>] <span style=color:#f92672>=</span> u; <span style=color:#75715e>// v的父亲是u,就是从v向上跳2^0,即1步到达u
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>		deep[v] <span style=color:#f92672>=</span> deep[u] <span style=color:#f92672>+</span> <span style=color:#ae81ff>1</span>;
+</span></span><span style=display:flex><span>		dfs(v);
+</span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>inline</span> <span style=color:#66d9ef>int</span> <span style=color:#a6e22e>getlca</span>(<span style=color:#66d9ef>int</span> u, <span style=color:#66d9ef>int</span> v) {
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>if</span> (deep[u] <span style=color:#f92672>&lt;</span> deep[v]) u <span style=color:#f92672>^=</span> v <span style=color:#f92672>^=</span> u <span style=color:#f92672>^=</span> v;	
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>register</span> <span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> <span style=color:#ae81ff>20</span>; i <span style=color:#f92672>&gt;=</span> <span style=color:#ae81ff>0</span>; <span style=color:#f92672>--</span> i) {
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>if</span> (deep[l[u][i]] <span style=color:#f92672>&gt;=</span> deep[v]) {
+</span></span><span style=display:flex><span>			u <span style=color:#f92672>=</span> l[u][i];
+</span></span><span style=display:flex><span>		}
+</span></span><span style=display:flex><span>	}<span style=color:#75715e>//把u和v跳到同一高度
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>	<span style=color:#66d9ef>if</span>  (u <span style=color:#f92672>==</span> v) <span style=color:#66d9ef>return</span> u; <span style=color:#75715e>//到了一个点上,说明这两个点具有祖先关系
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>	<span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>register</span> <span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> <span style=color:#ae81ff>20</span>; i <span style=color:#f92672>&gt;=</span> <span style=color:#ae81ff>0</span>; <span style=color:#f92672>--</span> i)
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>if</span> (l[u][i] <span style=color:#f92672>!=</span> l[v][i])<span style=color:#75715e>//一起跳
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>			u <span style=color:#f92672>=</span> l[u][i], v <span style=color:#f92672>=</span> l[v][i];	
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>return</span> l[u][<span style=color:#ae81ff>0</span>];
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span> n,m,s;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span> <span style=color:#a6e22e>main</span>()
+</span></span><span style=display:flex><span>{    
+</span></span><span style=display:flex><span>    n <span style=color:#f92672>=</span> read(); m <span style=color:#f92672>=</span> read(); s <span style=color:#f92672>=</span> read();    
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>int</span> tmp1,tmp2;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>register</span> <span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>; i <span style=color:#f92672>&lt;=</span> n<span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>;i <span style=color:#f92672>++</span>)
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>        tmp1 <span style=color:#f92672>=</span> read(); tmp2 <span style=color:#f92672>=</span> read();
+</span></span><span style=display:flex><span>        AddEdge(tmp1,tmp2); AddEdge(tmp2,tmp1);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    deep[s] <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>; dfs(s);
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>register</span> <span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>;i <span style=color:#f92672>&lt;=</span> m; i<span style=color:#f92672>++</span>)
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>        tmp1 <span style=color:#f92672>=</span> read(); tmp2 <span style=color:#f92672>=</span> read();
+</span></span><span style=display:flex><span>        printf(<span style=color:#e6db74>&#34;%d</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>&#34;</span>,getlca(tmp1,tmp2));
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=4-树链剖分>4. 树链剖分</h3><p>树剖是前置技能.不说.</p><p>主要思想是把u和v所在链的顶端跳到一起</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=display:flex><span><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;cstdio&gt;</span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;cstring&gt;</span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;algorithm&gt;</span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>const</span> <span style=color:#66d9ef>int</span> maxn <span style=color:#f92672>=</span> <span style=color:#ae81ff>1e6</span> <span style=color:#f92672>+</span> <span style=color:#ae81ff>10</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>inline</span> <span style=color:#66d9ef>int</span> <span style=color:#a6e22e>read</span>() {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>int</span> x <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>, f <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>; <span style=color:#66d9ef>char</span> c; <span style=color:#66d9ef>while</span> ((c <span style=color:#f92672>=</span> getchar()) <span style=color:#f92672>&gt;</span> <span style=color:#e6db74>&#39;9&#39;</span> <span style=color:#f92672>||</span> c <span style=color:#f92672>&lt;</span> <span style=color:#e6db74>&#39;0&#39;</span>) <span style=color:#66d9ef>if</span> (c <span style=color:#f92672>==</span> <span style=color:#e6db74>&#39;-&#39;</span>) f <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>; x <span style=color:#f92672>=</span> c <span style=color:#f92672>-</span> <span style=color:#ae81ff>48</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>while</span> ((c <span style=color:#f92672>=</span> getchar()) <span style=color:#f92672>&gt;=</span> <span style=color:#e6db74>&#39;0&#39;</span> <span style=color:#f92672>&amp;&amp;</span> c <span style=color:#f92672>&lt;=</span> <span style=color:#e6db74>&#39;9&#39;</span>) x <span style=color:#f92672>=</span> (x <span style=color:#f92672>&lt;&lt;</span> <span style=color:#ae81ff>1</span>) <span style=color:#f92672>+</span> (x <span style=color:#f92672>&lt;&lt;</span> <span style=color:#ae81ff>3</span>) <span style=color:#f92672>+</span> c <span style=color:#f92672>-</span> <span style=color:#ae81ff>48</span>; <span style=color:#66d9ef>return</span> f <span style=color:#f92672>?</span> x : <span style=color:#f92672>~</span>x <span style=color:#f92672>+</span> <span style=color:#ae81ff>1</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span> head[maxn], cnt <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>struct</span> <span style=color:#a6e22e>Edge</span> { <span style=color:#66d9ef>int</span> next, to; } edge[maxn<span style=color:#f92672>&lt;&lt;</span><span style=color:#ae81ff>1</span>];
+</span></span><span style=display:flex><span><span style=color:#66d9ef>inline</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>AddEdge</span>(<span style=color:#66d9ef>int</span> u, <span style=color:#66d9ef>int</span> v) { edge[cnt].next <span style=color:#f92672>=</span> head[u]; edge[cnt].to <span style=color:#f92672>=</span> v; head[u] <span style=color:#f92672>=</span> cnt<span style=color:#f92672>++</span>; }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span> sz[maxn], son[maxn], top[maxn], deep[maxn], fa[maxn];
+</span></span><span style=display:flex><span><span style=color:#66d9ef>void</span> <span style=color:#a6e22e>dfs1</span>(<span style=color:#66d9ef>int</span> u) {
+</span></span><span style=display:flex><span>	sz[u] <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>, son[u] <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>register</span> <span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> head[u]; i; i <span style=color:#f92672>=</span> edge[i].next) {
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>int</span> <span style=color:#f92672>&amp;</span>v <span style=color:#f92672>=</span> edge[i].to;
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>if</span> (v <span style=color:#f92672>==</span> fa[u]) <span style=color:#66d9ef>continue</span>;
+</span></span><span style=display:flex><span>		fa[v] <span style=color:#f92672>=</span> u, deep[v] <span style=color:#f92672>=</span> deep[u] <span style=color:#f92672>+</span> <span style=color:#ae81ff>1</span>;
+</span></span><span style=display:flex><span>		dfs1(v);
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>if</span> (<span style=color:#f92672>!</span>son[u] <span style=color:#f92672>||</span> sz[v] <span style=color:#f92672>&gt;</span> sz[son[u]]) son[u] <span style=color:#f92672>=</span> v;
+</span></span><span style=display:flex><span>		sz[u] <span style=color:#f92672>+=</span> sz[v];
+</span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>} <span style=color:#75715e>//处理儿子
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>void</span> <span style=color:#a6e22e>dfs2</span>(<span style=color:#66d9ef>int</span> u, <span style=color:#66d9ef>int</span> tp) {
+</span></span><span style=display:flex><span>	top[u] <span style=color:#f92672>=</span> tp;
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>if</span> (son[u]) dfs2(son[u], tp);
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>register</span> <span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> head[u]; i; i <span style=color:#f92672>=</span> edge[i].next) {
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>int</span> <span style=color:#f92672>&amp;</span>v <span style=color:#f92672>=</span> edge[i].to;
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>if</span> (v <span style=color:#f92672>!=</span> fa[u] <span style=color:#f92672>&amp;&amp;</span> v <span style=color:#f92672>!=</span> son[u]) dfs2(v, v);
+</span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>}<span style=color:#75715e>//处理链顶
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>inline</span> <span style=color:#66d9ef>int</span> <span style=color:#a6e22e>getlca</span>(<span style=color:#66d9ef>int</span> u, <span style=color:#66d9ef>int</span> v) {
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>while</span> (top[u] <span style=color:#f92672>!=</span> top[v]) {
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>if</span> (deep[top[u]] <span style=color:#f92672>&lt;</span> deep[top[v]]) u <span style=color:#f92672>^=</span> v <span style=color:#f92672>^=</span> u <span style=color:#f92672>^=</span> v;
+</span></span><span style=display:flex><span>		u <span style=color:#f92672>=</span> fa[top[u]];
+</span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>if</span> (deep[u] <span style=color:#f92672>&gt;</span> deep[v]) u <span style=color:#f92672>^=</span> v <span style=color:#f92672>^=</span> u <span style=color:#f92672>^=</span> v;
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>return</span> u;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span> <span style=color:#a6e22e>main</span>() {
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>int</span> n <span style=color:#f92672>=</span> read(), m <span style=color:#f92672>=</span> read(), s <span style=color:#f92672>=</span> read();
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>register</span> <span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>; i <span style=color:#f92672>&lt;</span> n; <span style=color:#f92672>++</span> i) {
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>int</span> u <span style=color:#f92672>=</span> read(), v <span style=color:#f92672>=</span> read();
+</span></span><span style=display:flex><span>		AddEdge(u, v); AddEdge(v, u);
+</span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>	dfs1(s); dfs2(s, s);
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>register</span> <span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>; i <span style=color:#f92672>&lt;=</span> m; <span style=color:#f92672>++</span> i) {
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>int</span> ui <span style=color:#f92672>=</span> read(), vi <span style=color:#f92672>=</span> read();
+</span></span><span style=display:flex><span>		printf(<span style=color:#e6db74>&#34;%d</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>&#34;</span>, getlca(ui, vi));
+</span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>return</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>} 
+</span></span></code></pre></div><h3 id=5-离线tarjan>5. 离线Tarjan</h3><p>不是很常用.贴一个久远的板子.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=display:flex><span><span style=color:#75715e>#include</span><span style=color:#75715e>&lt;cstdio&gt;</span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e>#include</span><span style=color:#75715e>&lt;iostream&gt;</span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>using</span> <span style=color:#66d9ef>namespace</span> std;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#66d9ef>int</span> maxn <span style=color:#f92672>=</span> <span style=color:#ae81ff>3e6</span><span style=color:#f92672>+</span><span style=color:#ae81ff>50</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span> n,m,s,cnt1 <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>, cnt2 <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span> head1[maxn], head2[maxn], ans[maxn], fa[maxn];
+</span></span><span style=display:flex><span><span style=color:#66d9ef>bool</span> vis[maxn];
+</span></span><span style=display:flex><span><span style=color:#66d9ef>struct</span> <span style=color:#a6e22e>t_edge</span>{
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>int</span> next, to;
+</span></span><span style=display:flex><span>}edge[maxn];
+</span></span><span style=display:flex><span><span style=color:#66d9ef>struct</span> <span style=color:#a6e22e>t_query</span>{
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>int</span> next, to, num, vis;
+</span></span><span style=display:flex><span>}query[maxn];
+</span></span><span style=display:flex><span><span style=color:#66d9ef>inline</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>AddEdge</span>(<span style=color:#66d9ef>int</span>,<span style=color:#66d9ef>int</span>);
+</span></span><span style=display:flex><span><span style=color:#66d9ef>inline</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>AddQuery</span>(<span style=color:#66d9ef>int</span>,<span style=color:#66d9ef>int</span>,<span style=color:#66d9ef>int</span>);
+</span></span><span style=display:flex><span><span style=color:#66d9ef>inline</span> <span style=color:#66d9ef>int</span> <span style=color:#a6e22e>read</span>();
+</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span> <span style=color:#a6e22e>father</span>(<span style=color:#66d9ef>int</span>);
+</span></span><span style=display:flex><span><span style=color:#66d9ef>inline</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>combine</span>(<span style=color:#66d9ef>int</span>,<span style=color:#66d9ef>int</span>);
+</span></span><span style=display:flex><span><span style=color:#66d9ef>void</span> <span style=color:#a6e22e>dfs</span>(<span style=color:#66d9ef>int</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span> <span style=color:#a6e22e>main</span>()
+</span></span><span style=display:flex><span>{
+</span></span><span style=display:flex><span>    <span style=color:#75715e>//freopen(&#34;testdata.in&#34;,&#34;r&#34;,stdin);
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    n <span style=color:#f92672>=</span> read(), m <span style=color:#f92672>=</span> read(), s <span style=color:#f92672>=</span> read();
+</span></span><span style=display:flex><span>    <span style=color:#75715e>//scanf(&#34;%d%d%d&#34;,&amp;n,&amp;m,&amp;s);
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#66d9ef>int</span> ui,vi;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>; i <span style=color:#f92672>&lt;=</span> n<span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>; <span style=color:#f92672>++</span>i)
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>int</span> ui <span style=color:#f92672>=</span> read(),vi <span style=color:#f92672>=</span> read();
+</span></span><span style=display:flex><span>        <span style=color:#75715e>//scanf(&#34;%d%d&#34;,&amp;ui,&amp;vi);
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        AddEdge(ui,vi); AddEdge(vi,ui);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>; i <span style=color:#f92672>&lt;=</span> m; <span style=color:#f92672>++</span>i)
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>    	<span style=color:#66d9ef>int</span> ui <span style=color:#f92672>=</span> read(),vi <span style=color:#f92672>=</span> read();
+</span></span><span style=display:flex><span>        <span style=color:#75715e>//scanf(&#34;%d%d&#34;,&amp;ui,&amp;vi);
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        AddQuery(ui,vi,i);AddQuery(vi,ui,i);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    <span style=color:#75715e>//fclose(stdin);
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>; i <span style=color:#f92672>&lt;=</span> n; <span style=color:#f92672>++</span>i)
+</span></span><span style=display:flex><span>    	fa[i] <span style=color:#f92672>=</span> i;
+</span></span><span style=display:flex><span>    dfs(s);
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>;i <span style=color:#f92672>&lt;=</span> m; <span style=color:#f92672>++</span>i)
+</span></span><span style=display:flex><span>        printf(<span style=color:#e6db74>&#34;%d</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>&#34;</span>,ans[i]);
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>inline</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>AddEdge</span>(<span style=color:#66d9ef>int</span> u,<span style=color:#66d9ef>int</span> v)
+</span></span><span style=display:flex><span>{
+</span></span><span style=display:flex><span>    edge[cnt1].next <span style=color:#f92672>=</span> head1[u];
+</span></span><span style=display:flex><span>    edge[cnt1].to <span style=color:#f92672>=</span> v;
+</span></span><span style=display:flex><span>    head1[u] <span style=color:#f92672>=</span> cnt1 <span style=color:#f92672>++</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>inline</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>AddQuery</span>(<span style=color:#66d9ef>int</span> u,<span style=color:#66d9ef>int</span> v,<span style=color:#66d9ef>int</span> num)
+</span></span><span style=display:flex><span>{
+</span></span><span style=display:flex><span>    query[cnt2].next <span style=color:#f92672>=</span> head2[u];
+</span></span><span style=display:flex><span>    query[cnt2].to <span style=color:#f92672>=</span> v;
+</span></span><span style=display:flex><span>    query[cnt2].num <span style=color:#f92672>=</span> num;
+</span></span><span style=display:flex><span>    head2[u] <span style=color:#f92672>=</span> cnt2 <span style=color:#f92672>++</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>inline</span> <span style=color:#66d9ef>int</span> <span style=color:#a6e22e>read</span>()
+</span></span><span style=display:flex><span>{
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>int</span> x <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>, f <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>; <span style=color:#66d9ef>char</span> c;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>while</span> ((c <span style=color:#f92672>=</span> getchar()) <span style=color:#f92672>&gt;</span> <span style=color:#e6db74>&#39;9&#39;</span> <span style=color:#f92672>||</span> c <span style=color:#f92672>&lt;</span> <span style=color:#e6db74>&#39;0&#39;</span>) <span style=color:#66d9ef>if</span> (c <span style=color:#f92672>==</span> <span style=color:#e6db74>&#39;-&#39;</span>) f <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>; x <span style=color:#f92672>=</span> c <span style=color:#f92672>-</span> <span style=color:#ae81ff>48</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>while</span> ((c <span style=color:#f92672>=</span> getchar()) <span style=color:#f92672>&gt;=</span> <span style=color:#e6db74>&#39;0&#39;</span> <span style=color:#f92672>&amp;&amp;</span> c <span style=color:#f92672>&lt;=</span> <span style=color:#e6db74>&#39;9&#39;</span>) x <span style=color:#f92672>=</span> (x <span style=color:#f92672>&lt;&lt;</span> <span style=color:#ae81ff>3</span>) <span style=color:#f92672>+</span> (x <span style=color:#f92672>&lt;&lt;</span> <span style=color:#ae81ff>1</span>) <span style=color:#f92672>+</span> c <span style=color:#f92672>-</span> <span style=color:#ae81ff>48</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> f <span style=color:#f92672>?</span> x : <span style=color:#f92672>-</span>x;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span> <span style=color:#a6e22e>father</span>(<span style=color:#66d9ef>int</span> x)
+</span></span><span style=display:flex><span>{
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> (fa[x] <span style=color:#f92672>!=</span> x) fa[x] <span style=color:#f92672>=</span> father(fa[x]);
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> fa[x];
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>inline</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>combine</span>(<span style=color:#66d9ef>int</span> x,<span style=color:#66d9ef>int</span> y)
+</span></span><span style=display:flex><span>{
+</span></span><span style=display:flex><span>    fa[father(x)] <span style=color:#f92672>=</span> father(y);
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>void</span> <span style=color:#a6e22e>dfs</span>(<span style=color:#66d9ef>int</span> u)
+</span></span><span style=display:flex><span>{
+</span></span><span style=display:flex><span>    vis[u] <span style=color:#f92672>=</span> true;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> head1[u]; i ; i <span style=color:#f92672>=</span> edge[i].next)
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>int</span> <span style=color:#f92672>&amp;</span>v <span style=color:#f92672>=</span> edge[i].to;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> (vis[v]) <span style=color:#66d9ef>continue</span>;
+</span></span><span style=display:flex><span>        dfs(v);
+</span></span><span style=display:flex><span>        combine(v,u);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> head2[u]; i ; i <span style=color:#f92672>=</span> query[i].next)
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>int</span> <span style=color:#f92672>&amp;</span>v <span style=color:#f92672>=</span> query[i].to;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> (vis[v] <span style=color:#f92672>&amp;&amp;</span> <span style=color:#f92672>!</span>query[i].vis)
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>            ans[query[i].num] <span style=color:#f92672>=</span> father(v);
+</span></span><span style=display:flex><span>            query[i].vis <span style=color:#f92672>=</span> true;
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=6-笛卡尔树>6. 笛卡尔树</h3><p>这个不会写, 巨难</p><h2 id=5-二分图>5. 二分图</h2><h3 id=1-二分染色>1. 二分染色</h3><p>这个算法似乎还是考过的,主要用来判断一个图是否是二分图,还可以顺带做一些操作.看到有某些互斥操作或者两边分的比较明显的就可以考虑二分图相关的东西.染色很简单,暴力遍历一边就结束了.</p><p>题目:</p><ol><li>Luogu P1155. 其实也可以不用二分图.也比较不好想到是二分图</li><li>Luogu P1330. 这个比较明显.</li></ol><p>蒟蒻表示自己基本只刷过luogu&mldr;没有什么别的题库.tcl</p><h3 id=2-二分图匹配>2. 二分图匹配</h3><p>这个里面有许多奇奇怪怪的概念:</p><ol><li><p>定义：给定一个二分图G，在G的一个子图M中，M的边集{E}中的任意两条边都不依附于同一个顶点，则称M是一个匹配。<br>匹配点：匹配边上的两点</p></li><li><p>极大匹配(Maximal Matching)：是指在当前已完成的匹配下,无法再通过增加未完成匹配的边的方式来增加匹配的边数。</p></li><li><p>最大匹配(maximum matching)：是所有极大匹配当中边数最大的一个匹配,设为M。选择这样的边数最大的子集称为图的最大匹配问题。</p></li><li><p>完美匹配（完备匹配）：一个图中所有的顶点都是匹配点的匹配，即2|M| = |V|。完美匹配一定是最大匹配，但并非每个图都存在完美匹配。</p></li><li><p>最优匹配：最优匹配又称为带权最大匹配，是指在带有权值边的二分图中，求一个匹配使得匹配边上的权值和最大。一般X和Y集合顶点个数相同，最优匹配也是一个完备匹配，即每个顶点都被匹配。如果个数不相等，可以通过补点加0边实现转化。一般使用KM算法解决该问题。（KM（Kuhn and Munkres）算法，是对匈牙利算法的一种贪心扩展。）</p></li><li><p>最小覆盖 二分图的最小覆盖分为最小顶点覆盖和最小路径覆盖：<br>①最小顶点覆盖是指最少的顶点数使得二分图G中的每条边都至少与其中一个点相关联<br>注：二分图的最小顶点覆盖数=二分图的最大匹配数</p><p>②最小路径覆盖也称为最小边覆盖，是指用尽量少的不相交简单路径覆盖二分图中的所有顶点。<br>注：二分图的最小路径覆盖数=|V|-二分图的最大匹配数</p></li><li><p>最大独立集:最大独立集是指寻找一个点集，使得其中任意两点在图中无对应边。对于一般图来说，最大独立集是一个NP完全问题，对于二分图来说最大独立集=|V|-二分图的最大匹配数。最大独立集S 与 最小覆盖集T 互补</p></li><li><p><a class=link href=https://blog.csdn.net/ling_wang/article/details/79830980 target=_blank rel=noopener>这个当然是抄的</a></p></li></ol><h4 id=1-二分图最大匹配>1. 二分图最大匹配</h4><p>就是找到最多的匹配个数. 经典模型为稳定婚姻问题.</p><p>二分图匹配本质上是一个网络流问题,只要再左边一列的左边加一个源点,右边一列右边再加一个汇点,跑最大流就好了.但是对于二分图来说其实不必要这个样子,可以简单一点.</p><p>接下来是板子. 其实代码并不是很难, 难在发现这是一个二分图,再把模型建起来.这一点在网络流里面也是一个巨大的问题.233</p><p>算法为匈牙利算法.主要思想就是先随便匹配,遇到有重合的就考虑拆掉原来的,再给原来的重新配一个.知道再也配不到为止.(一个无比凶残的算法)</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=display:flex><span><span style=color:#75715e>// Luogu P3386
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;cstdio&gt;</span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;cstring&gt;</span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;algorithm&gt;</span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#66d9ef>int</span> maxn <span style=color:#f92672>=</span> <span style=color:#ae81ff>1e6</span> <span style=color:#f92672>+</span> <span style=color:#ae81ff>10</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>inline</span> <span style=color:#66d9ef>int</span> <span style=color:#a6e22e>read</span>() {
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>int</span> x <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>, f <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>; <span style=color:#66d9ef>char</span> c; <span style=color:#66d9ef>while</span> ((c <span style=color:#f92672>=</span> getchar()) <span style=color:#f92672>&gt;</span> <span style=color:#e6db74>&#39;9&#39;</span> <span style=color:#f92672>||</span> c <span style=color:#f92672>&lt;</span> <span style=color:#e6db74>&#39;0&#39;</span>) <span style=color:#66d9ef>if</span> (c <span style=color:#f92672>==</span> <span style=color:#e6db74>&#39;-&#39;</span>) f <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>; x <span style=color:#f92672>=</span> c <span style=color:#f92672>-</span> <span style=color:#ae81ff>48</span>;
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>while</span> ((c <span style=color:#f92672>=</span> getchar()) <span style=color:#f92672>&gt;=</span> <span style=color:#e6db74>&#39;0&#39;</span> <span style=color:#f92672>&amp;&amp;</span> c <span style=color:#f92672>&lt;=</span> <span style=color:#e6db74>&#39;9&#39;</span>) x <span style=color:#f92672>=</span> (x <span style=color:#f92672>&lt;&lt;</span> <span style=color:#ae81ff>1</span>) <span style=color:#f92672>+</span> (x <span style=color:#f92672>&lt;&lt;</span> <span style=color:#ae81ff>3</span>) <span style=color:#f92672>+</span> c <span style=color:#f92672>-</span> <span style=color:#ae81ff>48</span>; <span style=color:#66d9ef>return</span> f <span style=color:#f92672>?</span> x : <span style=color:#f92672>~</span>x <span style=color:#f92672>+</span> <span style=color:#ae81ff>1</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span> head[maxn], cnt <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>struct</span> <span style=color:#a6e22e>Edge</span> { <span style=color:#66d9ef>int</span> to, next; } edge[maxn <span style=color:#f92672>&lt;&lt;</span> <span style=color:#ae81ff>1</span>];
+</span></span><span style=display:flex><span><span style=color:#66d9ef>inline</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>add_edge</span>(<span style=color:#66d9ef>int</span> u, <span style=color:#66d9ef>int</span> v) {
+</span></span><span style=display:flex><span>	edge[cnt].next <span style=color:#f92672>=</span> head[u]; edge[cnt].to <span style=color:#f92672>=</span> v; head[u] <span style=color:#f92672>=</span> cnt <span style=color:#f92672>++</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span> pre[maxn], vis[maxn], tim, ans;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span> <span style=color:#a6e22e>dfs</span>(<span style=color:#66d9ef>int</span> u) {
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>register</span> <span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> head[u]; i; i <span style=color:#f92672>=</span> edge[i].next) {
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>int</span> <span style=color:#f92672>&amp;</span> v <span style=color:#f92672>=</span> edge[i].to;
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>if</span> (vis[v] <span style=color:#f92672>==</span> tim) <span style=color:#66d9ef>continue</span>; <span style=color:#75715e>//神奇的常数优化,不需要memset了
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>		vis[v] <span style=color:#f92672>=</span> tim;
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>if</span> (<span style=color:#f92672>!</span>pre[v] <span style=color:#f92672>||</span> dfs(pre[v])) { <span style=color:#75715e>// 自己未被匹配 || 可以腾出一个位置; 这个写得顺序也是一个常数优化
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>			pre[v] <span style=color:#f92672>=</span> u; <span style=color:#75715e>// 重新匹配成功
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>			<span style=color:#66d9ef>return</span> <span style=color:#ae81ff>1</span>;
+</span></span><span style=display:flex><span>		}
+</span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>return</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span> <span style=color:#a6e22e>main</span>() {
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>int</span> n <span style=color:#f92672>=</span> read(), m <span style=color:#f92672>=</span> read(), e <span style=color:#f92672>=</span> read();
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>register</span> <span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>; i <span style=color:#f92672>&lt;=</span> e; <span style=color:#f92672>++</span> i) {
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>int</span> ui <span style=color:#f92672>=</span> read(), vi <span style=color:#f92672>=</span> read();
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>if</span> (ui <span style=color:#f92672>&gt;</span> n <span style=color:#f92672>||</span> vi <span style=color:#f92672>&gt;</span> m) <span style=color:#66d9ef>continue</span>;
+</span></span><span style=display:flex><span>		add_edge(ui, vi);
+</span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>register</span> <span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>; i <span style=color:#f92672>&lt;=</span> n; <span style=color:#f92672>++</span> i) {
+</span></span><span style=display:flex><span>		tim <span style=color:#f92672>++</span>;
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>if</span> (dfs(i)) ans <span style=color:#f92672>++</span>;
+</span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>	printf(<span style=color:#e6db74>&#34;%d</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>&#34;</span>, ans);
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>return</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h4 id=2-二分图最大带权匹配最优匹配>2. 二分图最大带权匹配(最优匹配)</h4><p>就是给每一个匹配加一个权值,然后求最大匹配,同时使权值最优.</p><p>同样可以跑网络流. 不过主要使KM算法.这个东西可以用,但是似乎从来没有刻意去考过, 估计也暂时不将去考.</p><p>鉴于我自己只是了解大概思想, 板子就没有了.</p><h2 id=6-各种奇怪算法>6. 各种奇怪算法</h2><h3 id=1-差分约束>1. 差分约束</h3><p>有一大堆形如
+$$
+x{i} - x{j} \leq c_{k}
+$$
+的不等式, 因为它们长得非常像SPFA / DJ中的三角形不等式, 于是乎可以用图论方法来求解这一堆东西的关系.</p><p>如果出现小于, 就在后面-1就好了, (至于double请自求多福), 如果是大于等于之类的, 打个负号然后考场上现场瞎编就好了.</p><p>如果存在负环, 表明不满足条件 (貌似很多题里面只要有环就不成立, 到时候随机应变就好了)</p><p>如果跑出来是个inf, 就表明没有任何的限制.</p><p>dis的结果就是每一条约束链的最小花费, (一组解?)</p><p>下面是个板子</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=display:flex><span><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;cstdio&gt;</span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;cstring&gt;</span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;algorithm&gt;</span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#66d9ef>int</span> maxn <span style=color:#f92672>=</span> <span style=color:#ae81ff>10001</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>inline</span> <span style=color:#66d9ef>int</span> <span style=color:#a6e22e>read</span>() {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>int</span> x <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>, f <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>; <span style=color:#66d9ef>char</span> c; <span style=color:#66d9ef>while</span> ((c <span style=color:#f92672>=</span> getchar()) <span style=color:#f92672>&gt;</span> <span style=color:#e6db74>&#39;9&#39;</span> <span style=color:#f92672>||</span> c <span style=color:#f92672>&lt;</span> <span style=color:#e6db74>&#39;0&#39;</span>) <span style=color:#66d9ef>if</span> (c <span style=color:#f92672>==</span> <span style=color:#e6db74>&#39;-&#39;</span>) f <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>; x <span style=color:#f92672>=</span> c <span style=color:#f92672>-</span> <span style=color:#ae81ff>48</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>while</span> ((c <span style=color:#f92672>=</span> getchar()) <span style=color:#f92672>&gt;=</span> <span style=color:#e6db74>&#39;0&#39;</span> <span style=color:#f92672>&amp;&amp;</span> c <span style=color:#f92672>&lt;=</span> <span style=color:#e6db74>&#39;9&#39;</span>) x <span style=color:#f92672>=</span> (x <span style=color:#f92672>&lt;&lt;</span> <span style=color:#ae81ff>1</span>) <span style=color:#f92672>+</span> (x <span style=color:#f92672>&lt;&lt;</span> <span style=color:#ae81ff>3</span>) <span style=color:#f92672>+</span> c <span style=color:#f92672>-</span> <span style=color:#ae81ff>48</span>; <span style=color:#66d9ef>return</span> f <span style=color:#f92672>?</span> x : <span style=color:#f92672>~</span>x <span style=color:#f92672>+</span> <span style=color:#ae81ff>1</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>struct</span> <span style=color:#a6e22e>t_edge</span>{ <span style=color:#66d9ef>int</span> to, next, w; } edge[maxn <span style=color:#f92672>&lt;&lt;</span> <span style=color:#ae81ff>1</span>];
+</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span> head[maxn], cnt <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>inline</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>add_e</span>(<span style=color:#66d9ef>int</span> u, <span style=color:#66d9ef>int</span> v, <span style=color:#66d9ef>int</span> w) {
+</span></span><span style=display:flex><span>    edge[cnt].next <span style=color:#f92672>=</span> head[u]; edge[cnt].to <span style=color:#f92672>=</span> v; edge[cnt].w <span style=color:#f92672>=</span> w; head[u] <span style=color:#f92672>=</span> cnt <span style=color:#f92672>++</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span> dis[maxn], vis[maxn], flg;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span> n, m;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>void</span> <span style=color:#a6e22e>spfa</span>(<span style=color:#66d9ef>int</span> s) {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> (flg) <span style=color:#66d9ef>return</span>;
+</span></span><span style=display:flex><span>    vis[s] <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>register</span> <span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> head[s]; i; i <span style=color:#f92672>=</span> edge[i].next) {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>int</span> v <span style=color:#f92672>=</span> edge[i].to;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> (flg) <span style=color:#66d9ef>return</span>;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> (dis[v] <span style=color:#f92672>&lt;</span> dis[s] <span style=color:#f92672>+</span> edge[i].w) {
+</span></span><span style=display:flex><span>            dis[v] <span style=color:#f92672>=</span> dis[s] <span style=color:#f92672>+</span> edge[i].w;
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>if</span> (<span style=color:#f92672>!</span>vis[v]) spfa(v);
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>else</span> { flg <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>; <span style=color:#66d9ef>return</span>; }
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    vis[s] <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span> <span style=color:#a6e22e>main</span>() {
+</span></span><span style=display:flex><span>    n <span style=color:#f92672>=</span> read(); m <span style=color:#f92672>=</span> read();
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>int</span> op, ai, bi, ci;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>register</span> <span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>; i <span style=color:#f92672>&lt;=</span> m; <span style=color:#f92672>++</span> i) {
+</span></span><span style=display:flex><span>        op <span style=color:#f92672>=</span> read(); ai <span style=color:#f92672>=</span> read(); bi <span style=color:#f92672>=</span> read();
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>switch</span>(op) {
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>case</span> <span style=color:#ae81ff>1</span><span style=color:#f92672>:</span>{
+</span></span><span style=display:flex><span>                ci <span style=color:#f92672>=</span> read();
+</span></span><span style=display:flex><span>                add_e(bi, ai, ci);
+</span></span><span style=display:flex><span>                <span style=color:#66d9ef>break</span>;
+</span></span><span style=display:flex><span>            }
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>case</span> <span style=color:#ae81ff>2</span><span style=color:#f92672>:</span> {
+</span></span><span style=display:flex><span>                ci <span style=color:#f92672>=</span> read();
+</span></span><span style=display:flex><span>                add_e(ai, bi, <span style=color:#f92672>-</span>ci);
+</span></span><span style=display:flex><span>                <span style=color:#66d9ef>break</span>;
+</span></span><span style=display:flex><span>            }
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>case</span> <span style=color:#ae81ff>3</span><span style=color:#f92672>:</span> {
+</span></span><span style=display:flex><span>                add_e(ai, bi, <span style=color:#ae81ff>0</span>); add_e(bi, ai, <span style=color:#ae81ff>0</span>);
+</span></span><span style=display:flex><span>                <span style=color:#66d9ef>break</span>;
+</span></span><span style=display:flex><span>            }
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>register</span> <span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>; i <span style=color:#f92672>&lt;=</span> n; <span style=color:#f92672>++</span> i) {
+</span></span><span style=display:flex><span>        spfa(i); <span style=color:#66d9ef>if</span> (flg) <span style=color:#66d9ef>break</span>;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    printf(flg <span style=color:#f92672>?</span> <span style=color:#e6db74>&#34;No</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>&#34;</span> <span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;Yes</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>&#34;</span>);
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=2-负环>2. 负环</h3><p>深搜或者SPFA都可以用来判负环</p><p>至于正环, 随便写一写就好了</p><p>上代码</p><p>大法师:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=display:flex><span><span style=color:#75715e>// luogu-judger-enable-o2
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;cstdio&gt;</span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;cstring&gt;</span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;algorithm&gt;</span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#66d9ef>int</span> maxn <span style=color:#f92672>=</span> <span style=color:#ae81ff>3001</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>inline</span> <span style=color:#66d9ef>int</span> <span style=color:#a6e22e>read</span>() {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>int</span> x <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>, f <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>; <span style=color:#66d9ef>char</span> c; <span style=color:#66d9ef>while</span> ((c <span style=color:#f92672>=</span> getchar()) <span style=color:#f92672>&gt;</span> <span style=color:#e6db74>&#39;9&#39;</span> <span style=color:#f92672>||</span> c <span style=color:#f92672>&lt;</span> <span style=color:#e6db74>&#39;0&#39;</span>) <span style=color:#66d9ef>if</span> (c <span style=color:#f92672>==</span> <span style=color:#e6db74>&#39;-&#39;</span>) f <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>; x <span style=color:#f92672>=</span> c <span style=color:#f92672>-</span> <span style=color:#ae81ff>48</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>while</span> ((c <span style=color:#f92672>=</span> getchar()) <span style=color:#f92672>&gt;=</span> <span style=color:#e6db74>&#39;0&#39;</span> <span style=color:#f92672>&amp;&amp;</span> c <span style=color:#f92672>&lt;=</span> <span style=color:#e6db74>&#39;9&#39;</span>) x <span style=color:#f92672>=</span> (x <span style=color:#f92672>&lt;&lt;</span> <span style=color:#ae81ff>1</span>) <span style=color:#f92672>+</span> (x <span style=color:#f92672>&lt;&lt;</span> <span style=color:#ae81ff>3</span>) <span style=color:#f92672>+</span> c <span style=color:#f92672>-</span> <span style=color:#ae81ff>48</span>; <span style=color:#66d9ef>return</span> f <span style=color:#f92672>?</span> x : <span style=color:#f92672>~</span>x <span style=color:#f92672>+</span> <span style=color:#ae81ff>1</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>struct</span> <span style=color:#a6e22e>t_edge</span>{ <span style=color:#66d9ef>int</span> to, next, w; } edge[maxn <span style=color:#f92672>&lt;&lt;</span> <span style=color:#ae81ff>1</span>];
+</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span> head[maxn], cnt <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>inline</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>add_e</span>(<span style=color:#66d9ef>int</span> u, <span style=color:#66d9ef>int</span> v, <span style=color:#66d9ef>int</span> w) {
+</span></span><span style=display:flex><span>    edge[cnt].next <span style=color:#f92672>=</span> head[u]; edge[cnt].to <span style=color:#f92672>=</span> v; edge[cnt].w <span style=color:#f92672>=</span> w; head[u] <span style=color:#f92672>=</span> cnt <span style=color:#f92672>++</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span> dis[maxn], vis[maxn], flg;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span> n, m;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>void</span> <span style=color:#a6e22e>spfa</span>(<span style=color:#66d9ef>int</span> s) {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> (flg) <span style=color:#66d9ef>return</span>;
+</span></span><span style=display:flex><span>    vis[s] <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>register</span> <span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> head[s]; i; i <span style=color:#f92672>=</span> edge[i].next) {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>int</span> v <span style=color:#f92672>=</span> edge[i].to;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> (flg) <span style=color:#66d9ef>return</span>;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> (dis[v] <span style=color:#f92672>&gt;</span> dis[s] <span style=color:#f92672>+</span> edge[i].w) {
+</span></span><span style=display:flex><span>            dis[v] <span style=color:#f92672>=</span> dis[s] <span style=color:#f92672>+</span> edge[i].w;
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>if</span> (<span style=color:#f92672>!</span>vis[v]) spfa(v);
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>else</span> { flg <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>; <span style=color:#66d9ef>return</span>; }
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    vis[s] <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span> <span style=color:#a6e22e>main</span>() {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>int</span> t <span style=color:#f92672>=</span> read();
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>while</span> (t <span style=color:#f92672>--</span>) {
+</span></span><span style=display:flex><span>        n <span style=color:#f92672>=</span> read(); m <span style=color:#f92672>=</span> read(); <span style=color:#66d9ef>int</span> ui, vi, wi;
+</span></span><span style=display:flex><span>        flg <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>; cnt <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>; 
+</span></span><span style=display:flex><span>        memset(vis, <span style=color:#ae81ff>0</span>, <span style=color:#66d9ef>sizeof</span>(vis));
+</span></span><span style=display:flex><span>        memset(head, <span style=color:#ae81ff>0</span>, <span style=color:#66d9ef>sizeof</span>(head));
+</span></span><span style=display:flex><span>        memset(dis, <span style=color:#ae81ff>0</span>, <span style=color:#66d9ef>sizeof</span>(dis));
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>register</span> <span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>; i <span style=color:#f92672>&lt;=</span> m; <span style=color:#f92672>++</span> i) {
+</span></span><span style=display:flex><span>            ui <span style=color:#f92672>=</span> read(); vi <span style=color:#f92672>=</span> read(); wi <span style=color:#f92672>=</span> read();
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>if</span> (wi <span style=color:#f92672>&lt;</span> <span style=color:#ae81ff>0</span>) add_e(ui, vi, wi);			
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>else</span> { add_e(ui, vi, wi); add_e(vi, ui, wi); }
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>register</span> <span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>; i <span style=color:#f92672>&lt;=</span> n; <span style=color:#f92672>++</span> i) {
+</span></span><span style=display:flex><span>            spfa(i); <span style=color:#66d9ef>if</span> (flg) <span style=color:#66d9ef>break</span>;
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>        printf(flg <span style=color:#f92672>?</span> <span style=color:#e6db74>&#34;YE5</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>&#34;</span> <span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;N0</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>&#34;</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>百分数:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=display:flex><span><span style=color:#75715e>#include</span><span style=color:#75715e>&lt;bits/stdc++.h&gt;</span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e>#define IL inline
+</span></span></span><span style=display:flex><span><span style=color:#75715e>#define RI register int
+</span></span></span><span style=display:flex><span><span style=color:#75715e>#define N 100086
+</span></span></span><span style=display:flex><span><span style=color:#75715e>#define clear(a) memset(a,0,sizeof a)
+</span></span></span><span style=display:flex><span><span style=color:#75715e>#define rk for(RI i=1;i&lt;=n;i++)
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>using</span> <span style=color:#66d9ef>namespace</span> std;
+</span></span><span style=display:flex><span>IL <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>read</span>(<span style=color:#66d9ef>int</span> <span style=color:#f92672>&amp;</span>x)
+</span></span><span style=display:flex><span>{
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>int</span> f<span style=color:#f92672>=</span><span style=color:#ae81ff>1</span>;x<span style=color:#f92672>=</span><span style=color:#ae81ff>0</span>;<span style=color:#66d9ef>char</span> s<span style=color:#f92672>=</span>getchar();
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>while</span>(s<span style=color:#f92672>&gt;</span><span style=color:#e6db74>&#39;9&#39;</span><span style=color:#f92672>||</span>s<span style=color:#f92672>&lt;</span><span style=color:#e6db74>&#39;0&#39;</span>){<span style=color:#66d9ef>if</span>(s<span style=color:#f92672>==</span><span style=color:#e6db74>&#39;-&#39;</span>)f<span style=color:#f92672>=-</span><span style=color:#ae81ff>1</span>;s<span style=color:#f92672>=</span>getchar();}
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>while</span>(s<span style=color:#f92672>&lt;=</span><span style=color:#e6db74>&#39;9&#39;</span><span style=color:#f92672>&amp;&amp;</span>s<span style=color:#f92672>&gt;=</span><span style=color:#e6db74>&#39;0&#39;</span>){x<span style=color:#f92672>=</span>x<span style=color:#f92672>*</span><span style=color:#ae81ff>10</span><span style=color:#f92672>+</span>s<span style=color:#f92672>-</span><span style=color:#e6db74>&#39;0&#39;</span>;s<span style=color:#f92672>=</span>getchar();}
+</span></span><span style=display:flex><span>    x<span style=color:#f92672>*=</span>f;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span> n,m,T;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>struct</span> <span style=color:#a6e22e>code</span>{<span style=color:#66d9ef>int</span> u,v,w;}edge[N];
+</span></span><span style=display:flex><span><span style=color:#66d9ef>bool</span> vis[N];
+</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span> head[N],tot,dis[N],cnt[N];
+</span></span><span style=display:flex><span>IL <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>add</span>(<span style=color:#66d9ef>int</span> x,<span style=color:#66d9ef>int</span> y,<span style=color:#66d9ef>int</span> z){edge[<span style=color:#f92672>++</span>tot].u<span style=color:#f92672>=</span>head[x];edge[tot].v<span style=color:#f92672>=</span>y;edge[tot].w<span style=color:#f92672>=</span>z;head[x]<span style=color:#f92672>=</span>tot;}
+</span></span><span style=display:flex><span>IL <span style=color:#66d9ef>bool</span> <span style=color:#a6e22e>spfa</span>(<span style=color:#66d9ef>int</span> now)
+</span></span><span style=display:flex><span>{
+</span></span><span style=display:flex><span>    rk vis[i]<span style=color:#f92672>=</span>false,dis[i]<span style=color:#f92672>=</span><span style=color:#ae81ff>2147483647</span>,cnt[i]<span style=color:#f92672>=</span>false;
+</span></span><span style=display:flex><span>    queue<span style=color:#f92672>&lt;</span><span style=color:#66d9ef>int</span><span style=color:#f92672>&gt;</span>q;
+</span></span><span style=display:flex><span>    q.push(now);
+</span></span><span style=display:flex><span>    vis[now]<span style=color:#f92672>=</span>true;
+</span></span><span style=display:flex><span>    dis[now]<span style=color:#f92672>=</span><span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>while</span>(<span style=color:#f92672>!</span>q.empty())
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>int</span> u<span style=color:#f92672>=</span>q.front();q.pop();vis[u]<span style=color:#f92672>=</span>false;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span>(cnt[u]<span style=color:#f92672>&gt;=</span>n)<span style=color:#66d9ef>return</span> true;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>for</span>(RI i<span style=color:#f92672>=</span>head[u];i;i<span style=color:#f92672>=</span>edge[i].u)
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>if</span>(dis[edge[i].v]<span style=color:#f92672>&gt;</span>dis[u]<span style=color:#f92672>+</span>edge[i].w)
+</span></span><span style=display:flex><span>            {
+</span></span><span style=display:flex><span>                dis[edge[i].v]<span style=color:#f92672>=</span>dis[u]<span style=color:#f92672>+</span>edge[i].w;
+</span></span><span style=display:flex><span>                <span style=color:#66d9ef>if</span>(<span style=color:#f92672>!</span>vis[edge[i].v])
+</span></span><span style=display:flex><span>                {
+</span></span><span style=display:flex><span>                    q.push(edge[i].v);
+</span></span><span style=display:flex><span>                    vis[edge[i].v]<span style=color:#f92672>=</span>true;
+</span></span><span style=display:flex><span>                    cnt[edge[i].v]<span style=color:#f92672>++</span>;
+</span></span><span style=display:flex><span>                    <span style=color:#66d9ef>if</span>(cnt[edge[i].v]<span style=color:#f92672>&gt;=</span>n)<span style=color:#66d9ef>return</span> true;
+</span></span><span style=display:flex><span>                }
+</span></span><span style=display:flex><span>            }
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> false;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span> <span style=color:#a6e22e>main</span>()
+</span></span><span style=display:flex><span>{
+</span></span><span style=display:flex><span>    read(T);
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>while</span>(T<span style=color:#f92672>--</span>)
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>        read(n),read(m);
+</span></span><span style=display:flex><span>        tot<span style=color:#f92672>=</span><span style=color:#ae81ff>0</span>;clear(head);
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>for</span>(RI i<span style=color:#f92672>=</span><span style=color:#ae81ff>1</span>,u,v,w;i<span style=color:#f92672>&lt;=</span>m;i<span style=color:#f92672>++</span>)
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>            read(u),read(v),read(w);
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>if</span>(w<span style=color:#f92672>&lt;</span><span style=color:#ae81ff>0</span>)add(u,v,w);
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>else</span> add(u,v,w),add(v,u,w);
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>        puts(spfa(<span style=color:#ae81ff>1</span>)<span style=color:#f92672>?</span><span style=color:#e6db74>&#34;YE5&#34;</span><span style=color:#f92672>:</span><span style=color:#e6db74>&#34;N0&#34;</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=3--最小环>3. 最小环</h3><p>可以用Floyd来求, 似乎dj也可以做. 不过网上似乎只有Floyd的做法, 于是乎抄写一波.</p><h3 id=4-反图>4. 反图</h3><p>这个主要是用来解决不能到达终点的情况的. 很多时候正反跑一遍 或者直接反着跑就会奇迹再现</p><h3 id=5-欧拉路>5. 欧拉路</h3><h3 id=6-哈密顿路>6. 哈密顿路</h3><p>不管了</p><h3 id=7-倍增>7. 倍增</h3><p>这个可以用来优化图上 / 树上的长度问题. 具体写得话, 随缘了.</p><p><strong>记得不要把数组开太小</strong>. 还有这个玩意儿有点耗空间. (不过这几年不卡空间就是了)</p><h2 id=7一些奇特的东西>7.一些奇特的东西</h2><h3 id=1dfs序和dfs树>1.DFS序和DFS树</h3><p>咕咕咕&mldr;</p><h2 id=8-一些奇葩题>8. 一些奇葩题</h2><ol><li>POJ3613 看起来是图论题的矩阵快速幂</li><li>NOIP2013 华容道: 非常牛逼的一条图论建模</li></ol></section><footer class=article-footer><section class=article-tags><a href=/tags/noip/>NOIP</a></section><section class=article-copyright><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg><span>Licensed under CC BY-NC-SA 4.0</span></section></footer><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.css integrity="sha256-J+iAE0sgH8QSz9hpcDxXIftnj65JEZgNhGcgReTTK9s=" crossorigin=anonymous><script src=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.js integrity="sha256-InsNdER1b2xUewP+pKCUJpkhiqwHgqiPXDlIk7GzBu4=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/auto-render.min.js integrity="sha256-y39Mpg7V3D4lhBX4x6O0bUqTV4pSrfgwEfGKfxkOdgI=" crossorigin=anonymous defer></script><script>window.addEventListener("DOMContentLoaded",()=>{renderMathInElement(document.querySelector(`.article-content`),{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1},{left:"\\(",right:"\\)",display:!1},{left:"\\[",right:"\\]",display:!0}],ignoredClasses:["gist"]})})</script></article><aside class=related-content--wrapper><h2 class=section-title>相关文章</h2><div class=related-content><div class="flex article-list--tile"><article><a href=/blog/noip%E9%80%80%E5%BD%B9%E6%95%B4%E7%90%86-3-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/><div class=article-details><h2 class=article-title>NOIP退役整理 3 数据结构</h2></div></a></article><article><a href=/blog/noip%E9%80%80%E5%BD%B9%E6%95%B4%E7%90%86-1-%E6%95%B0%E5%AD%A6%E7%9B%B8%E5%85%B3/><div class=article-details><h2 class=article-title>NOIP退役整理 1 数学相关</h2></div></a></article><article><a href=/blog/oi%E5%8A%9D%E9%80%80%E6%8C%87%E5%8D%97/><div class=article-details><h2 class=article-title>OI劝退指南</h2></div></a></article></div></div></aside><footer class=site-footer><section class=copyright>&copy;
+2018 -
+2023 Catfood Dev Blog</section><section class=powerby>摸摸猫猫<br>Built with <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a><br>主题 <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.16.0>Stack</a></b> 由 <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a> 设计</section></footer><div class=pswp tabindex=-1 role=dialog aria-hidden=true><div class=pswp__bg></div><div class=pswp__scroll-wrap><div class=pswp__container><div class=pswp__item></div><div class=pswp__item></div><div class=pswp__item></div></div><div class="pswp__ui pswp__ui--hidden"><div class=pswp__top-bar><div class=pswp__counter></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title=Share></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button><div class=pswp__preloader><div class=pswp__preloader__icn><div class=pswp__preloader__cut><div class=pswp__preloader__donut></div></div></div></div></div><div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap"><div class=pswp__share-tooltip></div></div><button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"></button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button><div class=pswp__caption><div class=pswp__caption__center></div></div></div></div></div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css crossorigin=anonymous></main></div><script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z+KMkF24hUW8WePSA9HM=" crossorigin=anonymous></script><script type=text/javascript src=/ts/main.js defer></script>
+<script>(function(){const e=document.createElement("link");e.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",e.type="text/css",e.rel="stylesheet",document.head.appendChild(e)})()</script></body></html>

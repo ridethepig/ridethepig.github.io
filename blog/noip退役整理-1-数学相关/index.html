@@ -1,0 +1,323 @@
+<!doctype html><html lang=zh-cn dir=ltr><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="haha"><title>NOIP退役整理 1 数学相关</title><link rel=canonical href=https://ridethepig.github.io/blog/noip%E9%80%80%E5%BD%B9%E6%95%B4%E7%90%86-1-%E6%95%B0%E5%AD%A6%E7%9B%B8%E5%85%B3/><link rel=stylesheet href=/scss/style.min.8191399262444ab68b72a18c97392f5349be20a1615d77445be51e974c144cff.css><meta property="og:title" content="NOIP退役整理 1 数学相关"><meta property="og:description" content="haha"><meta property="og:url" content="https://ridethepig.github.io/blog/noip%E9%80%80%E5%BD%B9%E6%95%B4%E7%90%86-1-%E6%95%B0%E5%AD%A6%E7%9B%B8%E5%85%B3/"><meta property="og:site_name" content="Catfood Dev Blog"><meta property="og:type" content="article"><meta property="article:section" content="Blog"><meta property="article:tag" content="NOIP"><meta property="article:published_time" content="2018-11-05T00:00:00+00:00"><meta property="article:modified_time" content="2018-11-05T00:00:00+00:00"><meta name=twitter:title content="NOIP退役整理 1 数学相关"><meta name=twitter:description content="haha"><link rel="shortcut icon" href=/favicon.jpg></head><body class=article-page><script>(function(){const e="StackColorScheme";localStorage.getItem(e)||localStorage.setItem(e,"auto")})()</script><script>(function(){const t="StackColorScheme",e=localStorage.getItem(t),n=window.matchMedia("(prefers-color-scheme: dark)").matches===!0;e=="dark"||e==="auto"&&n?document.documentElement.dataset.scheme="dark":document.documentElement.dataset.scheme="light"})()</script><div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label=切换菜单>
+<span class=hamburger-box><span class=hamburger-inner></span></span></button><header><figure class=site-avatar><a href=/><img src=/img/avatar_hu8d350d85a62d055b05230a63583f7d47_54079_300x0_resize_q75_box.jpg width=300 height=300 class=site-logo loading=lazy alt=Avatar></a></figure><div class=site-meta><h1 class=site-name><a href=/>Catfood Dev Blog</a></h1><h2 class=site-description>摸摸！</h2></div></header><ol class=menu id=main-menu><li><a href=/page/about/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="7" r="4"/><path d="M6 21v-2a4 4 0 014-4h4a4 4 0 014 4v2"/></svg><span>关于</span></a></li><li><a href=/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg><span>Home</span></a></li><li><a href=/page/archives/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg><span>Archives</span></a></li><li><a href=/page/search/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg><span>Search</span></a></li><li><a href=/page/links/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M10 14a3.5 3.5.0 005 0l4-4a3.5 3.5.0 00-5-5l-.5.5"/><path d="M14 10a3.5 3.5.0 00-5 0l-4 4a3.5 3.5.0 005 5l.5-.5"/></svg><span>Links</span></a></li><div class=menu-bottom-section><li id=dark-mode-toggle><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg><span>暗色模式</span></li></div></ol></aside><aside class="sidebar right-sidebar sticky"><section class="widget archives"><div class=widget-icon><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg></div><h2 class="widget-title section-title">目录</h2><div class=widget--toc><nav id=TableOfContents><ul><li><ul><li><a href=#0更加基础的算法>0.更加基础的算法</a></li><li><a href=#1-裴蜀定理-bezout>1. 裴蜀定理 (Bezout)</a></li><li><a href=#2拓展欧几里得-ex_gcd>2.拓展欧几里得 (Ex_Gcd)</a></li><li><a href=#3各种筛-把你打成筛子>3.各种筛 (把你打成筛子)</a></li><li><a href=#4逆元>4.逆元</a></li><li><a href=#5组合相关>5.组合相关</a></li><li><a href=#6矩阵相关>6.矩阵相关</a></li><li><a href=#7线性基虽然可能不考>7.线性基(虽然可能不考)</a></li><li><a href=#8概率期望碰到就放弃系列>8.概率期望(碰到就放弃系列)</a></li><li><a href=#9神奇的东西>9.神奇的东西</a></li><li><a href=#10致谢>10.致谢</a></li></ul></li></ul></nav></div></section></aside><main class="main full-width"><article class=main-article><header class=article-header><div class=article-details><header class=article-category><a href=/categories/%E7%AC%94%E8%AE%B0/>笔记</a></header><div class=article-title-wrapper><h2 class=article-title><a href=/blog/noip%E9%80%80%E5%BD%B9%E6%95%B4%E7%90%86-1-%E6%95%B0%E5%AD%A6%E7%9B%B8%E5%85%B3/>NOIP退役整理 1 数学相关</a></h2><h3 class=article-subtitle>haha</h3></div><footer class=article-time><div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg><time class=article-time--published>Nov 05, 2018</time></div><div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg><time class=article-time--reading>阅读时长: 9 分钟</time></div></footer></div></header><section class=article-content><h1 id=noip退役整理-1--数学相关>NOIP退役整理 1 数学相关</h1><blockquote><p>看完保证你,退役</p><p>这篇笔记里从不写证明</p></blockquote><p>[TOC]</p><h3 id=0更加基础的算法>0.更加基础的算法</h3><p>这里贴几个最最最最基础的算法</p><h4 id=1n求因数>1.√n求因数</h4><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=display:flex><span><span style=color:#66d9ef>int</span> cnt <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>, fac[maxn];
+</span></span><span style=display:flex><span><span style=color:#66d9ef>inline</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>get_factor</span>(<span style=color:#66d9ef>int</span> x)  {    
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>register</span> <span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>; i <span style=color:#f92672>*</span> i <span style=color:#f92672>&lt;=</span> x; <span style=color:#f92672>++</span> i) {
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>if</span> (x <span style=color:#f92672>%</span> i <span style=color:#f92672>==</span> <span style=color:#ae81ff>0</span>) {
+</span></span><span style=display:flex><span>			fac[<span style=color:#f92672>++</span> cnt] <span style=color:#f92672>=</span> i; 
+</span></span><span style=display:flex><span>			<span style=color:#66d9ef>if</span> (i <span style=color:#f92672>!=</span> x <span style=color:#f92672>/</span> i) fac[<span style=color:#f92672>++</span> cnt] <span style=color:#f92672>=</span> x <span style=color:#f92672>/</span> i;
+</span></span><span style=display:flex><span>		}
+</span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h4 id=2gcd>2.gcd</h4><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=display:flex><span><span style=color:#66d9ef>int</span> <span style=color:#a6e22e>gcd</span>(<span style=color:#66d9ef>int</span> a, <span style=color:#66d9ef>int</span> b) {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> b <span style=color:#f92672>==</span> <span style=color:#ae81ff>0</span> <span style=color:#f92672>?</span> a : gcd(b, a <span style=color:#f92672>%</span> b);
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h4 id=3n分解质因数>3.√n分解质因数</h4><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=display:flex><span><span style=color:#66d9ef>int</span> cnt <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>; prime[maxn], index[maxn];
+</span></span><span style=display:flex><span><span style=color:#66d9ef>inline</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>prime_factor</span>(<span style=color:#66d9ef>int</span> x) {    
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>register</span> <span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> <span style=color:#ae81ff>2</span>; i <span style=color:#f92672>*</span> i <span style=color:#f92672>&lt;=</span> n; <span style=color:#f92672>++</span> i)
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> (x <span style=color:#f92672>%</span> i <span style=color:#f92672>==</span> <span style=color:#ae81ff>0</span>) {
+</span></span><span style=display:flex><span>            prime[<span style=color:#f92672>++</span> cnt] <span style=color:#f92672>=</span> i, index[cnt] <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>while</span> (n <span style=color:#f92672>%</span> i <span style=color:#f92672>==</span> <span style=color:#ae81ff>0</span>) x <span style=color:#f92672>/=</span> i, index[cnt] <span style=color:#f92672>++</span>;
+</span></span><span style=display:flex><span>    	}
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> (x <span style=color:#f92672>&gt;</span> <span style=color:#ae81ff>1</span>) prime[<span style=color:#f92672>++</span> cnt] <span style=color:#f92672>=</span> x, index[cnt] <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>;
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=1-裴蜀定理-bezout>1. 裴蜀定理 (Bezout)</h3><p>$$
+ax + by = m
+$$</p><p>对于这样一个不定方程,当且仅当<code>gcd(a,b) | m</code>的时候,有无数多个整数解.特别的,对于 <code>ax + by = 1</code>, 当且仅当a和b互质时有如上结论.</p><p>另: 对于任意多个未知数和任意多个系数, 这个结论也是成立的. 也就是
+$$
+a_{1}x_{1} + a_{2}x_{2} + \cdots + a_{n}x_{n} = d \\
+其中d = (a_{1}, a_{2}, \cdots,a_{n})
+$$
+这样一个式子.</p><p>似乎简单的用法就是推出系数和后面的解的关系,然后用<code>gcd</code>或者<code>整数相关的东西</code>瞎搞.</p><p>例题:</p><ol><li>BZOJ 1441. 显然就是推广结论的裸题</li><li>&lt;JSOI 2009 瓶子和燃料> 虽然感觉和Bezout没有什么关系&mldr;个人认为,这就是个结论题, 似乎用辗转相减更好理解一点</li><li>&lt;HAOI2011 向量> 这个比较难,要多推几步.也是一条Bezout定理.(从某个聚铑博客里发现的题) (这个我不会写)</li><li>NOIP2014 Day2T3 解方程. 这个似乎就是直接枚举(因为1e6好像可以过去),然后Bezout定理去检验.(话说这题好皮啊&mldr;)(然而我也不会写)</li></ol><h3 id=2拓展欧几里得-ex_gcd>2.拓展欧几里得 (Ex_Gcd)</h3><h4 id=1基本内容>1.基本内容</h4><p>这个算是一个比较基础的算法,用来解线性同余方程.</p><p>这个方程大概长这个样子:
+$$
+ax \equiv b\pmod {m}
+$$
+我们需要求整数解.</p><p>把这个玩意儿变个形, 就得到了
+$$
+ax + my = b
+$$
+这不就是个二元不定方程吗.这个可以用exgcd来解.显然, 由Bezout定理可知, 如果有整数解,那就一定有无数个这样的解. 当且仅当<code>(a,m) | b</code>时有整数解</p><p>所以在解方程之前需要判定合法. 也就是判断<code>(a, m)|b</code>是否成立.</p><p>先上代码</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=display:flex><span><span style=color:#66d9ef>void</span> <span style=color:#a6e22e>ex_gcd</span>(<span style=color:#66d9ef>int</span> a, <span style=color:#66d9ef>int</span> b, <span style=color:#66d9ef>int</span> <span style=color:#f92672>&amp;</span> d, <span style=color:#66d9ef>int</span> <span style=color:#f92672>&amp;</span> x, <span style=color:#66d9ef>int</span> <span style=color:#f92672>&amp;</span>y) {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> (b <span style=color:#f92672>==</span> <span style=color:#ae81ff>0</span>) {
+</span></span><span style=display:flex><span>        x <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>, y <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>, d <span style=color:#f92672>=</span> a;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>else</span> {
+</span></span><span style=display:flex><span>        ex_gcd(b, a <span style=color:#f92672>%</span> b, d, y, x); <span style=color:#75715e>// 划重点. x和y不要打反了
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        y <span style=color:#f92672>-=</span> x <span style=color:#f92672>*</span> (a <span style=color:#f92672>/</span> b); <span style=color:#75715e>//这个括号一定要打。否则会先乘溢出
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>解出来以后,这只是一个解.</p><p>所有的解可以由一种构造方法得到, 也就是通解.</p><p>$$
+x_{i} = x_{0} + i * b/(a,m),i\in Z\\
+y_{i} = y_{0} - i * b/(a,m),i\in Z
+$$</p><p>还有最小整数解:</p><p>$$
+x_{min} = (x*b/d \bmod (m / d) + m / d) \bmod (m/d) \\
+其中d = (a, m);
+$$</p><p>似乎还可以这么写: (不是很清楚这两个有什么区别) 总而言之,求逆元用下面的,最小整数解用上面的</p><p>$$
+x_{min} = (x \bmod m + m) \bmod m
+$$</p><h4 id=2-中国剩余定理>2. 中国剩余定理</h4><p>用来解线性同余方程组.背结论好了.</p><p>$$
+设m_1, m_2, m_3, \cdots, m_n 是两两互质的数\\
+设 m = \Pi_{i=1}^nm_i\\
+M_i = \frac{m}{m_i}\\
+t_i是同余方程 M_i*t_i \equiv 1 \pmod m_i的一个解\\
+$$</p><p>$$
+则对于任意n个整数a_1,a_2,\cdots,a_n,\\
+\begin{equation}
+\left\{
+\begin{array}{lr}
+x \equiv a_1 \pmod{m_1} \\
+x \equiv a_2 \pmod{m_2} \\
+\cdots \\
+x \equiv a_n \pmod {m_n}
+\end{array}
+\right.
+\end{equation} \\
+该方程组有整数解, 为x = \Sigma_{i=1}^{n}a_iM_it_i
+$$
+同样的,这也只是一个特解. 最小整数解需要%一下.</p><p>终于到例题了:</p><ol><li>Poj1061 青蛙的约会. 经典老题</li><li>NOIP2012 同余方程. 裸的拓欧.</li><li>没了. 附赠:<a class=link href=http://www.cnblogs.com/frog112111/archive/2012/08/19/2646012.html target=_blank rel=noopener>一个不错的讲解</a></li></ol><h3 id=3各种筛-把你打成筛子>3.各种筛 (把你打成筛子)</h3><p>这个相信大家都很清楚是什么. 就当板子放在这里.</p><h4 id=1素数筛>1.素数筛</h4><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=display:flex><span><span style=color:#66d9ef>inline</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>get_prime</span>(<span style=color:#66d9ef>int</span> n) {
+</span></span><span style=display:flex><span>	memset(vis, <span style=color:#ae81ff>0</span>, <span style=color:#66d9ef>sizeof</span>(vis));
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>int</span> cnt <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>register</span> <span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> <span style=color:#ae81ff>2</span>; i <span style=color:#f92672>&lt;=</span> n; <span style=color:#f92672>++</span> i) {
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>if</span> (<span style=color:#f92672>!</span>vis[i]) {
+</span></span><span style=display:flex><span>			vis[i] <span style=color:#f92672>=</span> prime[<span style=color:#f92672>++</span> cnt] <span style=color:#f92672>=</span> i;
+</span></span><span style=display:flex><span>		} 
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>int</span> j <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>; j <span style=color:#f92672>&lt;=</span> cnt; <span style=color:#f92672>++</span> j)  {
+</span></span><span style=display:flex><span>			<span style=color:#66d9ef>if</span> (prime[j] <span style=color:#f92672>&gt;</span> vis[i] <span style=color:#f92672>||</span> prime[j] <span style=color:#f92672>&gt;</span> n <span style=color:#f92672>/</span> i) 
+</span></span><span style=display:flex><span>				<span style=color:#66d9ef>break</span>;
+</span></span><span style=display:flex><span>			vis[i <span style=color:#f92672>*</span> prime[j]] <span style=color:#f92672>=</span> prime[j];
+</span></span><span style=display:flex><span>		}		
+</span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>顺手判素数</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=display:flex><span><span style=color:#66d9ef>inline</span> <span style=color:#66d9ef>bool</span> <span style=color:#a6e22e>is_prime</span>(<span style=color:#66d9ef>int</span> x) {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>register</span> <span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>; i <span style=color:#f92672>*</span> i <span style=color:#f92672>&lt;=</span> x; <span style=color:#f92672>++</span> i) {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> (x <span style=color:#f92672>%</span> i <span style=color:#f92672>==</span> <span style=color:#ae81ff>0</span>) {
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>return</span> false;
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> true;
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h4 id=2欧拉筛>2.欧拉筛</h4><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=display:flex><span><span style=color:#66d9ef>inline</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>get_phi</span>(<span style=color:#66d9ef>int</span> n) {
+</span></span><span style=display:flex><span>	memset(vis, <span style=color:#ae81ff>0</span>, <span style=color:#66d9ef>sizeof</span>(vis));
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>int</span> cnt <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>register</span> <span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> <span style=color:#ae81ff>2</span>; i <span style=color:#f92672>&lt;=</span> n; <span style=color:#f92672>++</span> i) {
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>if</span> (<span style=color:#f92672>!</span>vis[i]) {
+</span></span><span style=display:flex><span>			vis[i] <span style=color:#f92672>=</span> prime[<span style=color:#f92672>++</span> cnt] <span style=color:#f92672>=</span> i;
+</span></span><span style=display:flex><span>			phi[i] <span style=color:#f92672>=</span> i <span style=color:#f92672>-</span> <span style=color:#ae81ff>1</span>;
+</span></span><span style=display:flex><span>		} 
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>int</span> j <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>; j <span style=color:#f92672>&lt;=</span> cnt; <span style=color:#f92672>++</span> j)  {
+</span></span><span style=display:flex><span>			<span style=color:#66d9ef>if</span> (prime[j] <span style=color:#f92672>&gt;</span> vis[i] <span style=color:#f92672>||</span> prime[j] <span style=color:#f92672>&gt;</span> n <span style=color:#f92672>/</span> i) 
+</span></span><span style=display:flex><span>				<span style=color:#66d9ef>break</span>;
+</span></span><span style=display:flex><span>			vis[i <span style=color:#f92672>*</span> prime[j]] <span style=color:#f92672>=</span> prime[j];
+</span></span><span style=display:flex><span>			phi[i <span style=color:#f92672>*</span> prime[j]] <span style=color:#f92672>=</span> phi[i] <span style=color:#f92672>*</span> (i <span style=color:#f92672>%</span> prime[j] <span style=color:#f92672>?</span> prime[j] <span style=color:#f92672>-</span> <span style=color:#ae81ff>1</span> <span style=color:#f92672>:</span> prime[j]);
+</span></span><span style=display:flex><span>		}		
+</span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>求一个phi. 长得和分解质因数一毛一样</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=display:flex><span><span style=color:#66d9ef>int</span> <span style=color:#a6e22e>get_phi</span>(<span style=color:#66d9ef>int</span> n) {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>int</span> ans <span style=color:#f92672>=</span> n;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>register</span> <span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> <span style=color:#ae81ff>2</span>; i <span style=color:#f92672>*</span> i <span style=color:#f92672>&lt;=</span> n; <span style=color:#f92672>++</span> i) {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> (n <span style=color:#f92672>%</span> i <span style=color:#f92672>==</span> <span style=color:#ae81ff>0</span>) {
+</span></span><span style=display:flex><span>            ans <span style=color:#f92672>=</span> ans <span style=color:#f92672>/</span> i <span style=color:#f92672>*</span> (i <span style=color:#f92672>-</span> <span style=color:#ae81ff>1</span>);
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>while</span> (n <span style=color:#f92672>%</span> i <span style=color:#f92672>==</span> <span style=color:#ae81ff>0</span>) n <span style=color:#f92672>/=</span> i;
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> (n <span style=color:#f92672>&gt;</span> <span style=color:#ae81ff>1</span>) ans <span style=color:#f92672>=</span> ans <span style=color:#f92672>/</span> n <span style=color:#f92672>*</span> (n <span style=color:#f92672>-</span> <span style=color:#ae81ff>1</span>);
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> ans;
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>顺便一提, phi(n)表示小于等于n的素数个数</p><p>积性函数什么的反正考不到我也不会,就不管了.</p><p>大概的表是 0, 1, 2, 2, 4, 2, 6, 4, 10 &mldr;&mldr; 这个可以打表想到</p><p>例题: Poj3090.可以由暴力算法观察结果得出,这个是个欧拉函数(反正当时做的时候是打表出来的).至于具体证明,呵呵</p><h3 id=4逆元>4.逆元</h3><p>逆元就是用来做除法取模的东西. 一个数处以另一个数等于被除数乘上除数的逆元.(因为在取模的时候,除法不满足结合律, 所以要用逆元)我们有多种方法求逆元,直接给出代码.</p><h4 id=1exgcd>1.exgcd</h4><p>这个其实就是线性同余方程右边是1的情况下的解, 很明显它是唯一的,而且可以用exgcd解.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=display:flex><span><span style=color:#66d9ef>int</span> <span style=color:#a6e22e>get_inv</span>(<span style=color:#66d9ef>int</span> n, <span style=color:#66d9ef>int</span> p) {
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>int</span> x, y, d;
+</span></span><span style=display:flex><span>	ex_gcd(n, p, x, y, d);
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>return</span> (x<span style=color:#f92672>%</span>p<span style=color:#f92672>+</span>p)<span style=color:#f92672>%</span>p;
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>复杂度 <code>O(log(n))</code></p><h4 id=2费马小定理>2.费马小定理</h4><p>这个只有在a,p互素的时候才能用</p><p>由
+$$
+a^{p-1} \equiv 1 \pmod {p}, p是素数
+$$
+可以随便瞎推得
+$$
+inv(i) = i^{p-2} \pmod{p}, p是素数
+$$
+因为用了一个快速幂,所以复杂度是<code>O(log(n))</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=display:flex><span><span style=color:#66d9ef>int</span> <span style=color:#a6e22e>get_inv_fm</span>(<span style=color:#66d9ef>int</span> x, <span style=color:#66d9ef>int</span> p) {
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>int</span> k <span style=color:#f92672>=</span> p <span style=color:#f92672>-</span> <span style=color:#ae81ff>2</span>, ans <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>;
+</span></span><span style=display:flex><span>	x <span style=color:#f92672>%=</span> p;
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>for</span> (; k; k <span style=color:#f92672>&gt;&gt;=</span> <span style=color:#ae81ff>1</span>) {
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>if</span> (k <span style=color:#f92672>&amp;</span> <span style=color:#ae81ff>1</span>) ans <span style=color:#f92672>=</span> ans <span style=color:#f92672>*</span> x <span style=color:#f92672>%</span> p;
+</span></span><span style=display:flex><span>		x <span style=color:#f92672>=</span> x <span style=color:#f92672>*</span> x <span style=color:#f92672>%</span> p;
+</span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>return</span> ans <span style=color:#f92672>%</span> p;
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>其实还有什么Euler定理,当n垂直于a的时候,a^φ(n) 同余于 1(在模n意义下).这样的玩意儿</p><h4 id=3线性递推>3.线性递推</h4><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=display:flex><span><span style=color:#66d9ef>inline</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>get_inv_arr</span>(<span style=color:#66d9ef>int</span> n, <span style=color:#66d9ef>int</span> p){
+</span></span><span style=display:flex><span>	inv[<span style=color:#ae81ff>1</span>] <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>;
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>register</span> <span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> <span style=color:#ae81ff>2</span>; i <span style=color:#f92672>&lt;=</span> n; <span style=color:#f92672>++</span> i) {
+</span></span><span style=display:flex><span>		inv[i] <span style=color:#f92672>=</span>(<span style=color:#66d9ef>long</span> <span style=color:#66d9ef>long</span>)(p <span style=color:#f92672>-</span> p<span style=color:#f92672>/</span>i) <span style=color:#f92672>*</span> inv[p <span style=color:#f92672>%</span> i] <span style=color:#f92672>%</span> p;	<span style=color:#75715e>//防溢出
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>	}
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>这个没什么好说的,反正不长,背下来就好.</p><h3 id=5组合相关>5.组合相关</h3><h4 id=1基本内容-1>1.基本内容</h4><ul><li><p>加法, 乘法原理</p></li><li><p>排列数</p></li></ul><p>$$
+P_{n}^{m} = \frac{n!}{(n-m)!}
+$$</p><ul><li>组合数</li></ul><p>$$
+C_{n}^{m} = \frac{n!}{m!(n-m)!} = \frac{P_{n}^{m}}{m!}
+$$</p><ul><li>相关计算性质</li></ul><p>$$
+C_{n}^{m} = C_{n}^{n-m} \\
+C_{n}^{m} = C_{n-1}^{m} + C_{n-1}^{m-1} \\
+\Sigma_{i = 0}^{n}C_{n}^{i} = 2^{n}
+$$</p><p>这些东西可以用来递推或者化简.</p><p>虽然不知道是什么,但是还是写一下多重集的组合数吧233
+$$
+对于一个多重集S = {n_{1} * a_{1},n_2*a_2,\dots,n_k * a_k} \\
+设整数r&lt;=n_i(i\in[1,k]),从S中取出r个元素的不同多重集数量是C_{k+r-1}^{k-1}
+$$</p><p>有时候需要求组合数,接下来给出相关代码</p><ol><li><p>求一个组合数</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=display:flex><span><span style=color:#66d9ef>inline</span> <span style=color:#66d9ef>int</span> <span style=color:#a6e22e>comb</span>(<span style=color:#66d9ef>int</span> n, <span style=color:#66d9ef>int</span> m, <span style=color:#66d9ef>int</span> p) {
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>int</span> n_1 <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>, m_1 <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>;
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> n; i <span style=color:#f92672>&gt;=</span> n <span style=color:#f92672>-</span> m <span style=color:#f92672>+</span> <span style=color:#ae81ff>1</span>; <span style=color:#f92672>--</span> i) n_1 <span style=color:#f92672>=</span> n_1 <span style=color:#f92672>*</span> i <span style=color:#f92672>%</span> p;
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> m; i <span style=color:#f92672>&gt;=</span> m; <span style=color:#f92672>--</span> i) m_1 <span style=color:#f92672>=</span> m_1 <span style=color:#f92672>*</span> i <span style=color:#f92672>%</span> p;
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>return</span> n_1 <span style=color:#f92672>*</span> get_inv(m_1, p) <span style=color:#f92672>%</span> p; <span style=color:#75715e>//假装我们这里有一个求逆元的函数
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>}
+</span></span></code></pre></div><p>这个比较慢,<code>O(n)</code>的</p></li><li><p>求很多个</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=display:flex><span><span style=color:#75715e>//假设我们有了所有阶乘的取模的值和其逆元的值
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>return</span> fac[n] <span style=color:#f92672>*</span> fac_inv[m] <span style=color:#f92672>*</span> fac[n <span style=color:#f92672>-</span> m] <span style=color:#f92672>%</span> p;
+</span></span></code></pre></div></li></ol><ul><li>二项式定理(杨辉三角形)</li></ul><p>就是那个noip2011 day2t1.
+$$
+(a+b)^{n} = \Sigma_{i = 0}^{n}C_{n}^{i}a^{i}b^{n-i}
+$$</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=display:flex><span><span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>register</span> <span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>; i <span style=color:#f92672>&lt;=</span> k; <span style=color:#f92672>++</span> i) {
+</span></span><span style=display:flex><span>		comb[i][<span style=color:#ae81ff>0</span>] <span style=color:#f92672>=</span> comb[i][i] <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>;
+</span></span><span style=display:flex><span>}	
+</span></span><span style=display:flex><span><span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>register</span> <span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> <span style=color:#ae81ff>2</span>; i <span style=color:#f92672>&lt;=</span> k; <span style=color:#f92672>++</span> i) {
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>register</span> <span style=color:#66d9ef>int</span> j <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>; j <span style=color:#f92672>&lt;=</span> n; <span style=color:#f92672>++</span> j) {
+</span></span><span style=display:flex><span>		comb[i][j] <span style=color:#f92672>=</span> (comb[i<span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>][j] <span style=color:#f92672>+</span> comb[i<span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>][j<span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>]) <span style=color:#f92672>%</span> hhr;
+</span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h4 id=2lucas定理>2.Lucas定理</h4><p>$$
+C_{n}^{m} \equiv C_{n \bmod p}^{m \bmod p} * C_{n/p}^{m/p} \pmod {p}
+$$</p><p>注意,这里的p是<strong>素数</strong>, 如果是合数的情况,似乎是可以分解来做. 我给的地址里面有讲到.</p><p>唯一的~~例题似乎是BJZOJ1951的古代猪文.比较难,还要合并线性同余方程组(中国剩余定理).不会写</p><p>带Lucas定理的求组合数. 据说在模数比较大的时候不需要Lucas(来自某位dalao)</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=display:flex><span><span style=color:#66d9ef>typedef</span> <span style=color:#66d9ef>long</span> <span style=color:#66d9ef>long</span> ll;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>inline</span> ll <span style=color:#a6e22e>fast_pow</span>(ll a, ll b, ll <span style=color:#f92672>&amp;</span>p) {
+</span></span><span style=display:flex><span>	ll ans <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>; a <span style=color:#f92672>%=</span> p;
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>for</span> (; b; b <span style=color:#f92672>&gt;&gt;=</span> <span style=color:#ae81ff>1</span>) {
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>if</span> (b <span style=color:#f92672>&amp;</span> <span style=color:#ae81ff>1</span>) ans <span style=color:#f92672>=</span> ans <span style=color:#f92672>*</span> a <span style=color:#f92672>%</span> p;
+</span></span><span style=display:flex><span>		a <span style=color:#f92672>=</span> a <span style=color:#f92672>*</span> a <span style=color:#f92672>%</span> p;
+</span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>return</span> ans <span style=color:#f92672>%</span> p;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>ll <span style=color:#a6e22e>Comb</span>(ll n, ll m, ll <span style=color:#f92672>&amp;</span>p) {
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>if</span> (m <span style=color:#f92672>&gt;</span> n) <span style=color:#66d9ef>return</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>	ll ans <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>;
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>for</span>(<span style=color:#66d9ef>register</span> <span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>; i <span style=color:#f92672>&lt;=</span> m; <span style=color:#f92672>++</span> i) {
+</span></span><span style=display:flex><span>		ll a <span style=color:#f92672>=</span> (n <span style=color:#f92672>-</span> m <span style=color:#f92672>+</span> i) <span style=color:#f92672>%</span> p;
+</span></span><span style=display:flex><span>		ll b <span style=color:#f92672>=</span> i <span style=color:#f92672>%</span> p;
+</span></span><span style=display:flex><span>		ans <span style=color:#f92672>=</span> ans <span style=color:#f92672>*</span> (a <span style=color:#f92672>*</span> fast_pow(b, p<span style=color:#f92672>-</span><span style=color:#ae81ff>2</span>, p) <span style=color:#f92672>%</span> p) <span style=color:#f92672>%</span> p; <span style=color:#75715e>// 费马小定理逆元 
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>	}
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>return</span> ans;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>ll <span style=color:#a6e22e>Lucas</span>(ll n, ll m, ll <span style=color:#f92672>&amp;</span>p) {
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>if</span> (m <span style=color:#f92672>==</span> <span style=color:#ae81ff>0</span>) <span style=color:#66d9ef>return</span> <span style=color:#ae81ff>1</span>;
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>return</span> Comb(n <span style=color:#f92672>%</span> p, m <span style=color:#f92672>%</span> p, p) <span style=color:#f92672>*</span> Lucas(n <span style=color:#f92672>/</span> p, m <span style=color:#f92672>/</span> p, p) <span style=color:#f92672>%</span> p;
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>其实还有拓展Lucas定理&mldr;不管了.</p><p>赠送:<a class=link href=https://blog.csdn.net/acdreamers/article/details/8037918 target=_blank rel=noopener>一个很好的文章</a></p><h4 id=3容斥原理>3.容斥原理</h4><p>这个东西说简单也很简单, 但是不是非常好说明.那么一大堆数学公式不但难打,而且看着也嫌烦. <strong>举个例子</strong>,就是那个高一数学做的集合题, 那个什么参加乒乓球, 篮球还有什么足球的同学一共多少个什么的东西.这个东西在竞赛中的应用大概是把一类计数类问题进行转换,转换成比较便于计算的形式,然后得出结果,通常是什么逆向思维.也有分类之后算总和的时候进行容斥以得出正确的结论.</p><p>因为我自己写得比较烂,理解也非常浅陋,下面贴几个Blog:</p><p><a class=link href=https://blog.csdn.net/m0_37286282/article/details/78869512 target=_blank rel=noopener>1</a></p><h4 id=4隔板法>4.隔板法</h4><p><strong>隔板法</strong>就是在n个元素间的(n-1)个空中插入k个板,可以把n个元素分成k+1组的方法.</p><p>这个东西讲起来比较麻烦&mldr;2333继续放blog(其实是我不会)</p><p><a class=link href=https://blog.csdn.net/sdz20172133/article/details/81431066 target=_blank rel=noopener>1</a></p><h3 id=6矩阵相关>6.矩阵相关</h3><p>矩阵的基本计算就不说了.</p><p>矩阵考的最多的就是用矩阵来加速多项式的递推计算,也就是矩阵快速幂</p><h4 id=1矩阵快速幂>1.矩阵快速幂</h4><p>先上板子</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=display:flex><span><span style=color:#66d9ef>struct</span> <span style=color:#a6e22e>matrix</span> {
+</span></span><span style=display:flex><span>	ll dat[maxn][maxn]; 
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>int</span> n, m;
+</span></span><span style=display:flex><span>	matrix(<span style=color:#66d9ef>int</span> sz1, <span style=color:#66d9ef>int</span> sz2) <span style=color:#f92672>:</span> n(sz1), m(sz2) {
+</span></span><span style=display:flex><span>		memset(dat, <span style=color:#ae81ff>0</span>, <span style=color:#66d9ef>sizeof</span>(dat));
+</span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>inline</span> <span style=color:#66d9ef>friend</span> matrix <span style=color:#66d9ef>operator</span> <span style=color:#f92672>+</span> (matrix a, matrix b) {
+</span></span><span style=display:flex><span>		matrix <span style=color:#a6e22e>c</span>(a.n, a.m);				
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>register</span> <span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>; i <span style=color:#f92672>&lt;=</span> a.n; <span style=color:#f92672>++</span> i) {
+</span></span><span style=display:flex><span>			<span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>register</span> <span style=color:#66d9ef>int</span> j <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>; j <span style=color:#f92672>&lt;=</span> a.m; <span style=color:#f92672>++</span> j) {
+</span></span><span style=display:flex><span>				c.dat[i][j] <span style=color:#f92672>=</span> a.dat[i][j] <span style=color:#f92672>+</span> b.dat[i][j];
+</span></span><span style=display:flex><span>			}
+</span></span><span style=display:flex><span>		}
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>return</span> c;
+</span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>inline</span> <span style=color:#66d9ef>friend</span> matrix <span style=color:#66d9ef>operator</span> <span style=color:#f92672>*</span> (matrix a, matrix b) {
+</span></span><span style=display:flex><span>		matrix <span style=color:#a6e22e>c</span>(a.n, b.m);				
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>register</span> <span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>; i <span style=color:#f92672>&lt;=</span> c.n; <span style=color:#f92672>++</span> i) {
+</span></span><span style=display:flex><span>			<span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>register</span> <span style=color:#66d9ef>int</span> j <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>; j <span style=color:#f92672>&lt;=</span> c.m; <span style=color:#f92672>++</span> j) {
+</span></span><span style=display:flex><span>				<span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>register</span> <span style=color:#66d9ef>int</span> k <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>; k <span style=color:#f92672>&lt;=</span> a.m; <span style=color:#f92672>++</span> k) {
+</span></span><span style=display:flex><span>					c.dat[i][j] <span style=color:#f92672>=</span> (c.dat[i][j] <span style=color:#f92672>+</span> a.dat[i][k] <span style=color:#f92672>*</span> b.dat[k][j] <span style=color:#f92672>%</span> p) <span style=color:#f92672>%</span> p;
+</span></span><span style=display:flex><span>				}
+</span></span><span style=display:flex><span>			}
+</span></span><span style=display:flex><span>		}
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>return</span> c;
+</span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>};
+</span></span><span style=display:flex><span><span style=color:#66d9ef>inline</span> matrix <span style=color:#a6e22e>fast_pow</span>(matrix a, ll k) {
+</span></span><span style=display:flex><span>	matrix ans(a.n, a.m);
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>register</span> <span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>; i <span style=color:#f92672>&lt;=</span> ans.n; <span style=color:#f92672>++</span> i) {
+</span></span><span style=display:flex><span>		ans.dat[i][i] <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>;
+</span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>for</span> (; k; k <span style=color:#f92672>&gt;&gt;=</span> <span style=color:#ae81ff>1</span>) {
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>if</span> (k <span style=color:#f92672>&amp;</span> <span style=color:#ae81ff>1</span>) ans <span style=color:#f92672>=</span> ans <span style=color:#f92672>*</span> a;
+</span></span><span style=display:flex><span>		a <span style=color:#f92672>=</span> a <span style=color:#f92672>*</span> a;
+</span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>return</span> ans;
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h4 id=2矩阵加速递推>2.矩阵加速递推</h4><p>对于一个递推式,我们可以把它放在某一个矩阵里面.然后它的每一次递推操作可以使用矩阵运算来解决,套上快速幂就会像记者一样.难点主要在于构建单位矩阵.</p><p>以Fibonacci为例:</p><p>我们有
+$$
+F[n] = F[n-1] + F[n-2]
+$$
+然后把它放到一个1*2的矩阵里面(我喜欢横着的)
+$$
+\left[
+\begin{matrix}
+F[n-1] & F[n]
+\end{matrix}
+\right] \\
+\left[
+\begin{matrix}
+F[n-2] & F[n-1]
+\end{matrix}
+\right]
+$$
+我们希望从上面一个推到下面一个, 于是乎由于<code>F[n-1] = 0 * F[n-2] + 1 * F[n-1]</code>, <code>F[n] = 1 * F[n-1] + 1 * F[n-2]</code>,可以得出如下单位矩阵
+$$
+\left[
+\begin{matrix}
+0 & 1 \\
+1 & 1 \\
+\end{matrix}
+\right]
+$$
+我们只要把这个矩阵做上n-1次乘法就可以得到结果了.</p><p>例题很多,就不一一列举了.</p><h3 id=7线性基虽然可能不考>7.线性基(虽然可能不考)</h3><p>这个比较简单，用来求一堆数异或起来的最值问题。主要的做法就是把这一堆数字的二进制给存起来，然后去一个一个异或。用到了向量的思想，不多说，背板子。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#66d9ef>int</span> maxbit <span style=color:#f92672>=</span> <span style=color:#ae81ff>63</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>struct</span> <span style=color:#a6e22e>linear_base</span> {
+</span></span><span style=display:flex><span>	linear_base() {
+</span></span><span style=display:flex><span>		memset(dat, <span style=color:#ae81ff>0</span>, <span style=color:#66d9ef>sizeof</span>(dat));
+</span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>long</span> <span style=color:#66d9ef>long</span> dat[maxbit <span style=color:#f92672>+</span> <span style=color:#ae81ff>1</span>];
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>bool</span> <span style=color:#a6e22e>insert</span>(<span style=color:#66d9ef>long</span> <span style=color:#66d9ef>long</span> n) {
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>register</span> <span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> maxbit; i <span style=color:#f92672>&gt;=</span> <span style=color:#ae81ff>0</span>; <span style=color:#f92672>--</span> i) {
+</span></span><span style=display:flex><span>			<span style=color:#66d9ef>if</span> (n <span style=color:#f92672>&amp;</span> (<span style=color:#ae81ff>1LL</span> <span style=color:#f92672>&lt;&lt;</span> i)) {
+</span></span><span style=display:flex><span>				<span style=color:#66d9ef>if</span> (<span style=color:#f92672>!</span>dat[i]){
+</span></span><span style=display:flex><span>					dat[i] <span style=color:#f92672>=</span> n;
+</span></span><span style=display:flex><span>					<span style=color:#66d9ef>break</span>;
+</span></span><span style=display:flex><span>				}
+</span></span><span style=display:flex><span>				n <span style=color:#f92672>^=</span> dat[i];
+</span></span><span style=display:flex><span>			}
+</span></span><span style=display:flex><span>		}
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>return</span> n <span style=color:#f92672>&gt;</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>long</span> <span style=color:#66d9ef>long</span> <span style=color:#a6e22e>get_min</span>() {		
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>register</span> <span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> maxbit; i <span style=color:#f92672>&gt;=</span> <span style=color:#ae81ff>0</span>; <span style=color:#f92672>--</span> i) {
+</span></span><span style=display:flex><span>			<span style=color:#66d9ef>if</span> (dat[i]) <span style=color:#66d9ef>return</span> dat[i];
+</span></span><span style=display:flex><span>		}
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>return</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>long</span> <span style=color:#66d9ef>long</span> <span style=color:#a6e22e>get_max</span>() {
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>long</span> <span style=color:#66d9ef>long</span> ret <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>register</span> <span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> maxbit; i <span style=color:#f92672>&gt;=</span> <span style=color:#ae81ff>0</span>; <span style=color:#f92672>--</span> i) {
+</span></span><span style=display:flex><span>			<span style=color:#66d9ef>if</span> ((ret <span style=color:#f92672>^</span> dat[i]) <span style=color:#f92672>&gt;</span> ret) {
+</span></span><span style=display:flex><span>				ret <span style=color:#f92672>^=</span> dat[i];
+</span></span><span style=display:flex><span>			}
+</span></span><span style=display:flex><span>		}
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>return</span> ret;
+</span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>};
+</span></span></code></pre></div><p>附赠:<a class=link href=https://blog.csdn.net/qaq__qaq/article/details/53812883 target=_blank rel=noopener>一个很好的文章</a></p><h3 id=8概率期望碰到就放弃系列>8.概率期望(碰到就放弃系列)</h3><h4 id=1基本内容-2>1.基本内容</h4><h4 id=2期望dp>2.期望DP</h4><h3 id=9神奇的东西>9.神奇的东西</h3><h4 id=1题目收集>1.题目收集</h4><ol><li>Luogu: 斐波那契公约数 gcd(F[n], F[m]) = F[gcd(n,m)]</li><li>Luogu: P4388 phi</li></ol><h4 id=2gcd相关性质>2.GCD相关性质</h4><p>并不清楚有什么</p><h4 id=3几个数列>3.几个数列</h4><h5 id=1-catalan>1. Catalan</h5><p>$$
+Cat_n = \frac{C_{2n}^{n}}{n + 1}
+$$</p><p>几个常见的情况:</p><ol><li>合法括号匹配序列数(n左n右 -> Cat(n))</li><li>合法出栈序列数(n个数 -> Cat(n))</li><li>n个节点构成的不同二叉树的数量</li></ol><p>给个表:1, 1, 2, 5, 14, 42, 132, 429, 1430, 4862, 16796, 58786, 208012&mldr;&mldr;</p><h5 id=2-fibonacci>2. Fibonacci</h5><p>这个就不说了</p><h5 id=3欧拉函数>3.欧拉函数</h5><p>前面有</p><h5 id=4约数个数>4.约数个数</h5><h4 id=4-数论分块>4. 数论分块</h4><p>这个详见余数求和那道题</p><h4 id=5一些结论>5.一些结论</h4><p>$$
+(x + 1)^p \equiv x^p + 1 \pmod{p}
+$$</p><p>可以用来证明Lucas定理(对于OI来说没什么用)
+$$
+对于a \perp b, 形如k*a + b的素数有无数个
+$$
+虽然不知道有什么用</p><h3 id=10致谢>10.致谢</h3><p>百度 cnblogs csdn luogu &lt;算法竞赛进阶指南> &lt;信息学奥赛一本通 提高> &lt;具体数学></p></section><footer class=article-footer><section class=article-tags><a href=/tags/noip/>NOIP</a></section><section class=article-copyright><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg><span>Licensed under CC BY-NC-SA 4.0</span></section></footer><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.css integrity="sha256-J+iAE0sgH8QSz9hpcDxXIftnj65JEZgNhGcgReTTK9s=" crossorigin=anonymous><script src=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.js integrity="sha256-InsNdER1b2xUewP+pKCUJpkhiqwHgqiPXDlIk7GzBu4=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/auto-render.min.js integrity="sha256-y39Mpg7V3D4lhBX4x6O0bUqTV4pSrfgwEfGKfxkOdgI=" crossorigin=anonymous defer></script><script>window.addEventListener("DOMContentLoaded",()=>{renderMathInElement(document.querySelector(`.article-content`),{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1},{left:"\\(",right:"\\)",display:!1},{left:"\\[",right:"\\]",display:!0}],ignoredClasses:["gist"]})})</script></article><aside class=related-content--wrapper><h2 class=section-title>相关文章</h2><div class=related-content><div class="flex article-list--tile"><article><a href=/blog/oi%E5%8A%9D%E9%80%80%E6%8C%87%E5%8D%97/><div class=article-details><h2 class=article-title>OI劝退指南</h2></div></a></article></div></div></aside><footer class=site-footer><section class=copyright>&copy;
+2018 -
+2023 Catfood Dev Blog</section><section class=powerby>摸摸猫猫<br>Built with <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a><br>主题 <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.16.0>Stack</a></b> 由 <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a> 设计</section></footer><div class=pswp tabindex=-1 role=dialog aria-hidden=true><div class=pswp__bg></div><div class=pswp__scroll-wrap><div class=pswp__container><div class=pswp__item></div><div class=pswp__item></div><div class=pswp__item></div></div><div class="pswp__ui pswp__ui--hidden"><div class=pswp__top-bar><div class=pswp__counter></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title=Share></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button><div class=pswp__preloader><div class=pswp__preloader__icn><div class=pswp__preloader__cut><div class=pswp__preloader__donut></div></div></div></div></div><div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap"><div class=pswp__share-tooltip></div></div><button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"></button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button><div class=pswp__caption><div class=pswp__caption__center></div></div></div></div></div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css crossorigin=anonymous></main></div><script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z+KMkF24hUW8WePSA9HM=" crossorigin=anonymous></script><script type=text/javascript src=/ts/main.js defer></script>
+<script>(function(){const e=document.createElement("link");e.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",e.type="text/css",e.rel="stylesheet",document.head.appendChild(e)})()</script></body></html>
