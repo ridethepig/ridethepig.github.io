@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>编译原理 on Catfood Dev Blog</title><link>https://ridethepig.github.io/tags/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/</link><description>Recent content in 编译原理 on Catfood Dev Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Mon, 03 Apr 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://ridethepig.github.io/tags/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/index.xml" rel="self" type="application/rss+xml"/><item><title>COOL Compiler-Part5</title><link>https://ridethepig.github.io/blog/cool-compiler-part5/</link><pubDate>Mon, 03 Apr 2023 00:00:00 +0000</pubDate><guid>https://ridethepig.github.io/blog/cool-compiler-part5/</guid><description>&lt;h2 id="pa5">PA5&lt;/h2>
+&lt;h3 id="读文档">读文档&lt;/h3>
+&lt;p>最后一个 PA，那必然是要把剩下来的文档全部读完。需要预先看一遍带是 &lt;code>cool-tour.pdf&lt;/code> 的第7章 Runtime System 和 PA5 handout，至于 &lt;code>cool-manual.pdf&lt;/code> 的第13章语义部分倒是可以一边实现一边看。&lt;/p>
+&lt;p>先看 handout：&lt;/p>
+&lt;ul>
+&lt;li>代码量巨大无比，竟然是 PA4 的2倍（悲&lt;/li>
+&lt;li>文件简述：&lt;code>cgen.{cc|hh}&lt;/code> 大部分需要写的代码，和 PA4 类似的结构，从 AST 的根节点开始进行 &lt;code>cgen&lt;/code>；&lt;code>cool-tree.h&lt;/code> 和 PA4 类似；&lt;code>cgen_supp.cc&lt;/code> 定义辅助函数；&lt;code>emit.h&lt;/code> 里面有一些 MIPS 汇编和符号宏定义；剩下的都是老熟人了。&lt;/li>
+&lt;li>主要任务：
+&lt;ul>
+&lt;li>生成全局常量（prototype objects）&lt;/li>
+&lt;li>生成全局表，&lt;code>class_nameTab&lt;/code> &lt;code>class_objTab&lt;/code> 还有方法调用表&lt;/li>
+&lt;li>生成每个类的初始化代码&lt;/li>
+&lt;li>生成方法定义
+推荐的实现方法还是分两部分，先生成对象布局，然后第二遍在生成每个表达式的代码。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>提醒注意：这次没有必要去“逆向”参考编译器了，因为它实现了一些高级功能比如寄存器分配优化，这个 PA5 并不要求这个。&lt;/li>
+&lt;li>运行时错误处理：manual 规定了6种运行时错误，生成的代码需要检测三种：(static) dispatch on void, case on void, missing branch；除零可以交给模拟器；剩下两种由 Runtime 处理。&lt;/li>
+&lt;li>GC：有一个3个命令行开关控制垃圾回收系统相关的功能。默认情况下不打开 &lt;code>-g&lt;/code> 开关，此时不启用 GC，也就是说这是一个选做功能；&lt;code>-t&lt;/code> 迫使 GC 系统在每次分配对象的时候进行回收；&lt;code>-T&lt;/code> 的功能交给实现，可能会用来实现一些其他的运行时检查。实现 GC 功能的时候，需要认真阅读 Runtime 手册相关内容。这里可以去看看 CS143 课程网站上的那个单独的 &lt;code>cool-runtime.pdf&lt;/code>，似乎写的更加详细一些。&lt;/li>
+&lt;li>测试工具：和 PA4 类似，提供了一个 &lt;code>-c&lt;/code> 选项来设置全局变量 &lt;code>cgen_debug&lt;/code>。同时提供了一个第三方实现的 &lt;code>Coolaid&lt;/code> 工具对生成的 MIPS 汇编进行一些检查，说不定会有帮助。最后关于 &lt;code>Spim&lt;/code> 的 warning 可能会有用。&lt;/li>
+&lt;/ul>
+&lt;p>然后看看 Runtime System：&lt;/p>
+&lt;ul>
+&lt;li>首先是对象布局：GC Tag 设为-1；Object Size 也得填上；dispatch pointer 因为不会被 runtime 用到，所以需要自己设计 dispatch 表；对于属性，&lt;code>Int&lt;/code> 只有一个32位整数、&lt;code>Bool&lt;/code> 也是如此、&lt;code>String&lt;/code> 有一个32位的长度+后面全部是 ASCII 字节（最后需要 word 对齐），然后还有空指针 void。&lt;/li>
+&lt;li>然后是一个叫原型对象（Prototype Object）的东西：COOL 里面新建对象的方法是使用 &lt;code>Object.copy()&lt;/code>，因此我们需要生成这些供其复制的东西，也就是 prototype object。生成的时候需要正确设置前面的头部，对于属性，三个基本类型有自己的规定，其余类型的属性随意设置。&lt;/li>
+&lt;li>栈和寄存器约定：方法调用参数放在栈上、从左到右依次压栈，&lt;code>a0&lt;/code> 寄存器里面放 &lt;code>self&lt;/code> 对象指针。指定了一组 Scratch registers 供 runtime routine 存放临时数据，因此需要调用者保存；还有堆指针和堆界限两个寄存器，完全由 runtime 控制。其他的都可以用。&lt;/li>
+&lt;li>Label：生成的代码需要和 runtime 一起变成最后执行的机器码，因此有一些 label 是指定的，就类似于接口一样的东西。有些 label 是 runtime 提供给我们使用的，也有一些需要我们生成供 runtime 使用。有一句话 &lt;code>There is no need for code that initializes an object of class Bool if the generated code contains definitions of both Bool objects in the static data area.&lt;/code> 没看懂&lt;/li>
+&lt;li>执行初始化：Runtime 预定义了一些代码来调用 main 方法。首先通过 Main prototype 生成一个 Main 类的对象并用 &lt;code>Main_init&lt;/code> 初始化，该初始化方法依次执行 Main 的基类的初始化最后初始化 Main；然后调用 &lt;code>Main.main&lt;/code>，在 &lt;code>a0&lt;/code> 里面放上 &lt;code>Main&lt;/code> 的指针并设置 &lt;code>ra&lt;/code>；执行结束后，&lt;code>Main.main&lt;/code> 返回，这里打印出提示信息并终止执行。不过实际上我们并不需要关心这个问题，只需要知道 &lt;code>main&lt;/code> 会首先被执行、以及 self object 会被默认放在 &lt;code>a0&lt;/code> 里面。&lt;/li>
+&lt;/ul>
+&lt;h3 id="一些踩坑">一些踩坑&lt;/h3>
+&lt;p>测评脚本硬编码了一些东西，因此需要进行一些修改以使其能够正常工作。它会调用绝对路径 &lt;code>/usr/class/cs143/bin/spim&lt;/code>，这个最好就是复制一份到对应的目录；还有一个问题就是它的 &lt;code>spim&lt;/code> 好像和下发的不一样（简单逆向了一下），因此它的标准输出中 &lt;code>spim&lt;/code> 的打印信息有一处和我们的 &lt;code>spim&lt;/code> 不一样：它的 &lt;code>handler&lt;/code> 打印的是绝对路径，而我的是相对路径。试了好几种方法都没法改，看字符串表发现是硬编码的，因此只能改测试样例的标准输出。默认运行会导致数据被重新解压覆盖，因此需要先单独解压，然后修改，实际测试的时候用不重新解压数据的参数。具体如下：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Assume you are in directory `assignments/PA5/`&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo mkdir -pv /usr/class/cs143
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo cp -r ../../bin /usr/class/cs143
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo cp -r ../../lib /usr/class/cs143
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>perl pa5-grading.pl -v
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>find ./grading -type f -exec sed -i &lt;span style="color:#e6db74">&amp;#39;s;/usr/class/cs143/cool;..;g&amp;#39;&lt;/span> &lt;span style="color:#f92672">{}&lt;/span> +
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>perl pa5-grading.pl -r
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="实现说明">实现说明&lt;/h3>
+&lt;p>这个里面的细节实在是太多了，如果要全部写清楚的话就很抽象，所以就简单写写要点吧。&lt;/p>
+&lt;p>在开始之前，建议把它实现的继承树实现给换成 PA4 里面自己写的，这样可以省去看它的抽象代码的功夫。平心而论，他写的基础代码质量真的不咋地，效率低下还有内存泄漏，无力吐槽。&lt;/p>
+&lt;p>主要的实现还是分成两个部分，第一个部分先线性地去生成一些必要的静态数据表，然后再递归地去生成表达式代码。这也说明了整个代码的结构，前面一堆是数据段，后面一堆是代码段。&lt;/p>
+&lt;p>关于静态数据的生成，主要参考 Runtime System 说明，里面应该把所有必须生成和建议的实现方式都说到了。然后 skeleton 已经写了一些部分的生成代码，主要看 &lt;code>CgenClassTable::code()&lt;/code>，它生成了所有需要用 &lt;code>.globl&lt;/code> 声明的符号（但是可能没有定义，具体的符号见 Figure 3）、所有的常量对象（String、Int、Bool 这三种基本类型的字面值常量，都被转换成了静态的对象格式存放在数据段里面）以及 GC 标志。我们需要生成的东西有：&lt;/p>
+&lt;ol>
+&lt;li>&lt;code>class_nameTab&lt;/code>：类名表，按照 class tag 排序&lt;/li>
+&lt;li>&lt;code>_dispTab&lt;/code>：每个对象的函数表，可以自己设计，不过还是直接按照继承和扫描顺序填算了&lt;/li>
+&lt;li>&lt;code>_protoObj&lt;/code>：每个对象的原型对象，建议给每个属性填上默认值，这样后面就可以少生成一些代码，因为复制的时候就相当于已经把没有初始化表达式的属性给赋默认值了，不需要单独生成加载默认值的代码了。&lt;/li>
+&lt;li>&lt;code>class_objTab&lt;/code>：这个在 &lt;code>cool-tour.pdf&lt;/code> 里面没写，但是单独的 &lt;code>cool-runtime.pdf&lt;/code> 里面写了。它的用处是处理 &lt;code>SELF_TYPE&lt;/code> 的东西。如果对象是 &lt;code>SELF_TYPE&lt;/code>，就只能通过 class tag 来确定它的运行时类型然后动态绑定，而不能在编译时确定它调用的方法。所以需要一个对象表，里面放上 &lt;code>_init&lt;/code> 和 &lt;code>_protoObj&lt;/code>，用的时候拿 tag 查表。&lt;/li>
+&lt;/ol>
+&lt;p>为了生成这些表，还需要做一些额外的工作，不过最后思考一下，可以在一次先序遍历中解决所有的问题。为了生成 dispatch 表，需要统计一个类中的所有方法，这就涉及到了继承和重写基类方法；为了生成 protoObj，需要指派 tag 并统计所有的属性，这里也需要考虑继承的问题。因为后面要用到 tag 在运行时判断继承关系，因此 tag 不能随便分配，需要按照遍历顺序依次分配。&lt;/p>
+&lt;p>做完以上的工作之后，我们就可以开始进行正式的代码生成了。代码生成主要是表达式的生成，最后每个函数包装一下。我基本上就是按照课上讲的 Accumulator 模型写的，除非是调用 Runtime 的地方，其他的代码都仅使用 &lt;code>a0&lt;/code> 和 &lt;code>t1&lt;/code> 这两个寄存器做计算。不过课上的模型毕竟是简化过的，基本上能生成一大半的代码。剩下的部分需要额外处理局部变量的引入和属性的查询，需要自己写一个从符号到存储位置的映射表。因为我懒得单独做临时变量的地址分配了（其实不难做，只需要额外遍历一次 AST 就可以了），所以分配临时变量就直接压栈了。不过索引临时变量还是用的是 &lt;code>$fp&lt;/code> 的相对偏移，因此维护了一个全局变量来记录当前用了分配的变量用的是哪一个地址（类似于一个小的栈，分配的时候+1，离开作用域的时候-1）。函数的参数也在栈上，在函数开始时候要把参数加入到表里。当然，除了栈之外，属性也是映射表的一部分，所以表项要加一个域来指示符号是在栈上还是在堆上（即相对于对象指针的偏移量）。&lt;/p>
+&lt;p>除了表达式的生成，还有函数的生成。&lt;/p>
+&lt;p>首先需要确定的就是 calling convention，我是用了比较方便实现的结构：调用者只需要压参数就行了，然后把被调用者所属的对象指针塞进 &lt;code>$a0&lt;/code>；被调用者负责保存 &lt;code>$fp,$s0,$ra&lt;/code> 这三个寄存器，同时负责回收参数占用的空间。&lt;/p>
+&lt;p>关于参数，由于 COOL 规定了函数参数从左到右求值（冷知识：C 语言没有规定，取决于编译器实现），因此我让栈顶放最后一个参数（但是正常的系统中是栈顶是第一个参数）这样比较好写（求值一个 push 一个），因此在取参数的时候要特别注意。&lt;/p>
+&lt;p>关于寄存器的使用，一共涉及到 8 个寄存器&lt;/p>
+&lt;ol>
+&lt;li>&lt;code>$sp&lt;/code> 栈指针，动态变化，需要维护栈平衡&lt;/li>
+&lt;li>&lt;code>$fp&lt;/code> 帧指针，在一个函数上下文中是固定的，用来确定局部变量的位置&lt;/li>
+&lt;li>&lt;code>$ra&lt;/code> 返回地址，没啥好说的。&lt;/li>
+&lt;li>&lt;code>$s0&lt;/code> 存放 self object，每个函数可能不一样，所以要在入口保存旧的并加载新的，在出口恢复旧的。&lt;/li>
+&lt;li>&lt;code>$a0&lt;/code> 有两种情况，一种是作为参数，一般是把目标函数的 self object 放在里面传进过程调用里面；另一种是作为返回值，无论是函数的返回值还是表达式的返回值，反正得到的结果都放在里面。&lt;/li>
+&lt;li>&lt;code>$t1&lt;/code> 临时变量，因为 RISC 架构只能两个寄存器之间做运算。&lt;/li>
+&lt;li>&lt;code>$a1&lt;/code> &lt;code>$t2&lt;/code> 在我的实现中，这两个仅仅是用来给 Runtime 传参数的时候才会设置的，其他地方不会用到也不需要保存。&lt;/li>
+&lt;/ol>
+&lt;p>需要生成的代码有两大块，对象初始化代码和方法代码。&lt;br>
+新建一个对象分两步，首先调用 &lt;code>Object.copy&lt;/code> 从原型对象复制一份，然后调用对应类的初始化方法来完成属性初始化。初始化方法只有一个参数 &lt;code>$a0&lt;/code> 放的是需要被初始化的对象指针，主要是也是两步，先调用基类的初始化代码，然后把自己新增的且有初始化表达式的属性依次按表达式求值。之所以只生成有 init 表达式的属性代码，是因为前面写原型的时候就把那些没有 init 表达式的属性的默认值给填上去了。&lt;br>
+方法代码就正常生成吧，不同的是，初始化代码每个类都要生成，而方法代码则不需要生成预定义的5个类的方法。还有就是生成之前记得把参数列表和属性给加到符号表里面。&lt;/p>
+&lt;p>关于实现部分，就简单描述如上，剩下的细节就去看手册吧，写不动。&lt;/p>
+&lt;h2 id="完结感言">完结感言&lt;/h2>
+&lt;p>至此，这个编译器就算是做完了。实验是 3.17 正式开始做的，前天调完最后一个 PA 是 4.1，前前后后做了有半个月的样子，一共写了近 4000 行代码。唯一的感觉是，真累啊。这个 Lab 既没有友好的框架代码，也没有完善的文档说明，工程量还巨大，如果不是我特地去找了找测试脚本，估计还得再多花不少时间写测试样例。总之相比做过的其他几个实验，这个的体验顶多算是及格。&lt;/p>
+&lt;p>就难度而言，其实是没有多难的，看上去折磨只不过是因为它的不完善导致每个 PA 开始之前会困惑好长时间，然后堆代码堆个上千行，最后调 edge case 再调半天。那些算法一个没做，我觉得倒是不如像 xv6 那样，给一个基础的系统，然后让我写寄存器分配或者是控制流分析这些进阶功能。对于编译的理解，好像也没有在理论课的基础上提升多少：PA1 学习 COOL，没啥大用；PA2 写 flex，练了练怎么写正则表达式；PA3 写 Bison，练了练怎么写 BNF 文法，背后的原理啥也没学会；PA4 写语义检查，也就是实现了课上讲的类型规则系统；PA5 生成代码，纯纯的 MIPS 汇编。&lt;/p>
+&lt;p>硬要说我学到了什么的话，大概就是了解了一下编译器的完整流程吧。总之不是很推荐做这个实验，有这功夫不如去写写它的 Written Assignment，还有详细的参考答案，感觉比做这个 PA 要更有用那么一些。&lt;/p>
+&lt;p>无论如何，完结撒花，就酱。&lt;/p></description></item><item><title>COOL Compiler-Part4</title><link>https://ridethepig.github.io/blog/cool-compiler-part4/</link><pubDate>Tue, 28 Mar 2023 00:00:00 +0000</pubDate><guid>https://ridethepig.github.io/blog/cool-compiler-part4/</guid><description>&lt;h2 id="pa4">PA4&lt;/h2>
+&lt;p>终于不用折腾老古董了，虽然但是这个 PA 的代码量有点大啊，而且要考虑的东西变多了，为啥越做越难了。&lt;/p>
+&lt;p>这个 PA 的代码量特别大，写了我三天半，而且是周末的三天半（每天写12小时代码），主要是实现语义检查，有很多细节需要考虑，包括生成的一些错误信息之类的。将近1/3的时间会花费在读文档、写测例、对着参考编译器复制错误信息（虽然不一定要求和参考程序一样，但是写成一样的会使得 diff 比较方便）以及考虑各种细节问题上。&lt;/p>
+&lt;h3 id="写之前先读文档">写之前先读文档&lt;/h3>
+&lt;p>需要读的 Manual: Typing rules，scoping rules。除了13节 operational semantics 之外，应该都要看完。&lt;/p>
+&lt;p>主要任务：&lt;/p>
+&lt;ul>
+&lt;li>遍历所有的类、构建继承关系图、检查继承关系&lt;/li>
+&lt;li>对于每一个类，先遍历一遍构建符号表，然后类型检查并在 AST 上做类型注解&lt;/li>
+&lt;/ul>
+&lt;p>需要修改的文件：&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>cool-tree.h&lt;/code> 扩展 AST 的定义；&lt;/li>
+&lt;li>&lt;code>semant.cc&lt;/code> &lt;code>semant.h&lt;/code> 实现主要的逻辑：&lt;code>semant()&lt;/code> 方法会被主程序外部调用，&lt;code>ClassTable&lt;/code> 写了一点 starter code，构建继承关系用这个东西。&lt;/li>
+&lt;/ul>
+&lt;p>如何遍历：&lt;/p>
+&lt;ul>
+&lt;li>看代码 &lt;code>dump_with_types&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;p>继承关系构建：建个图然后检查环路。从 basic class 继承有限制（Int、String和Bool这三个都是不可继承、不可重定义的，其他的basic class 不能重新定义），同时不能继承一个不存在的类。
+推荐的分析过程：第一步先检查继承关系，第二步检查其他的语义条件。&lt;/p>
+&lt;p>作用域：&lt;code>self&lt;/code> 自动引入，其他带需要考虑命名覆盖的问题。注意，class、method、attribute 这些的命名可以在定义前被使用，因此可能需要多趟处理。符号表在 support code 里面有定义，甚至有一个 &lt;code>symtab_example.cc&lt;/code> 的样例程序。&lt;/p>
+&lt;p>类型检查：对于无法确定类型的表达式，赋一个 Object 然后尝试恢复。需要给出错误信息，不过正如课上讲的 cascading error 是可以接受的。&lt;/p>
+&lt;p>代码生成接口约束：所有表达式节点的 &lt;code>type&lt;/code> 必须设置为 &lt;code>Symbol&lt;/code>，具体的值由 type checker 决定。&lt;code>no_expr&lt;/code> 赋值为预定义的 &lt;code>Symbol&lt;/code> 变量 &lt;code>No_type&lt;/code>。&lt;/p>
+&lt;p>错误输出：对于不存在继承相关错误的程序，需要报告所有的语义错误（不要求和参考实现完全一致）。这个作业里面需要手动调用报错方法 &lt;code>ClassTable::semant_error()&lt;/code>，（前两个PA是工具自动生成的）&lt;/p>
+&lt;p>调试：skeleton 提供了一个命令行开关 &lt;code>-s&lt;/code>，对应全局变量 &lt;code>semant_debug&lt;/code>，可以用来条件打开调试信息。&lt;/p>
+&lt;h3 id="实现说明">实现说明&lt;/h3>
+&lt;p>需要修改的文件有四个，&lt;code>semant.cc&lt;/code> &lt;code>semant.h&lt;/code> &lt;code>cool-tree.h&lt;/code> &lt;code>cool-tree.handcode.h&lt;/code>。前两个主要是自己实现，主要的代码都在这里；后两个是为了定义 AST 节点上的接口。&lt;/p>
+&lt;p>接口方面，我增加了一个 &lt;code>semant(Class_, ClassTable*)&lt;/code> 来做类型检查以及一些必要的 getter 供父节点访问子节点内部信息。不过也不是所有类型的都写了，为了省事，我只写了 &lt;code>Feature&lt;/code> 和 &lt;code>Expression&lt;/code> 两个类的 &lt;code>semant&lt;/code> 方法。写的时候可以在 &lt;code>cool-tree.handcode.h&lt;/code> 的宏里面定义这些接口，这样就不用手动把定义复制到每个子类里面去了。剩下的各种列表、&lt;code>Branch&lt;/code> 和 &lt;code>Formal&lt;/code> 的处理逻辑就一起写到他们的父节点里面了，因为他们被用到的地方是唯一的，写在哪里都是写一遍。&lt;code>semant&lt;/code> 方法接受两个参数，一个当前的类，对应规则里面的环境 &lt;code>C&lt;/code>；还要一个是 &lt;code>ClassTable&lt;/code> 这里面存放了所有需要用到的工具以及符号表（对应规则里的环境 &lt;code>O,M&lt;/code>），然后递归向下处理整个AST。&lt;/p>
+&lt;p>整个过程分为两个部分实现，分别处理继承关系和其余部分（主要是类型检查）。&lt;/p>
+&lt;ul>
+&lt;li>继承关系检查又需要扫描三次类列表，第一遍去除重复的类定义并检查预定义类冲突；第二遍初步建立继承关系树，检查基类存在性；第三遍遍历继承关系树，检查是否存在环形继承。这些工作完成后，产生了一个继承树和一些其他的辅助记录结构，后面的检查会依赖这些信息。
+&lt;ul>
+&lt;li>检查环路其实很简单，只需要从 Object 开始遍历一遍树，没访问到的肯定有环。因为语法分析保证了一个类只能有一个基类，如果存在环那么它向根肯定跳不到 Object，不过向上跳不好写，反过来就是从 Object 开始遍历树无法访问到的节点在环上，就很简单了。&lt;/li>
+&lt;li>不过 skeleton 并没有提供相应的数据结构，需要自己实现。写一个 node 类型，然后写上父节点和子节点指针（列表），另外需要一个指针存对应的类以及一个辅助变量（用来后面写 LCA 和判定环路）。&lt;/li>
+&lt;li>在实现的过程中比较遗憾的是，指针乱飞，而且它提供的符号表还内存泄漏，实在是一言难尽。不过累了，懒得改 RAII 了，&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>其余部分需要两次遍历，一次线性扫描所有的类，遍历每个类的 Features 列表，收集每个类里面的属性和方法定义加入符号表并检查重复定义和方法覆盖的情况；同时还要顺便保证一下 Main 类和 main 方法的存在。第二次就是类型检查，从 AST 的 program 开始（这个 skeleton 已经写好了）向下递归调用子节点的 &lt;code>semant&lt;/code> 方法来进行检查。
+之所以要两遍，是因为属性和方法可以在定义前被使用，因此需要提前收集，不然没法做类型检查。
+&lt;ul>
+&lt;li>这里涉及到符号表的设计。根据类型检查规则，需要两个表，一个是标识符，一个是方法。我的做法是给每个类分了一组符号表（标识符和方法），用 map 索引起来，在第一次扫描的时候把类的属性和方法就塞进去，同时还有 &lt;code>self:SELF_TYPE&lt;/code> 这个保留定义。&lt;/li>
+&lt;li>第一次检查的时候，需要处理重复定义和方法覆盖。对于属性，重复定义还需要考虑继承的属性；对于方法，特别注意方法覆盖，需要比较长度、返回类型（完全一致，不可用派生类）和每个形式参数的完全一致。&lt;/li>
+&lt;li>第二次就比较的繁琐，需要把每一条类型检查规则写成 C++ 代码。为此，还需要定义运算符 &lt;code>join&lt;/code> 和 &lt;code>conform&lt;/code>（相当于课上的 &lt;code>lub&lt;/code> 和 &lt;code>&amp;lt;=&lt;/code>）。前者是因为 &lt;code>if&lt;/code> 和 &lt;code>case&lt;/code> 两个语句的返回类型要取它们的最小上界。这个过程中需要特别注意的是对 &lt;code>SELF_TYPE&lt;/code> 的处理，因为 &lt;code>SELF_TYPE&lt;/code> 不在类定义表里，而且很多规则都涉及到这个东西。
+具体的实现因为太多了，就不写了。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;p>对着手册写完了一堆规则之后，还有究极麻烦的错误处理。这里列几个基本的原则，实在难绷的会记录在下面的细节说明中。&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>只有&lt;/strong>在无法确定类型的时候赋值 Object，而不是一有类型错误就返回 Object。比如使用了未定义的类型，只需要报错就行了，在后续的检查中不需要把他改成 Object。还有算术，无论两边的操作数类型是啥，这个算术表达式都是返回 &lt;code>Int&lt;/code> 类型的。&lt;/li>
+&lt;li>&lt;code>SELF_TYPE&lt;/code> 和 &lt;code>SELF_TYPE_c&lt;/code>，这两个东西在 AST 里面都写成 &lt;code>SELF_TYPE&lt;/code> 这个 &lt;code>Symbol&lt;/code>，在实际检查的时候再特别判定。另外关于这两个玩意的错误很多都是特别判定的，再参考实现里面这东西的错误不和其他的一起判断，我也推荐这样的写法，比如一开始先不考虑这两玩意儿，写完之后再加上。&lt;/li>
+&lt;li>尽量多检查一些东西，有些能继续的就继续，只有一阶段检查完之后可以 abort，其他的尽量不直接 return。&lt;/li>
+&lt;/ul>
+&lt;h3 id="细节说明">细节说明&lt;/h3>
+&lt;p>特别注意一下的情况统计，会比较有用。&lt;/p>
+&lt;blockquote>
+&lt;p>引入新变量绑定的四种情况&lt;/p>
+&lt;ul>
+&lt;li>attribute definitions;&lt;/li>
+&lt;li>formal parameters of methods;&lt;/li>
+&lt;li>let expressions;&lt;/li>
+&lt;li>branches of case statements.&lt;/li>
+&lt;/ul>
+&lt;/blockquote>
+&lt;blockquote>
+&lt;p>允许使用 &lt;code>SELF_TYPE&lt;/code> 的四种情况&lt;/p>
+&lt;ul>
+&lt;li>new SELF TYPE&lt;/li>
+&lt;li>return type of a method,&lt;/li>
+&lt;li>declared type of a let variable&lt;/li>
+&lt;li>declared type of an attribute&lt;/li>
+&lt;/ul>
+&lt;/blockquote>
+&lt;p>这个 PA 的坑细节很多，调了大半天bug。&lt;/p>
+&lt;ul>
+&lt;li>关于 &lt;code>self&lt;/code> 和 &lt;code>SELF_TYPE&lt;/code> 的特别判定
+&lt;ul>
+&lt;li>&lt;code>self&lt;/code> 不能被赋值、不能重定义（属性名、 &lt;code>let&lt;/code> 变量名、形式参数名、&lt;code>case&lt;/code> 绑定名）&lt;/li>
+&lt;li>&lt;code>SELF_TYPE&lt;/code> 不能重定义（类检查）、只能出现在四个地方（因此不能用于形参定义、静态函数调用）&lt;/li>
+&lt;li>表达式的返回值可能是 &lt;code>SELF_TYPE&lt;/code>，这是就需要结合当前类来执行 &lt;code>conform&lt;/code> 和 &lt;code>join&lt;/code> 操作了，如果不考虑的话会段错误。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>记得在返回类型的时候同时改 AST 上的类型标注（主要是 Expression 类下面的，Feature 和 Formal 一开始就标好了 &lt;code>type_decl&lt;/code> 这个反而不能改）&lt;/li>
+&lt;li>方法、属性查询的时候，记得要查父类，不然继承的变量和方法就找不到了。&lt;/li>
+&lt;li>还有各种未定义的处理，一不小心就段错误了&lt;/li>
+&lt;li>返回 Object 的情况：objectid 未定义、new 未定义类、函数调用中无法确定被调用函数的情况（类未定义、函数未定义、函数参数个数不对）、loop 返回值。&lt;/li>
+&lt;/ul>
+&lt;p>剩下的基本上能从手册的12章中比较清晰的看出来。&lt;/p></description></item><item><title>COOL Compiler-Part3</title><link>https://ridethepig.github.io/blog/cool-compiler-part3/</link><pubDate>Fri, 24 Mar 2023 00:00:00 +0000</pubDate><guid>https://ridethepig.github.io/blog/cool-compiler-part3/</guid><description>&lt;h2 id="pa3">PA3&lt;/h2>
+&lt;p>这个作业写 Parser。主要问题依然来自于 bison 工具不会用以及各种奇形怪状的 edge case，折磨程度和前一个差不多，写了3天的样子。写的时候一直在想如果有 &lt;code>ANTLR&lt;/code> 就好了，之前玩过，感觉比 &lt;code>Flex&lt;/code> + &lt;code>Bison&lt;/code> 这种老古董要舒服多了。&lt;/p>
+&lt;h3 id="bison-踩坑">Bison 踩坑&lt;/h3>
+&lt;p>前期主要是 Bison 不会用，这里记录一些坑。基本上的工作就是在翻译手册上的 BNF 然后写 semantic action。写着写着突然发现它的课上好像根本没讲这玩意，就挺抽象的。&lt;/p>
+&lt;p>一开始需要了解的东西（不至于迷惑）：&lt;code>$$&lt;/code> &lt;code>$[1-n]&lt;/code> 分别表示 &lt;code>:&lt;/code> 左边的 non-terminal 和右边的第n个符号所关联的值，这些值可以理解为树的结点。这些东西是有类型的，所有可用类型定义在 &lt;code>%union&lt;/code> 里面，对应到产生式上需要单独指定（貌似新版的 bison 提供了推导功能，但是这个实验在设计的时候显然没有）。对于终结符（这里就是那些 &lt;code>TOKEN&lt;/code>），默认 &lt;code>int&lt;/code>，如果带 &lt;code>lexeme&lt;/code> 值的需要特别指定 &lt;code>%token&amp;lt;typename&amp;gt; token-name&lt;/code> 这种；对于非终结符，需要指定 &lt;code>%type&amp;lt;typename&amp;gt; non-terminal-name&lt;/code>，这里就类似于 non-terminal 的声明。bison 会检查这些所有的类型是不是匹配，当然这里的检查只是检查这些语法符号之间的类型匹配，具体到 C++ 的函数调用还是交给编译器。&lt;code>@$&lt;/code> &lt;code>@[1-n]&lt;/code> 是行号相关的东西。详细的信息似乎在 bison 文档里面有一个单独的小节列出了符号的含义来着，忘了。&lt;/p>
+&lt;ol>
+&lt;li>关于 Bison 手册的阅读：这里我直接用的最新的3.8.2，直接看最新的文档就行了。
+&lt;ol>
+&lt;li>1.1-1.4，简单了解一下；第2章可以看，也可以去看看《Flex与Bison》，都是用例子讲解；然后就是具体的东西，3.2-3.4，3.7，5.1-5.7这些都会用到；看看这些基本上就能把框架搭起来了。&lt;/li>
+&lt;li>然后到了第一次编译，第8章关于 debug 的说明还是可以看看的&lt;/li>
+&lt;li>最后是看第6章关于错误处理的说明，虽然这个说明也没啥大用。&lt;/li>
+&lt;/ol>
+&lt;/li>
+&lt;li>框架代码会导致 Shift-Reduce Conflict：如果是框架提供的那种、用空规则定义各种 &lt;code>xx_list&lt;/code> 的写法，会出现 SR Conflict。虽然实际上应该是可以用的（大雾）（因为有一些 bison 的默认行为会使得这么做能够得到正常的结果），但是我还是把它拆掉了（不像看到 warning），也就是把用到 &lt;code>xx_list&lt;/code> 的地方写成有 &lt;code>xx_list&lt;/code> 和无 &lt;code>xx_list&lt;/code> 两种，而不是交给 &lt;code>xx_list&lt;/code> 这个 &lt;code>nterm&lt;/code> 来处理空的情况。这样就没有 warning 了。&lt;/li>
+&lt;li>一些东西是 bison 的扩展，因为开了兼容性警告 &lt;code>-Wyacc&lt;/code>，所以用了会 warning，比如 &lt;code>%empty&lt;/code> &lt;code>%precedence&lt;/code> 这种。&lt;/li>
+&lt;/ol>
+&lt;p>剩下的倒是没啥，因为没有用旧版本的东西，所以没有出现 &lt;code>flex&lt;/code> 那么多奇怪的东西。&lt;/p>
+&lt;h3 id="基础设施说明">基础设施说明&lt;/h3>
+&lt;p>这里的代码库主要是他们自己写的奇怪的 AST 的东西，虽然用起来也没啥大问题，不过总觉得有点抽象。这里主要参考 &lt;code>cool-tour.pdf&lt;/code> 的第6节，描述还算是比较详细的。&lt;/p>
+&lt;p>具体的东西没必要了解，也不需要修改它的结构，说一下基本的逻辑就能上手写 semantic action 了。&lt;/p>
+&lt;ul>
+&lt;li>首先它的功能是提供一种 AST 的描述方法，定义了一堆不同类型的 node，写语义动作的过程就是用这些 node 来组装一个 AST。&lt;/li>
+&lt;li>用到的接口基本上就是类似于构造函数一类的东西（这么理解其实对于写这个 lab 而言没有任何问题），每种 node 都有一个自己的类型，能够接收一组特定类型的参数进行构造。不同的类型通过 bison 文件前面的 &lt;code>%union&lt;/code> 进行定义，构造器就是在填当前 node（&lt;code>$$&lt;/code>）的信息和子节点关系。写文法就类似于递归下降（虽然实际上 bison 用的是 LALR），一种自然的构造语法树的过程。&lt;/li>
+&lt;li>node 主要有两种，一种是 list，另一种是单独的 node。list 表达的是一堆同类型的子节点，构造的时候和链表类似，这个在 skeleton 里面有例子（class list）。然后我们在定义的时候，可以参考着写。&lt;/li>
+&lt;li>除了简单看一看那个 &lt;code>cool-tour&lt;/code>，具体的定义去看那个 &lt;code>aps&lt;/code> 文件，描述了详细的参数类型。&lt;/li>
+&lt;li>这个实验只需要用构造器函数就行了，生成 C++ 时候添加的方法用不到，是给后面计算 AST 用的。&lt;/li>
+&lt;/ul>
+&lt;h3 id="实现说明">实现说明&lt;/h3>
+&lt;p>要修改的文件主要是 &lt;code>cool.y&lt;/code>，但是为了处理行号的问题，还需要修改 &lt;code>/include/PA3/cool-parse.h:754&lt;/code>。&lt;/p>
+&lt;p>最简单的部分是翻译文法定义，照着 manual 12节抄就行了。在此过程中，可选的部分要稍微处理一下，描述的时候拆成有和没有可选部分两条规则，然后还要填上默认值，比如省略初始化的时候需要填个 &lt;code>no_expr()&lt;/code>、函数调用省略对象的时候需要补上默认的 &lt;code>object(idtable.add_string(&amp;quot;self&amp;quot;))&lt;/code> 。这里面唯一要动一动脑子的就是前面提到的 list 的书写方法，一方面是 Shift-Reduce Conflict 最好不要写空规则，另一方面就是链表的构造，不过这个可以抄前面的 &lt;code>class_list&lt;/code> 的定义，不需要自己折腾了。&lt;/p>
+&lt;p>然后的是优先级定义，虽然也没啥好说的，照抄 manual 的优先级表。值得注意的是，这里不需要理会 &lt;code>dangling else&lt;/code> 问题，因为文法不允许省略 else 子句；这种设计虽然对于 PA1 写代码很不友好，但是实现起来还是很舒服的。&lt;/p>
+&lt;p>比较头疼的是 &lt;code>let&lt;/code>，这东西没办法写在 &lt;code>expression&lt;/code> 规则里面，需要自己再开一个 non-terminal 来写递归。之所以麻烦，是因为它的定义列表是没有长度限制的，所以要用文法描述就必须通过递归。还有就是它需要把有多个符号定义的 &lt;code>let&lt;/code> 转换为多个只有一个符号定义的 &lt;code>let&lt;/code> 的嵌套。比较好理解的写法是写右递归，类似于 lisp 里面的链表，看到逗号就继续递归加尾巴，把 &lt;code>IN expression&lt;/code> 作为终止条件。不过这个最后的 &lt;code>expression&lt;/code> 会导致冲突，因为 &lt;code>let&lt;/code> 本身就是一个 &lt;code>expr&lt;/code>，所以你也不知道这个后面的东西是接在里面这个 &lt;code>expr&lt;/code> 的后面还是接在 &lt;code>let&lt;/code> 这个大的 &lt;code>expr&lt;/code> 的后面。一个具体的例子：&lt;code>let id1:T1 in expression.f()&lt;/code>，有两种加括号的方法 &lt;code>(let id1:T1 in expression).f()&lt;/code> 和 &lt;code>let id1:T1 in (expression.f())&lt;/code>，也就是在这个 &lt;code>.&lt;/code> 的地方产生了 Shift-Reduce。根据提示，我们可以用 &lt;code>%prec&lt;/code> 来解决问题，在优先级列表最低级里面加一个 &lt;code>LETEXPR&lt;/code>，然后在 &lt;code>IN expr %prec LETEXPR&lt;/code>，这样就会优先匹配其他的可能属于 &lt;code>expr&lt;/code> 的产生式，最后再匹配 &lt;code>let&lt;/code> 后面的那个。&lt;/p>
+&lt;p>写完以上这些东西，这个文法实际上已经完成了，能够解析所有合法的情况。&lt;/p>
+&lt;p>最麻烦的事情是错误恢复。不过说难也还好，关键是没个例子不知道咋写。基本的写法就是有一个内置的 terminal &lt;code>error&lt;/code>，可以匹配所有的出错情况，然后就可以一直跳过直到我们指定的某一个 token。基本上就是在每个 list 那边加一条 &lt;code>| error ';' &lt;/code> 类似的东西，这样就可以把错误跳过去直到一个合法的结束符（handout 里面的要求就是如果有合法的结束，那么从下一个同类型的结构继续）。不过 &lt;code>let&lt;/code> 那边需要特别注意一下，因为除了中间的声明部分的情况，我们还希望继续检查最后的那个 &lt;code>expr&lt;/code>，因此不能只写一个 &lt;code>error ','&lt;/code>，如果只有一个变量声明的话，那么后面的 &lt;code>expr&lt;/code> 就会无法匹配规则，因此还要写一个 &lt;code>error IN&lt;/code>。&lt;/p>
+&lt;p>不过以上都是我的写法，我看 Github 上还有别的写法，有的有问题，有的写的不太好但是能过（就比如说用空规则），总之能用就行，我也不能保证我写的一定没问题，毕竟对于 bison 还不是很熟悉。&lt;/p>
+&lt;p>最后还有一个行号的问题，建议把所有的行号都设置成最后一个符号的行号，不过实际上可以不改。感觉需要改一下的是 &lt;code>cool-parse.h&lt;/code> 那边，因为 &lt;code>no_expr&lt;/code> 的行号设为0比较合理，我这里好像是会继承基类&lt;code>tree_node&lt;/code> 的构造函数，把行号设置为当前的行号；但是其实应该写成0，我也不知道当年的编译器是咋做的。&lt;/p></description></item><item><title>COOL Compiler-Part2</title><link>https://ridethepig.github.io/blog/cool-compiler-part2/</link><pubDate>Tue, 21 Mar 2023 00:00:00 +0000</pubDate><guid>https://ridethepig.github.io/blog/cool-compiler-part2/</guid><description>&lt;h2 id="pa2">PA2&lt;/h2>
+&lt;p>PA 2-5 正式写编译器。PA2 写词法分析器，首先读一遍 README 和 handout。&lt;/p>
+&lt;blockquote>
+&lt;p>环境配置&lt;/p>
+&lt;p>因为这个项目的结构非常的智障，导致需要进行一些配置才能让 &lt;code>clangd&lt;/code> 正常工作。因为是 &lt;code>Makefile&lt;/code> 项目，所以不能直接生成 &lt;code>compile_commands.json&lt;/code>。&lt;/p>
+&lt;ol>
+&lt;li>安装 &lt;code>apt install bear&lt;/code>，这个工具可以拦截 &lt;code>make&lt;/code> 命令来生成上述的文件。&lt;/li>
+&lt;li>在 PA2 目录下，运行 &lt;code>make clean &amp;amp;&amp;amp; bear -- make lexer&lt;/code>，然后 &lt;code>clangd&lt;/code> 应该就不会找不到头文件之类的了&lt;/li>
+&lt;/ol>
+&lt;/blockquote>
+&lt;blockquote>
+&lt;p>获取评测脚本&lt;/p>
+&lt;p>现在已经没有办法在线提交测试了（除非花钱？），因此需要从一些奇怪的地方获取测试工具，这里我从 &lt;a class="link" href="https://github.com/shootfirst/CS143" target="_blank" rel="noopener"
+>https://github.com/shootfirst/CS143&lt;/a> 这个 repo 里面扒了评测脚本（测试数据已经包含在了脚本里了） &lt;code>pa[2-5]-grading.pl&lt;/code>，测试的话直接用 &lt;code>perl ./pa2-grading.pl&lt;/code> 就行了。
+这个东西确实测出来一些自己没考虑到的边角问题，虽然我已经很努力的在编测例了。&lt;/p>
+&lt;/blockquote>
+&lt;p>写完了发现还是很折磨的，写了快两天的样子，一方面是对于 &lt;code>flex&lt;/code> 工具和配套的基础设施不是很了解，另一方面是各种细节问题需要处理。&lt;/p>
+&lt;h3 id="实现说明">实现说明&lt;/h3>
+&lt;p>比较简单的部分是那些只需要返回一个 token 类型的东西（关键字和符号这种），pattern 就是他们自己，然后 action 就一个 &lt;code>{return (TOKEN)}&lt;/code>。&lt;/p>
+&lt;p>然后稍微想了一下的，标识符和 Int、Bool 常量，需要写一个简单的正则外加操作 String Table 和 &lt;code>cool_yylval&lt;/code>。&lt;/p>
+&lt;p>需要折腾一会的是注释，需要用到 flex 的状态。&lt;/p>
+&lt;ul>
+&lt;li>比较简单的是单行注释，检测到 &lt;code>--&lt;/code> 就进入 &lt;code>&amp;lt;SCOMMENT&amp;gt;&lt;/code>（Single-line Comment），然后检测到换行就回到 &lt;code>INITIAL&lt;/code> 状态。这里是 &lt;code>.&lt;/code> 和 &lt;code>\n&lt;/code> 这一组互斥状态，EOF 不需要单独处理，可知已经覆盖了所有的情况。&lt;/li>
+&lt;li>然后是多行注释，不过这里需要支持 nested comment。这玩意的意思是说，需要在注释里面也要成对匹配 &lt;code>(*&lt;/code> &lt;code>*)&lt;/code>，不能简单的只考虑最外层或者最内层的符号对。这里需要多加一个变量 &lt;code>comment_nest_level&lt;/code> 来维护嵌套的层数，流程也更复杂一些。
+首先遇到 &lt;code>(*&lt;/code> 进入 &lt;code>&amp;lt;NCOMMENT&amp;gt;&lt;/code>（Nested Comment），同时初始化嵌套层数；然后在该状态下过滤 &lt;code>(*&lt;/code>，发现一个就叠一层，过滤 &lt;code>*)&lt;/code> 发现一个减一层或者到底了就退出状态就行了；这里需要特殊处理 EOF，如果在该状态下匹配到 EOF，需要报错，但是因为反正输入流已经结束了，就不需要做 resume 了；遇到 &lt;code>\n&lt;/code> 维护一下行号；剩下的就交给 &lt;code>.&lt;/code>。前面其实不需要写 exclusion，因为最长匹配（&lt;code>(* *)&lt;/code> 都是2个字符，&lt;code>.&lt;/code> 和 &lt;code>\n&lt;/code> 都是1个， EOF 不可能匹配到其他的东西上），所以可以简单的囊括所有的情况并维护优先级。&lt;/li>
+&lt;li>除了注释里面的部分，还需要考虑一个单独的 &lt;code>*)&lt;/code>，需要匹配并报错（而不是&lt;code>*&lt;/code> &lt;code>)&lt;/code> 两个 token）。这个是4.1节第5条的要求。这样一来，我们就解决了嵌套注释不匹配的两种错误情况，即：左符号比右符号多 =&amp;gt; &lt;code>EOF in comment&lt;/code> 报错；右符号比左符号多（等价于单独的 &lt;code>*)&lt;/code>） =&amp;gt; &lt;code>Unmatched *)&lt;/code> 报错。&lt;/li>
+&lt;/ul>
+&lt;p>最折腾的是字符串，因为它要考虑多行的情况，而且需要做特殊的 resume 处理。好消息是这些细节文档都有描述，坏消息是需要看好几遍才能完全理解。&lt;/p>
+&lt;ul>
+&lt;li>为了方便处理出错恢复处理，用了两个状态 &lt;code>&amp;lt;STRING&amp;gt;&lt;/code> 和 &lt;code>&amp;lt;STRINGREC&amp;gt;&lt;/code>（String Recovery）（不然需要在 action 里面写很多的特判）。&lt;/li>
+&lt;li>正常情况下，遇到 &lt;code>&amp;quot;&lt;/code> 进入 &lt;code>&amp;lt;STRING&amp;gt;&lt;/code>；然后对需要特殊处理的部分编写规则：
+&lt;ul>
+&lt;li>&lt;code>\&lt;/code> 转义：匹配两个字符，根据 &lt;code>\&lt;/code> 后面的字符决定把什么东西写进最终的字符串常量里面，这个东西在 handout 的第4.3节和 manual 的10.2节有描述；需要注意的是，合法多行转义可以（在最后加一个 &lt;code>\&lt;/code> 然后换行，后面没有其他空白符）在这里一并处理掉，只不过需要写成&lt;code>(.|\n)&lt;/code>。&lt;/li>
+&lt;li>EOF：根据 manual，除了 &lt;code>\0&lt;/code> 和 EOF，其他字符均可出现在字符串中。因此，需要单独处理这两玩意。EOF 和前面的注释类似，比较简单。&lt;/li>
+&lt;li>0字符：0字符需要恢复。除了返回 ERROR Token，还要把状态切换到 &lt;code>&amp;lt;STRINGREC&amp;gt;&lt;/code>，剩下的部分交给恢复规则。&lt;/li>
+&lt;li>未转义换行：根据最长匹配，可以直接写 &lt;code>&amp;lt;STRING&amp;gt;\n&lt;/code>，因为转义过的是2个字符。这个不需要进恢复状态，因为它直接返回 &lt;code>&amp;lt;INITIAL&amp;gt;&lt;/code> 然后继续下一个字符就相当于处理了恢复的过程。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>对于除了以上情况的所有字符（可以 exclude 或者把 &lt;code>.&lt;/code> 写到最后），用 boilerplate 给我们定义的 &lt;code>string_buf&lt;/code> 存放。这里需要处理一个字符串过长的问题，判断指针超限之后，进 &lt;code>&amp;lt;STRINGREC&lt;/code> 并返回 ERROR Token，具体的边界情况可以对拍（对比标准实现）来获知。最后就是遇到了未转义的 &lt;code>&amp;quot;&lt;/code>（根据最长匹配可以直接写 &lt;code>&amp;lt;STRING&amp;gt;\&amp;quot;&lt;/code>），把 &lt;code>string_buf&lt;/code> 塞进 &lt;code>stringtable&lt;/code> 里面，回到 &lt;code>&amp;lt;INITIAL&amp;gt;&lt;/code>。&lt;/li>
+&lt;li>对于恢复状态 &lt;code>&amp;lt;STRINGREC&amp;gt;&lt;/code>，根据手册，从下一个未转义的换行符或者未转义的&lt;code>&amp;quot;&lt;/code>（因为要求是 &lt;code>closing &amp;quot;&lt;/code>）开始继续正常的词法分析。所以在前面需要把 &lt;code>\\\n&lt;/code> 和 &lt;code>\\\&amp;quot;&lt;/code> 给处理掉，然后遇到 &lt;code>\&amp;quot;|\n&lt;/code> 这两个之后就直接返回 &lt;code>&amp;lt;INITIAL&amp;gt;&lt;/code> 就行，也不需要 return 任何东西。期间也要记得维护行号。不过事实证明，不需要单独处理 EOF，因为恢复了也没东西了。&lt;/li>
+&lt;li>这里有一个细节问题，就是报错的行号必须等于出错的地方的行号，因此不能留到后面统一返回报错，而是一旦出错就立刻返回。&lt;/li>
+&lt;/ul>
+&lt;p>容易忘掉的点，一个是空白符匹配，需要一个 pattern（action 留空），不然遇到空白符 lexer 会行为异常，同时遇到换行还要维护行号；第二个是不合法字符，有些 ASCII 我们并没有用到，因此需要最后一个 &lt;code>.&lt;/code> 来匹配并报错、跳过。同样的，&lt;code>.&lt;/code> 和 &lt;code>\n&lt;/code>（包含在空白符规则里面）的组合至少保证了所有的字符都会被匹配、处理。&lt;/p>
+&lt;p>不过其实，最离谱的是自己设计测试样例，这很考验对于手册的理解，不然就会漏掉点什么（虽然漏掉一些 edge case 对于后面也没啥影响就是了）。&lt;/p>
+&lt;p>在用了官方的评测脚本之后，又发现了一个问题：&lt;code>\\0&lt;/code>（&lt;code>0x5C 0x00&lt;/code>） 是不允许的。这个其实判定起来不难，但是会想不到，因为 PA2 的 handout 没写这一条，虽然 manual 里面 &lt;code>A string may not contain the null&lt;/code> 的确是不允许这种情况（因为它转义完了还是 &lt;code>\0&lt;/code>），但是谁会想到测这个呢？&lt;/p>
+&lt;h3 id="基础设施说明">基础设施说明&lt;/h3>
+&lt;p>个人感觉，一开始做的比较迷惑的主要原因在于它的代码框架比较凌乱，文档也有点谜语人，读了好几遍文档才知道该写点啥。&lt;/p>
+&lt;p>写之前多读几遍文档，首先看一遍 PA2 的实验说明，了解一下需要干什么，里面也有一些读其他文档和代码的指导。然后是 &lt;code>cool-manual.pdf&lt;/code> 看第10节（主要是写 pattern 的时候看）和第12节里面那个大的 BNF 文法（里面描述了所有用到的符号），以及 &lt;code>cool-tour.pdf&lt;/code> 看第3节，在写 action 的时候会用到它来存字符串。最后看一下代码，主要是 &lt;code>/include/cool-parse.h&lt;/code>，这里面定义了非 ASCII 符号的 TOKEN，还有 &lt;code>YYSTYPE&lt;/code> 枚举，这个枚举是用来存 lexeme 的，&lt;code>；lextest.cc&lt;/code> 也要看一下，至少知道输出的都是什么。&lt;/p>
+&lt;p>这个里面用到的基础设施主要是一个 String Table，用来存放所有遇到的字符串。里面有个 &lt;code>add_string&lt;/code> 方法，会先查再加还带内存分配，所以直接调用就行。碰到需要存字符串值的东西，各种 identifier、String 常量和 Int 常量（不检查不转换，直接存），这三个每个都有一个单独的实例对象（&lt;code>idtable&lt;/code> &lt;code>stringtable&lt;/code> &lt;code>inttable&lt;/code>），需要根据不同的 token 用。&lt;/p>
+&lt;p>另外一个就是 &lt;code>YYSTYPE cool_yylval&lt;/code> 这个枚举。如果有需要存的信息（lexeme 或者错误信息，参考第5节 &lt;code>Notes for the C++ Version of the Assignment&lt;/code>），每个 action 往里面写一个值，这个对应 PA2 文档第4节开头的部分，当时看了半天才理解到是要存这东西里面。用到里面的3个枚举值：&lt;code>boolean&lt;/code>、&lt;code>symbol&lt;/code>、&lt;code>error_msg&lt;/code>。如果是解析出来 &lt;code>Bool&lt;/code> 常量，那么直接写进去 &lt;code>true/false&lt;/code>；如果出错了，给字符指针 &lt;code>error_msg&lt;/code> 赋值，我猜需要用到 &lt;code>strdup&lt;/code>，但是单就这个实验看不出来，总感觉要出内存 bug（也不知道后面会不会 free 掉）；剩下来那些需要存 lexeme 的就先 &lt;code>add_string&lt;/code> 然后它会返回一个 Entry，这东西就是所谓的 Symbol 啦。&lt;/p>
+&lt;h3 id="flex-工具踩坑">flex 工具踩坑&lt;/h3>
+&lt;p>最后记录一下 &lt;code>flex&lt;/code> 这个工具的一些坑。&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>版本&lt;/strong>：因为不知道在网上的什么地方看到了一个 blog 说是新版本的 &lt;code>flex&lt;/code> 在处理 c++ 时的行为和旧版不一样，所以选择了旧版本，也就是 &lt;code>apt install flex-old&lt;/code> 安装的版本（2.5.4）。问题在于我看的文档版本是最新的，遇到了一个不支持的语法，不过其他的倒是没有特别需要注意的地方。旧版本的 &lt;code>flex&lt;/code> 似乎不支持 &lt;code>(?i:xxx)&lt;/code> 这种写法，这个在关键字忽略大小写的时候会比较省事（因为只有关键字需要忽略大小写，所以不能开全局忽略），可惜的是旧版本只能像个傻子一样写成 &lt;code>CLASS [Cc][Ll][Aa][Ss][Ss]&lt;/code>。&lt;/li>
+&lt;li>&lt;strong>奇怪的缩进规则&lt;/strong>：它居然和 python 一样，依靠缩进来分辨一些东西，每个 Section 的规则还稍有不同。比如在 Rule Section（就是实际写 action 的那一节），pattern 必须无缩进，然后其他的东西（比如注释）必须前面有空白符，不然就会被认为是一个 pattern。在看文档的时候要注意一下 &lt;code>(un)indented&lt;/code> 这个词，可以避免很多奇怪的事情。&lt;br>
+一开始没看到 &lt;code>the pattern must be unindented and the action must begin on the same line&lt;/code> 这一句，没给注释加前面的空格，然后就调了半天的 &lt;code>unrecognized rule&lt;/code>。
+还有就是 action 可以没有大括号但是不能没有分号，以及它其实是可以写多行的，只要前面有 indent 就行（不然会写出很长一串）。&lt;/li>
+&lt;li>&lt;strong>EOF 符号&lt;/strong>：&lt;code>flex&lt;/code> 里面的 EOF 专门有一个 &lt;code>&amp;lt;&amp;lt;EOF&amp;gt;&amp;gt;&lt;/code> 来表示，但是它不能和其他的 pattern 写在一起，也就是需要单独一行写一个这东西，不然报错。&lt;/li>
+&lt;li>&lt;strong>0 字符（null character）&lt;/strong>：这个本身没什么特别的，直接用就行，不过需要注意的是，&lt;code>.&lt;/code> 通配符是包含 &lt;code>\0&lt;/code> 的，也就是一不小心就用这玩意把 &lt;code>\0&lt;/code> 给匹配进去了，单独写的那个 &lt;code>\0&lt;/code> 规则就不生效，会导致一些费解的事情发生。&lt;/li>
+&lt;li>&lt;strong>VSCode 插件&lt;/strong>：搜到两个还算下载量比较多的，但是都不行，有一个着色有 bug（可能是因为它太老了，接口不兼容了），还有一个加了莫名其妙的、极具误导性的语法检查还关不掉（一点问题都没有的代码给我每行一个红色波浪线）。建议用第二个，然后大脑忽略他的错误提示。&lt;/li>
+&lt;/ul>
+&lt;p>剩下的就看两眼文档就会了，跟课上教的 Regular Expression 基本上大差不差。&lt;/p></description></item><item><title>COOL Compiler-Part1</title><link>https://ridethepig.github.io/blog/cool-compiler-part1/</link><pubDate>Sat, 18 Mar 2023 00:00:00 +0000</pubDate><guid>https://ridethepig.github.io/blog/cool-compiler-part1/</guid><description>&lt;p>COOL Compiler 是 Stanford CS143:Compilers 的课程项目，这学期学编译原理，于是就做了一下。每个 PA 都写了一点笔记和踩坑记录，大概分个两三次更完。&lt;/p>
+&lt;h2 id="开始之前">开始之前&lt;/h2>
+&lt;p>这门课的官方材料好像每隔几年就会换一个地方，导致找起来十分的困难（之前做的 xv6 就很棒，多少年的东西都放在同一个网站上），现在这个时间点（2023年3月）的官网应该是在 edx 上面，需要注册收费之类的才能获取相关材料。不过这门课历史悠久，基本上从2000年左右就有了，自然是被大家复制传播到了各种地方。这个 repo 里面的 starter code 是从 github 上别人的仓库里面的分发包（&lt;code>student-dist.tar.gz&lt;/code>）解压出来的，我对比了几个仓库的代码内容都是一样的，那么做这个版本的应该问题不大。不过和课程网站上的内容还是有一些不同的，这就没有办法了，大家也拿不到 Stanford 的内部版本。&lt;/p>
+&lt;h2 id="pa1">PA1&lt;/h2>
+&lt;p>第一个实验是用 COOL 写一个简单的程序，程序的功能是解释一个简单的 Stack Machine 语言，会输入一些序列然后按照文档的说明进行操作。&lt;/p>
+&lt;p>推荐的实现方式是，定义一个 &lt;code>StackCommand&lt;/code> 类，然后为每一条命令实现一个子类用来执行具体的操作。这里还给了一个工具类 &lt;code>atoi.cl&lt;/code>，里面实现了 &lt;code>String&lt;/code> 到 &lt;code>int&lt;/code> 的转换。不需要实现错误处理，假设给出的序列都是合法的。不过本人才疏学浅，就写了几个 if 就写完了，压根没写这么复杂。&lt;/p>
+&lt;p>首先我们需要一个 List 作为栈，这个可以从 &lt;code>examples/list.cl&lt;/code> 里面抄过来，然后把数据类型改成 String 就可以了。然后就是处理输入输出，定义一个输入变量，一个大循环判断是不是 &lt;code>input = &amp;quot;x&amp;quot;&lt;/code>，里面一个大 &lt;code>if-else-then&lt;/code> 判断输入的命令，如果是 &lt;code>d&lt;/code> 就调用前面抄过来的 &lt;code>print_list&lt;/code>（需要修改一下格式和类型）；如果是 &lt;code>e&lt;/code> 需要再来一个 &lt;code>if-else-then&lt;/code> 来处理求值操作；其他的就直接塞进栈里面，这里不做错误处理，假设都是合法的。具体到 &lt;code>e&lt;/code> 命令里面，&lt;code>pop&lt;/code> 并判断栈顶，如果是 &lt;code>+&lt;/code>，&lt;code>pop&lt;/code> 两次，调用 &lt;code>a2i&lt;/code> 做运算然后再 &lt;code>i2a&lt;/code> 变回字符串 &lt;code>push&lt;/code> 到栈上；如果是 &lt;code>s&lt;/code>，依然需要 &lt;code>pop&lt;/code> 两次并保存 &lt;code>pop&lt;/code> 出来的东西，然后逆序 &lt;code>push&lt;/code> 进去就完成了交换操作。&lt;/p>
+&lt;p>主要的困难在于 COOL 的智障语法，其他的倒是没啥难度。&lt;/p>
+&lt;ul>
+&lt;li>最智障的是它的 &lt;code>expr&lt;/code>。绝大部分的东西都是个表达式，两个大括号也是表达式 &lt;code>{ [[expr; ]]+}&lt;/code>，两个大括号中间的表达式后面必须跟分号（其他的不需要），&lt;code>if - fi&lt;/code> 后面都必须跟分号我也是绷不住了。然后它的函数定义后面跟着那两个大括号是个语法符号（摆设）而不是 &lt;code>expr&lt;/code>，这种就很不直觉，让我困惑了半天然后翻它的文法声明才发现这个事情。&lt;code>feature::=ID( [ formal [[, formal]]∗ ] ) : TYPE { expr }&lt;/code>，也就是说，只能写一个表达式，不然就得再加一个单独的大括号然后里面写多个分号隔开的表达式。&lt;/li>
+&lt;li>其次是它的 &lt;code>if-then-else&lt;/code> 居然不能没有 &lt;code>else&lt;/code>！这导致我不得不像个傻子一样定义一个 &lt;code>dummy(): Object {0};&lt;/code>，然后放在根本不需要的 &lt;code>else&lt;/code> 子句里面。&lt;/li>
+&lt;li>还有它的 &lt;code>while&lt;/code> 循环居然没有 &lt;code>break&lt;/code> ？！&lt;/li>
+&lt;li>&lt;code>let&lt;/code> 语法也是究极奇葩，我是不能理解为什么要设计成这个样子。想定义一个局部变量都得加一层嵌套，这个嵌套多得让我觉得我 tm 是在写 &lt;code>scheme&lt;/code>。&lt;/li>
+&lt;li>它的 &lt;code>case&lt;/code> 也是奇葩，居然是用来做动态类型匹配的，匹配的是类型而不是值，和正常的 &lt;code>switch-case&lt;/code> 完全不一样，倒是有点像 &lt;code>rust&lt;/code> 里面的那种感觉。&lt;/li>
+&lt;/ul>
+&lt;p>测试的话，虽然 handout 里面说是直接 &lt;code>make test&lt;/code> 然后对比输出，不过我也没看到它哪里有所谓的 reference implementation，自己看了看测例觉着没啥问题就行了。&lt;/p></description></item></channel></rss>
